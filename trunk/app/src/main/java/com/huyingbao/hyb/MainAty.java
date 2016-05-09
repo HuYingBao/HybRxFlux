@@ -247,7 +247,7 @@ public class MainAty extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-            if(mFragments[position]!=null){
+            if (mFragments[position] != null) {
                 return mFragments[position];
             }
             switch (position) {

@@ -33,7 +33,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(repos
-                        -> postRxAction(newRxAction(GET_PUBLIC_REPOS, Keys.PUBLIC_REPOS, repos)),
+                                -> postRxAction(newRxAction(GET_PUBLIC_REPOS, Keys.PUBLIC_REPOS, repos)),
                         throwable -> postError(action, throwable)));
     }
 
