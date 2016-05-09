@@ -10,11 +10,11 @@ import com.huyingbao.hyb.actions.GitHubActionCreator;
 /**
  * Created by marcel on 10/09/15.
  */
-public class SampleApp extends Application {
+public class HybApp extends Application {
 
     private RxFlux rxFlux;
 
-    private static SampleApp intantce;
+    private static HybApp intantce;
 
     /**
      * Please, note that it would be much better to use a singleton patter or DI instead of keeping
@@ -22,13 +22,13 @@ public class SampleApp extends Application {
      */
     private GitHubActionCreator gitHubActionCreator;
 
-    public static SampleApp get(Context context) {
-        return ((SampleApp) context.getApplicationContext());
+    public static HybApp get(Context context) {
+        return ((HybApp) context.getApplicationContext());
     }
 
-    public static SampleApp getInstance() {
+    public static HybApp getInstance() {
         if (intantce == null) {
-            intantce = new SampleApp();
+            intantce = new HybApp();
         }
         return intantce;
     }

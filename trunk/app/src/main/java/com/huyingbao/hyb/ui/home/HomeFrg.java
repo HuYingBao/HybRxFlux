@@ -19,7 +19,7 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.SampleApp;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.RepoAdapter;
@@ -58,8 +58,8 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     private RepositoriesStore repositoriesStore;
 
     public HomeFrg() {
-        repositoriesStore = RepositoriesStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
-        usersStore = UsersStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
+        repositoriesStore = RepositoriesStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
         repositoriesStore.register();
         usersStore.register();
     }
@@ -126,7 +126,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
             return;
         }
         setLoadingFrame(true);
-        SampleApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
+        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
     }
 
 
@@ -158,7 +158,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
         setLoadingFrame(false);
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
-            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> SampleApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
+            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
             throwable.printStackTrace();
         } else {
             Toast.makeText(getContext(), "Unknown error", Toast.LENGTH_LONG).show();
@@ -199,6 +199,6 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
 
     private void refresh() {
         setLoadingFrame(true);
-        SampleApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
+        HybApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
     }
 }

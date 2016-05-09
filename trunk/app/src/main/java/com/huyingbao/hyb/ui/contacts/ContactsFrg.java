@@ -19,7 +19,7 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.SampleApp;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.adapter.RepoAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.GitHubRepo;
@@ -57,10 +57,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch, RepoAda
     private RepositoriesStore repositoriesStore;
 
     public ContactsFrg() {
-//        repositoriesStore = RepositoriesStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
-//        usersStore = UsersStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
-//        repositoriesStore.register();
-//        usersStore.register();
     }
 
     /**
@@ -123,7 +119,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch, RepoAda
             return;
         }
         setLoadingFrame(true);
-        SampleApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
+        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
     }
 
 
@@ -154,7 +150,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch, RepoAda
         setLoadingFrame(false);
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
-            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> SampleApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
+            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
             throwable.printStackTrace();
         } else {
             Toast.makeText(getContext(), "Unknown error", Toast.LENGTH_LONG).show();
@@ -195,6 +191,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch, RepoAda
 
     private void refresh() {
         setLoadingFrame(true);
-        SampleApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
+        HybApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
     }
 }

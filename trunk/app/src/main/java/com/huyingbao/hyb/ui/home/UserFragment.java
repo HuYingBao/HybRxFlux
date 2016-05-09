@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.SampleApp;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.GitUser;
 import com.huyingbao.hyb.stores.UsersStore;
@@ -57,7 +57,7 @@ public class UserFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        GitUser user = UsersStore.get(SampleApp.get(getActivity()).getRxFlux().getDispatcher()).getUser(userId);
+        GitUser user = UsersStore.get(HybApp.get(getActivity()).getRxFlux().getDispatcher()).getUser(userId);
         userNameView.setText(user.getName());
         loginView.setText(user.getLogin());
         statsView.setText(getStats(user));

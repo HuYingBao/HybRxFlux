@@ -19,7 +19,7 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.SampleApp;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.RepoAdapter;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements RxViewDispatch, R
         setLoadingFrame(false);
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
-            Snackbar.make(coordinatorLayout, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> SampleApp.get(this).getGitHubActionCreator().retry(error.getAction())).show();
+            Snackbar.make(coordinatorLayout, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(this).getGitHubActionCreator().retry(error.getAction())).show();
             throwable.printStackTrace();
         } else {
             Toast.makeText(this, "Unknown error", Toast.LENGTH_LONG).show();
@@ -124,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements RxViewDispatch, R
 
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        repositoriesStore = RepositoriesStore.get(SampleApp.get(this).getRxFlux().getDispatcher());
-        usersStore = UsersStore.get(SampleApp.get(this).getRxFlux().getDispatcher());
+        repositoriesStore = RepositoriesStore.get(HybApp.get(this).getRxFlux().getDispatcher());
+        usersStore = UsersStore.get(HybApp.get(this).getRxFlux().getDispatcher());
         return Arrays.asList(repositoriesStore, usersStore);
     }
 
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements RxViewDispatch, R
 
     private void refresh() {
         setLoadingFrame(true);
-        SampleApp.get(this).getGitHubActionCreator().getPublicRepositories();
+        HybApp.get(this).getGitHubActionCreator().getPublicRepositories();
     }
 
     @Override
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements RxViewDispatch, R
             return;
         }
         setLoadingFrame(true);
-        SampleApp.get(this).getGitHubActionCreator().getUserDetails(login);
+        HybApp.get(this).getGitHubActionCreator().getUserDetails(login);
     }
 
     @Override

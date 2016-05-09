@@ -307,7 +307,7 @@ public class MainAty extends AppCompatActivity
     public void onRxViewRegistered() {
         Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
         if (fragment instanceof HomeFrg) {
-            SampleApp.get(this).getRxFlux().getDispatcher().subscribeRxView((HomeFrg) fragment);
+            HybApp.get(this).getRxFlux().getDispatcher().subscribeRxView((HomeFrg) fragment);
         }
     }
 
