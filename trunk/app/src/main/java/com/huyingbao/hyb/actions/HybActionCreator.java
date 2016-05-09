@@ -5,6 +5,7 @@ import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.huyingbao.hyb.core.HybApi;
+import com.huyingbao.hyb.model.HybUser;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -47,6 +48,21 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
+                    action.getData().put(Keys.USER, user);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
+    public void registerUser(HybUser user) {
+        final RxAction action = newRxAction(REGISTER_USER, Keys.ID, user);
+        if (hasRxAction(action)) return;
+
+        addRxAction(action, HybApi.Factory.getApi()
+                .registerUser(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userResponse -> {
                     action.getData().put(Keys.USER, user);
                     postRxAction(action);
                 }, throwable -> postError(action, throwable)));

@@ -9,6 +9,7 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.model.GitUser;
+import com.huyingbao.hyb.model.HybUser;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,8 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
     public static final String ID = "UsersStore";
     private static UsersStore instance;
     private ArrayMap<String, GitUser> users;
+
+    private HybUser mUser;
 
     private UsersStore(Dispatcher dispatcher) {
         super(dispatcher);
@@ -43,6 +46,9 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
             case Actions.GET_USER:
                 GitUser user = action.get(Keys.USER);
                 users.put(user.getLogin(), user);
+                break;
+            case Actions.REGISTER_USER:
+                mUser = action.get(Keys.USER);
                 break;
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
