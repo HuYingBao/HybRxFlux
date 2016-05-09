@@ -40,7 +40,7 @@ import butterknife.OnClick;
 public class MainAty extends AppCompatActivity
         implements RxViewDispatch, NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int COUNT_FRAGMENT = 5;
+    private static final int COUNT_FRAGMENT = 3;
 
     @Bind(R.id.a_main_tbBar)
     Toolbar toolbar;
@@ -64,23 +64,6 @@ public class MainAty extends AppCompatActivity
     private Fragment[] mFragments;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private FragmentManager mFragmentManager;
-    private ViewPager.OnPageChangeListener onPagechangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            setPosition(position);
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +85,7 @@ public class MainAty extends AppCompatActivity
         mSectionsPagerAdapter = new SectionsPagerAdapter(mFragmentManager);
         mViewPager.setOffscreenPageLimit(COUNT_FRAGMENT + 1);
         //viewpager设置page变化监听器
-        mViewPager.addOnPageChangeListener(onPagechangeListener);
+//        mViewPager.addOnPageChangeListener(onPagechangeListener);
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
         //底部tab跟随viewpager
