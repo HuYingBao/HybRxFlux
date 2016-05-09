@@ -18,7 +18,7 @@ import rx.Observable;
 /**
  * Created by marcel on 09/10/15.
  */
-public interface GitHubApi {
+public interface HybApi {
 
     String ENDPOINT = "https://api.github.com";
 
@@ -29,7 +29,7 @@ public interface GitHubApi {
     Observable<GitUser> getUser(@Path("id") String userId);
 
     class Factory {
-        private static GitHubApi instance;
+        private static HybApi instance;
 
         private static void create() {
 
@@ -37,11 +37,11 @@ public interface GitHubApi {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
-            final Retrofit retrofit = new Retrofit.Builder().baseUrl(GitHubApi.ENDPOINT).client(client).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-            instance = retrofit.create(GitHubApi.class);
+            final Retrofit retrofit = new Retrofit.Builder().baseUrl(HybApi.ENDPOINT).client(client).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+            instance = retrofit.create(HybApi.class);
         }
 
-        public static synchronized GitHubApi getApi() {
+        public static synchronized HybApi getApi() {
             if (instance == null) {
                 create();
             }

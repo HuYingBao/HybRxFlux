@@ -4,7 +4,7 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
-import com.huyingbao.hyb.core.GitHubApi;
+import com.huyingbao.hyb.core.HybApi;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -13,13 +13,13 @@ import rx.schedulers.Schedulers;
 /**
  * Action Creator responsible of creating the needed actions
  */
-public class GitHubActionCreator extends RxActionCreator implements Actions {
+public class HybActionCreator extends RxActionCreator implements Actions {
 
     /**
      * If you want to give more things to the constructor like API or Preferences or any other
      * parameter you can buy make sure to call super(dispatcher, manager)
      */
-    public GitHubActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
+    public HybActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
         super(dispatcher, manager);
     }
 
@@ -28,7 +28,7 @@ public class GitHubActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_PUBLIC_REPOS);
         if (hasRxAction(action)) return;
 
-        addRxAction(action, GitHubApi.Factory.getApi()
+        addRxAction(action, HybApi.Factory.getApi()
                 .getRepositories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -42,7 +42,7 @@ public class GitHubActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_USER, Keys.ID, userId);
         if (hasRxAction(action)) return;
 
-        addRxAction(action, GitHubApi.Factory.getApi()
+        addRxAction(action, HybApi.Factory.getApi()
                 .getUser(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
