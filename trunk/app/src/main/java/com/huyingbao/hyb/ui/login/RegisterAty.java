@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,6 +18,7 @@ import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 
 import java.util.List;
@@ -67,15 +66,6 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
                 return false;
             }
         });
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
     }
 
 
@@ -85,6 +75,7 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        HybApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
 
     }
 
