@@ -20,13 +20,20 @@ import rx.Observable;
  */
 public interface HybApi {
 
-    String ENDPOINT = "https://api.github.com";
+    String ENDPOINT = "http://localhost:1337";
 
     @GET("/repositories")
     Observable<ArrayList<GitHubRepo>> getRepositories();
 
     @GET("/users/{id}")
     Observable<GitUser> getUser(@Path("id") String userId);
+
+//    /**
+//     * @POST 请求方式post
+//     * @Body 表示将requestBean对象转成成json string作为参数传递给后台
+//     */
+//    @POST("/user/registerUser")
+//    Observable<ResponseBean> postApi(@Body RequestBean requestBean);
 
     class Factory {
         private static HybApi instance;
