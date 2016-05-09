@@ -14,6 +14,8 @@ public class SampleApp extends Application {
 
     private RxFlux rxFlux;
 
+    private static SampleApp intantce;
+
     /**
      * Please, note that it would be much better to use a singleton patter or DI instead of keeping
      * the variable reference here.
@@ -24,9 +26,17 @@ public class SampleApp extends Application {
         return ((SampleApp) context.getApplicationContext());
     }
 
+    public static SampleApp getInstance() {
+        if (intantce == null) {
+            intantce = new SampleApp();
+        }
+        return intantce;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        intantce = this;
         RxFlux.LOG_LEVEL = BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE;
         rxFlux = RxFlux.init(this);
         gitHubActionCreator =

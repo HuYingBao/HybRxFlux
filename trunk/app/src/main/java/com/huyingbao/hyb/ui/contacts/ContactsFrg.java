@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.home;
+package com.huyingbao.hyb.ui.contacts;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,13 +20,12 @@ import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.SampleApp;
-import com.huyingbao.hyb.actions.Actions;
-import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.RepoAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.GitHubRepo;
 import com.huyingbao.hyb.stores.RepositoriesStore;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.ui.home.UserFragment;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter.OnRepoClicked {
+public class ContactsFrg extends BaseFragment implements RxViewDispatch, RepoAdapter.OnRepoClicked {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -57,19 +56,19 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     private UsersStore usersStore;
     private RepositoriesStore repositoriesStore;
 
-    public HomeFrg() {
-        repositoriesStore = RepositoriesStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
-        usersStore = UsersStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
-        repositoriesStore.register();
-        usersStore.register();
+    public ContactsFrg() {
+//        repositoriesStore = RepositoriesStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(SampleApp.getInstance().getRxFlux().getDispatcher());
+//        repositoriesStore.register();
+//        usersStore.register();
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static HomeFrg newInstance(int sectionNumber) {
-        HomeFrg fragment = new HomeFrg();
+    public static ContactsFrg newInstance(int sectionNumber) {
+        ContactsFrg fragment = new ContactsFrg();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -82,9 +81,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
         View rootView = inflater.inflate(R.layout.f_home, container, false);
         ButterKnife.bind(this, rootView);
 
-        adapter = new RepoAdapter();
-        adapter.setCallback(this);
-        recyclerView.setAdapter(adapter);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -95,7 +92,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+//        refresh();
     }
 
     @Override
@@ -132,25 +129,24 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
-        setLoadingFrame(false);
-
-        switch (change.getStoreId()) {
-            case RepositoriesStore.ID:
-                switch (change.getRxAction().getType()) {
-                    case Actions.GET_PUBLIC_REPOS:
-                        if (repositoriesStore != null) {
-
-                            adapter.setRepos(repositoriesStore.getRepositories());
-                        }
-                        break;
-                }
-                break;
-            case UsersStore.ID:
-                switch (change.getRxAction().getType()) {
-                    case Actions.GET_USER:
-                        showUserFragment((String) change.getRxAction().getData().get(Keys.ID));
-                }
-        }
+//        setLoadingFrame(false);
+//
+//        switch (change.getStoreId()) {
+//            case RepositoriesStore.ID:
+//                switch (change.getRxAction().getType()) {
+//                    case Actions.GET_PUBLIC_REPOS:
+//                        if (repositoriesStore != null) {
+//                            adapter.setRepos(repositoriesStore.getRepositories());
+//                        }
+//                        break;
+//                }
+//                break;
+//            case UsersStore.ID:
+//                switch (change.getRxAction().getType()) {
+//                    case Actions.GET_USER:
+//                        showUserFragment((String) change.getRxAction().getData().get(Keys.ID));
+//                }
+//        }
     }
 
     @Override
@@ -194,7 +190,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     }
 
     private void setLoadingFrame(boolean show) {
-        progressLoading.setVisibility(show ? View.VISIBLE : View.GONE);
+//        progressLoading.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void refresh() {

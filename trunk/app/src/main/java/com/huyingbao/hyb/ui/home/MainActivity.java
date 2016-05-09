@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements RxViewDispatch, R
     private void showUserFragment(String id) {
 
         UserFragment user_fragment = UserFragment.newInstance(id);
-        getFragmentManager().beginTransaction().replace(R.id.root, user_fragment).addToBackStack(null).commit();
+//        getFragmentManager().beginTransaction().replace(R.id.root, user_fragment).addToBackStack(null).commit();
     }
 
     private void setLoadingFrame(boolean show) {

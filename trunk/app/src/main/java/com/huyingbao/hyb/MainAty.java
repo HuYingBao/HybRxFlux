@@ -1,6 +1,8 @@
 package com.huyingbao.hyb;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -22,14 +24,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hardsoftstudio.rxflux.action.RxError;
+import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.hardsoftstudio.rxflux.store.RxStore;
+import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.home.HomeFrg;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainAty extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements RxViewDispatch, NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int COUNT_FRAGMENT = 5;
 
     @Bind(R.id.a_main_tbBar)
     Toolbar toolbar;
@@ -46,26 +57,85 @@ public class MainAty extends AppCompatActivity
     @Bind(R.id.a_main_dlMain)
     DrawerLayout drawerLayout;
 
+    /**
+     * 当前fragment的位置信息
+     */
+    private int mCurrentPosition;
+    private Fragment[] mFragments;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private FragmentManager mFragmentManager;
+    private ViewPager.OnPageChangeListener onPagechangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            setPosition(position);
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSupportActionBar(toolbar);
         setContentView(R.layout.a_main);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         //侧滑菜单控件
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.setDrawerListener(toggle);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         //右侧导航视图
         navView.setNavigationItemSelectedListener(this);
-
-        //左右滑动fremge
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        //初始化fragment数组
+        mFragments = new Fragment[COUNT_FRAGMENT];
+        //初始化fragmentmanger
+        mFragmentManager = getSupportFragmentManager();
+        //左右滑动fremge适配器
+        mSectionsPagerAdapter = new SectionsPagerAdapter(mFragmentManager);
+        mViewPager.setOffscreenPageLimit(COUNT_FRAGMENT + 1);
+        //viewpager设置page变化监听器
+        mViewPager.addOnPageChangeListener(onPagechangeListener);
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        //底部tab跟随viewpager
         tabs.setupWithViewPager(mViewPager);
+        recover(savedInstanceState);
+    }
+
+    /**
+     * 恢复数据
+     *
+     * @param savedInstanceState
+     */
+    private void recover(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            int position = savedInstanceState.getInt("mCurrentPosition");
+            this.setPosition(position);
+        } else {
+            this.setPosition(0);
+        }
+    }
+
+    /**
+     * 恢复数据
+     *
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("mCurrentPosition", this.mCurrentPosition);
+        if (this.mFragments[this.mCurrentPosition] != null) {
+            this.mFragmentManager.putFragment(outState, Integer.toString(this.mCurrentPosition), this.mFragments[this.mCurrentPosition]);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -194,28 +264,33 @@ public class MainAty extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            Fragment fragment = null;
+            if(mFragments[position]!=null){
+                return mFragments[position];
+            }
             switch (position) {
                 case 0:
-                    fragment = HomeFrg.newInstance(2);
+                    mFragments[position] = HomeFrg.newInstance(position);
                     break;
                 case 1:
-                    fragment = PlaceholderFragment.newInstance(position + 1);
+                    mFragments[position] = ContactsFrg.newInstance(position);
                     break;
                 case 2:
-                    fragment = PlaceholderFragment.newInstance(position + 1);
+                    mFragments[position] = ContactsFrg.newInstance(position);
+                    break;
+                case 3:
+                    mFragments[position] = ContactsFrg.newInstance(position);
+                    break;
+                case 4:
+                    mFragments[position] = ContactsFrg.newInstance(position);
                     break;
             }
-//            mFragments[position] = fragment;
-            return fragment;
+            return mFragments[position];
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return COUNT_FRAGMENT;
         }
 
         @Override
@@ -227,8 +302,59 @@ public class MainAty extends AppCompatActivity
                     return "SECTION 2";
                 case 2:
                     return "SECTION 3";
+                case 3:
+                    return "SECTION 3";
+                case 4:
+                    return "SECTION 3";
             }
             return null;
         }
+    }
+
+    @Override
+    public void onRxStoreChanged(@NonNull RxStoreChange change) {
+    }
+
+    @Override
+    public void onRxError(@NonNull RxError error) {
+
+    }
+
+    @Override
+    public void onRxViewRegistered() {
+        Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
+        if (fragment instanceof HomeFrg) {
+            SampleApp.get(this).getRxFlux().getDispatcher().subscribeRxView((HomeFrg) fragment);
+        }
+    }
+
+    @Override
+    public void onRxViewUnRegistered() {
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToRegister() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToUnRegister() {
+        return null;
+    }
+
+
+    /**
+     * 设置当前位置
+     *
+     * @param position
+     */
+    public void setPosition(int position) {
+        if (position < 0 || position > COUNT_FRAGMENT - 1) {// 位置非法
+            return;
+        }
+        mCurrentPosition = position;
+        mViewPager.setCurrentItem(position, false);
     }
 }

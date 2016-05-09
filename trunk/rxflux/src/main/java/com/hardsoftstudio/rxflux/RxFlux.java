@@ -86,6 +86,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityStarted(Activity activity) {
         if (activity instanceof RxViewDispatch) {
+            //当activity start的时候条用该方法,将该activity添加到dispatcher的订阅中
             dispatcher.subscribeRxView((RxViewDispatch) activity);
             ((RxViewDispatch) activity).onRxViewRegistered();
         }

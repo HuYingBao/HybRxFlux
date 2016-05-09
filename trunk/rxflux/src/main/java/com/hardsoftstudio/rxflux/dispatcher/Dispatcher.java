@@ -75,6 +75,11 @@ public class Dispatcher {
         }
     }
 
+    /**
+     * 添加view到dispatch的订阅中
+     * @param object
+     * @param <T>
+     */
     public <T extends RxViewDispatch> void subscribeRxView(final T object) {
         final String tag = object.getClass().getSimpleName();
         Subscription subscription = rxStoreMap.get(tag);

@@ -19,6 +19,9 @@ public abstract class RxStore implements RxActionDispatch {
         this.dispatcher = dispatcher;
     }
 
+    /**
+     * 需要将store注册到dispatcher中
+     */
     public void register() {
         dispatcher.subscribeRxStore(this);
     }

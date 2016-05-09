@@ -1,6 +1,5 @@
 package com.huyingbao.hyb.ui.home;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +8,14 @@ import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.SampleApp;
+import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.GitUser;
 import com.huyingbao.hyb.stores.UsersStore;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class UserFragment extends Fragment {
+public class UserFragment extends BaseFragment {
     private static final String ARG_USER_ID = "userId";
     @Bind(R.id.user_name)
     TextView userNameView;
