@@ -60,7 +60,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         if (hasRxAction(action)) return;
         addRxAction(action, HybApi.Factory.getApi()
                 .registerUser(user)
+                // 指定 subscribe() 发生在 IO 线程
                 .subscribeOn(Schedulers.io())
+                // 指定 Subscriber 的回调发生在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userResponse -> {
                     action.getData().put(Keys.USER, userResponse);

@@ -77,6 +77,7 @@ public class Dispatcher {
 
     /**
      * 添加view到dispatch的订阅中
+     *
      * @param object
      * @param <T>
      */
