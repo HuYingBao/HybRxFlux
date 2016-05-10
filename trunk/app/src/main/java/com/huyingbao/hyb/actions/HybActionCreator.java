@@ -99,6 +99,12 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         if (hasRxAction(action)) return true;
 
         switch (action.getType()) {
+            case LOGIN:
+                login((HybUser) action.getData().get(Keys.USER));
+                return true;
+            case REGISTER_USER:
+                registerUser((HybUser) action.getData().get(Keys.USER));
+                return true;
             case GET_USER:
                 getUserDetails(action.get(Keys.ID));
                 return true;

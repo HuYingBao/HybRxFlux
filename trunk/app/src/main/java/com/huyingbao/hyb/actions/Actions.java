@@ -8,18 +8,18 @@ import com.huyingbao.hyb.model.HybUser;
  */
 public interface Actions {
 
+    String LOGIN = "login";
+    String REGISTER_USER = "register_user";
     String GET_PUBLIC_REPOS = "get_public_repos";
     String GET_USER = "get_user";
-    String REGISTER_USER = "register_user";
-    String LOGIN = "login";
+
+    void login(HybUser user);
+
+    void registerUser(HybUser user);
 
     void getPublicRepositories();
 
     void getUserDetails(String userId);
-
-    void registerUser(HybUser user);
-
-    void login(HybUser user);
 
     boolean retry(RxAction action);
 }
