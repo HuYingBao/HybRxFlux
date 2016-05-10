@@ -20,6 +20,12 @@ public abstract class RxActionCreator {
         this.manager = manager;
     }
 
+    /**
+     * 订阅管理,将Rxaction和Subscription添加到SubscriptionManager
+     *
+     * @param rxAction
+     * @param subscription
+     */
     public void addRxAction(RxAction rxAction, Subscription subscription) {
         manager.add(rxAction, subscription);
     }
@@ -32,6 +38,13 @@ public abstract class RxActionCreator {
         manager.remove(rxAction);
     }
 
+    /**
+     * 创建新的RxAction
+     *
+     * @param actionId -action type对应具体是什么样的方法
+     * @param data     -键值对型的参数pair-value parameters(Key - Object))
+     * @return
+     */
     public RxAction newRxAction(@NonNull String actionId, @NonNull Object... data) {
         if (actionId.isEmpty()) {
             throw new IllegalArgumentException("Type must not be empty");

@@ -20,7 +20,13 @@ import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.actions.Actions;
+import com.huyingbao.hyb.actions.Keys;
+import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.stores.RepositoriesStore;
+import com.huyingbao.hyb.stores.UsersStore;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -48,6 +54,7 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
     LinearLayout emailLoginForm;
     @Bind(R.id.login_form)
     ScrollView mLoginFormView;
+    private UsersStore usersStore;
 
 
     @Override
@@ -75,14 +82,33 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        HybApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
+        HybUser user = new HybUser();
+        user.setPhone(email);
+        user.setPassword(password);
+        HybApp.get(this).getGitHubActionCreator().registerUser(user);
 
     }
 
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
-
+        switch (change.getStoreId()) {
+            case RepositoriesStore.ID:
+//                switch (change.getRxAction().getType()) {
+//                    case Actions.GET_PUBLIC_REPOS:
+//                        if (repositoriesStore != null) {
+//
+//                            adapter.setRepos(repositoriesStore.getRepositories());
+//                        }
+//                        break;
+//                }
+                break;
+            case UsersStore.ID:
+                switch (change.getRxAction().getType()) {
+                    case Actions.REGISTER_USER:
+                        HybUser user= (HybUser) change.getRxAction().getData().get(Keys.USER);
+                }
+        }
     }
 
     @Override
@@ -103,7 +129,8 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return null;
+        usersStore = UsersStore.get(HybApp.get(this).getRxFlux().getDispatcher());
+        return Arrays.asList(usersStore);
     }
 
     @Nullable

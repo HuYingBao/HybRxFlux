@@ -55,17 +55,22 @@ public class HybActionCreator extends RxActionCreator implements Actions {
 
     @Override
     public void registerUser(HybUser user) {
-        final RxAction action = newRxAction(REGISTER_USER, Keys.ID, user);
+        //创建RxAction,传入键值对参数
+        final RxAction action = newRxAction(REGISTER_USER, Keys.USER, user);
         if (hasRxAction(action)) return;
-
         addRxAction(action, HybApi.Factory.getApi()
                 .registerUser(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userResponse -> {
-                    action.getData().put(Keys.USER, user);
+                    action.getData().put(Keys.USER, userResponse);
                     postRxAction(action);
                 }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
+    public void login(HybUser user) {
+
     }
 
     @Override
