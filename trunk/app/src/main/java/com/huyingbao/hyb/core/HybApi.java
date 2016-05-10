@@ -32,6 +32,8 @@ public interface HybApi {
     Observable<GitUser> getUser(@Path("id") String userId);
 
     /**
+     * rxjava中的被观察者
+     *
      * @POST 请求方式post
      * @Body 表示将requestBean对象转成成json string作为参数传递给后台
      */

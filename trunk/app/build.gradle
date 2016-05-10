@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+//Retrolambda 是一个 Java 类库,
+// 在 Java 5、6、7 上实现 Java 8 的 Lambda 表达式的功能。
+// 你可以通过 Retrolambda 让使用 Lambda 表达式的 Java 8 代码运行在...
 apply plugin: 'me.tatarka.retrolambda'
 
 android {

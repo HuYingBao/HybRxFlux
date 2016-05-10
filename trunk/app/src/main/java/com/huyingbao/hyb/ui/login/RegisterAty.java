@@ -106,7 +106,7 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
             case UsersStore.ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_USER:
-                        HybUser user= (HybUser) change.getRxAction().getData().get(Keys.USER);
+                        HybUser user = (HybUser) change.getRxAction().getData().get(Keys.USER);
                 }
         }
     }
