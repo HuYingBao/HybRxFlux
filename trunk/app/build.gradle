@@ -43,6 +43,12 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:2.0.2"
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
 
+    //图片加载
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    //图片上传
+    compile 'com.qiniu:qiniu-android-sdk:7.2.+'
+
     //----Butterknife,view注解
     compile 'com.jakewharton:butterknife:7.0.1'
 
