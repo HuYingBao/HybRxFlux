@@ -40,6 +40,9 @@ public interface HybApi {
     @POST("/user/registerUser")
     Observable<HybUser> registerUser(@Body HybUser requestBean);
 
+    @POST("/auth/login")
+    Observable<HybUser> login(@Body HybUser requestBean);
+
 
     class Factory {
         private static HybApi instance;

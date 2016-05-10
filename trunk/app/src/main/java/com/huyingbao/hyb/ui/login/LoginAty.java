@@ -14,8 +14,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,52 +25,63 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.hardsoftstudio.rxflux.action.RxError;
+import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.hardsoftstudio.rxflux.store.RxStore;
+import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginAty extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginAty extends BaseActivity implements RxViewDispatch,LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    @Bind(R.id.login_progress)
+    ProgressBar mProgressView;
+    @Bind(R.id.email)
+    AutoCompleteTextView mEmailView;
+    @Bind(R.id.password)
+    EditText mPasswordView;
+    @Bind(R.id.email_sign_in_button)
+    Button emailSignInButton;
+    @Bind(R.id.email_register_button)
+    Button emailRegisterButton;
+    @Bind(R.id.email_login_form)
+    LinearLayout emailLoginForm;
+    @Bind(R.id.login_form)
+    ScrollView mLoginFormView;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
 
-    // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_login);
+        ButterKnife.bind(this);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
-        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -81,27 +92,20 @@ public class LoginAty extends AppCompatActivity implements LoaderCallbacks<Curso
                 return false;
             }
         });
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
-
         getLoaderManager().initLoader(0, null, this);
     }
 
+    /**
+     * 是否可以读取通讯录
+     *
+     * @return
+     */
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -111,7 +115,7 @@ public class LoginAty extends AppCompatActivity implements LoaderCallbacks<Curso
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                    .setAction(android.R.string.ok, new OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -192,7 +196,7 @@ public class LoginAty extends AppCompatActivity implements LoaderCallbacks<Curso
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.length() == 11;
     }
 
     private boolean isPasswordValid(String password) {
@@ -279,6 +283,48 @@ public class LoginAty extends AppCompatActivity implements LoaderCallbacks<Curso
         mEmailView.setAdapter(adapter);
     }
 
+    @OnClick({R.id.email_sign_in_button, R.id.email_register_button})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.email_sign_in_button:
+                break;
+            case R.id.email_register_button:
+                break;
+        }
+    }
+
+    @Override
+    public void onRxStoreChanged(@NonNull RxStoreChange change) {
+
+    }
+
+    @Override
+    public void onRxError(@NonNull RxError error) {
+
+    }
+
+    @Override
+    public void onRxViewRegistered() {
+
+    }
+
+    @Override
+    public void onRxViewUnRegistered() {
+
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToRegister() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToUnRegister() {
+        return null;
+    }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -315,13 +361,13 @@ public class LoginAty extends AppCompatActivity implements LoaderCallbacks<Curso
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mEmail)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
 
             // TODO: register the new account here.
             return true;

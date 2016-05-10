@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements RxViewDispatch, R
         setLoadingFrame(false);
 
         switch (change.getStoreId()) {
-            case RepositoriesStore.ID:
+            case RepositoriesStore.STORE_NAME:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_PUBLIC_REPOS:
                         adapter.setRepos(repositoriesStore.getRepositories());
                         break;
                 }
                 break;
-            case UsersStore.ID:
+            case UsersStore.STORE_NAME:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_USER:
                         showUserFragment((String) change.getRxAction().getData().get(Keys.ID));

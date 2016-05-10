@@ -36,12 +36,8 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    style="@style/s_autocomplete"
+                    android:hint="@string/prompt_email" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -51,26 +47,23 @@
 
                 <EditText
                     android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/s_edit"
                     android:hint="@string/prompt_password"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:imeOptions="actionUnspecified" />
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                style="@style/s_button"
+                android:text="@string/action_sign_in" />
+
+            <Button
+                android:id="@+id/email_register_button"
+                style="@style/s_button"
+                android:text="@string/title_activity_register_aty" />
 
         </LinearLayout>
     </ScrollView>

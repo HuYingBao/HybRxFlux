@@ -92,7 +92,7 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getStoreId()) {
-            case UsersStore.ID:
+            case UsersStore.STORE_NAME:
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_USER:
                         HybUser user = (HybUser) change.getRxAction().getData().get(Keys.USER);

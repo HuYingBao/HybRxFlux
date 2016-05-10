@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class UsersStore extends RxStore implements UsersStoreInterface {
 
-    public static final String ID = "UsersStore";
+    public static final String STORE_NAME = "UsersStore";
     private static UsersStore instance;
     private ArrayMap<String, GitUser> users;
 
@@ -53,7 +53,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
         }
-        postChange(new RxStoreChange(ID, action));
+        postChange(new RxStoreChange(STORE_NAME, action));
     }
 
     @Override

@@ -135,7 +135,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
         setLoadingFrame(false);
 
         switch (change.getStoreId()) {
-            case RepositoriesStore.ID:
+            case RepositoriesStore.STORE_NAME:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_PUBLIC_REPOS:
                         if (repositoriesStore != null) {
@@ -145,7 +145,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
                         break;
                 }
                 break;
-            case UsersStore.ID:
+            case UsersStore.STORE_NAME:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_USER:
                         showUserFragment((String) change.getRxAction().getData().get(Keys.ID));

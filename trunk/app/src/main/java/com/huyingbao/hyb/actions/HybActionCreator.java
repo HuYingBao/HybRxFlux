@@ -25,6 +25,48 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
+    public void login(HybUser user) {
+        //创建RxAction,传入键值对参数
+        final RxAction action = newRxAction(LOGIN, Keys.USER, user);
+        if (hasRxAction(action)) return;
+        addRxAction(action, HybApi.Factory.getApi()
+                .login(user)
+                // 指定 subscribe() 发生在 IO 线程(事件产生的线程)
+                .subscribeOn(Schedulers.io())
+                // 指定 Subscriber 的回调发生在主线程(事件消费的线程)
+                .observeOn(AndroidSchedulers.mainThread())
+                // Observable 并不是在创建的时候就立即开始发送事件，而是在它被订阅的时候，即当 subscribe() 方法执行的时候。
+                // 可以看到，subscribe(Subscriber) 做了3件事：
+                // 调用 Subscriber.onStart() 。这个方法在前面已经介绍过，是一个可选的准备方法。
+                // 调用 Observable 中的 OnSubscribe.call(Subscriber) 。
+                // 在这里，事件发送的逻辑开始运行。从这也可以看出，
+                // 在 RxJava 中， Observable 并不是在创建的时候就立即开始发送事件，
+                // 而是在它被订阅的时候，即当 subscribe() 方法执行的时候。
+                // 将传入的 Subscriber 作为 Subscription 返回。这是为了方便 unsubscribe().
+                .subscribe(userResponse -> {
+                    action.getData().put(Keys.USER, userResponse);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
+    public void registerUser(HybUser user) {
+        //创建RxAction,传入键值对参数
+        final RxAction action = newRxAction(REGISTER_USER, Keys.USER, user);
+        if (hasRxAction(action)) return;
+        addRxAction(action, HybApi.Factory.getApi()
+                .registerUser(user)
+                // 指定 subscribe() 发生在 IO 线程
+                .subscribeOn(Schedulers.io())
+                // 指定 Subscriber 的回调发生在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userResponse -> {
+                    action.getData().put(Keys.USER, userResponse);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
     public void getPublicRepositories() {
         final RxAction action = newRxAction(GET_PUBLIC_REPOS);
         if (hasRxAction(action)) return;
@@ -53,65 +95,6 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void registerUser(HybUser user) {
-        //创建RxAction,传入键值对参数
-        final RxAction action = newRxAction(REGISTER_USER, Keys.USER, user);
-        if (hasRxAction(action)) return;
-        addRxAction(action, HybApi.Factory.getApi()
-                .registerUser(user)
-                // 指定 subscribe() 发生在 IO 线程
-                .subscribeOn(Schedulers.io())
-                // 指定 Subscriber 的回调发生在主线程
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userResponse -> {
-                    action.getData().put(Keys.USER, userResponse);
-                    postRxAction(action);
-                }, throwable -> postError(action, throwable)));
-    }
-
-    @Override
-    public void login(HybUser user) {
-        //创建RxAction,传入键值对参数
-        final RxAction action = newRxAction(REGISTER_USER, Keys.USER, user);
-        if (hasRxAction(action)) return;
-        addRxAction(action, HybApi.Factory.getApi()
-                .registerUser(user)
-                // 指定 subscribe() 发生在 IO 线程(事件产生的线程)
-                .subscribeOn(Schedulers.io())
-                // 指定 Subscriber 的回调发生在主线程(事件消费的线程)
-                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<HybUser>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        postError(action, throwable);
-//                    }
-//
-//                    @Override
-//                    public void onNext(HybUser user) {
-//                        action.getData().put(Keys.USER, user);
-//                        postRxAction(action);
-//                    }
-//                }));
-                // Observable 并不是在创建的时候就立即开始发送事件，而是在它被订阅的时候，即当 subscribe() 方法执行的时候。
-                // 可以看到，subscribe(Subscriber) 做了3件事：
-                // 调用 Subscriber.onStart() 。这个方法在前面已经介绍过，是一个可选的准备方法。
-                // 调用 Observable 中的 OnSubscribe.call(Subscriber) 。
-                // 在这里，事件发送的逻辑开始运行。从这也可以看出，
-                // 在 RxJava 中， Observable 并不是在创建的时候就立即开始发送事件，
-                // 而是在它被订阅的时候，即当 subscribe() 方法执行的时候。
-                // 将传入的 Subscriber 作为 Subscription 返回。这是为了方便 unsubscribe().
-                .subscribe(userResponse -> {
-                    action.getData().put(Keys.USER, userResponse);
-                    postRxAction(action);
-                }, throwable -> postError(action, throwable)));
-    }
-
-    @Override
     public boolean retry(RxAction action) {
         if (hasRxAction(action)) return true;
 
@@ -125,4 +108,5 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         }
         return false;
     }
+
 }

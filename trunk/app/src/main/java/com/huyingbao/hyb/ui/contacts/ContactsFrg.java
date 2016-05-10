@@ -125,24 +125,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch, RepoAda
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
-//        setLoadingFrame(false);
-//
-//        switch (change.getStoreId()) {
-//            case RepositoriesStore.ID:
-//                switch (change.getRxAction().getType()) {
-//                    case Actions.GET_PUBLIC_REPOS:
-//                        if (repositoriesStore != null) {
-//                            adapter.setRepos(repositoriesStore.getRepositories());
-//                        }
-//                        break;
-//                }
-//                break;
-//            case UsersStore.ID:
-//                switch (change.getRxAction().getType()) {
-//                    case Actions.GET_USER:
-//                        showUserFragment((String) change.getRxAction().getData().get(Keys.ID));
-//                }
-//        }
     }
 
     @Override
