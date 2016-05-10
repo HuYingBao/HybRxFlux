@@ -23,7 +23,6 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.model.HybUser;
-import com.huyingbao.hyb.stores.RepositoriesStore;
 import com.huyingbao.hyb.stores.UsersStore;
 
 import java.util.Arrays;
@@ -93,21 +92,13 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getStoreId()) {
-            case RepositoriesStore.ID:
-//                switch (change.getRxAction().getType()) {
-//                    case Actions.GET_PUBLIC_REPOS:
-//                        if (repositoriesStore != null) {
-//
-//                            adapter.setRepos(repositoriesStore.getRepositories());
-//                        }
-//                        break;
-//                }
-                break;
             case UsersStore.ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_USER:
                         HybUser user = (HybUser) change.getRxAction().getData().get(Keys.USER);
+                        break;
                 }
+                break;
         }
     }
 

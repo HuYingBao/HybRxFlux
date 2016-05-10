@@ -19,7 +19,10 @@
         <activity
             android:name=".ui.login.LoginAty"
             android:label="@string/title_activity_login_aty">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainAty"
@@ -28,11 +31,6 @@
         <activity
             android:name=".ui.login.RegisterAty"
             android:label="@string/title_activity_register_aty">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

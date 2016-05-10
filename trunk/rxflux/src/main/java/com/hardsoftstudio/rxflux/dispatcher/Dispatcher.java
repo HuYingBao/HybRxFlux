@@ -36,6 +36,12 @@ public class Dispatcher {
         return instance;
     }
 
+    /**
+     * 需要将store注册到dispatcher中
+     *
+     * @param object
+     * @param <T>
+     */
     public <T extends RxActionDispatch> void subscribeRxStore(final T object) {
         final String tag = object.getClass().getSimpleName();
         Subscription subscription = rxActionMap.get(tag);
