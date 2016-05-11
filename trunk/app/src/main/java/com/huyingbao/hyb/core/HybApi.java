@@ -1,12 +1,16 @@
 package com.huyingbao.hyb.core;
 
 
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.model.GitHubRepo;
 import com.huyingbao.hyb.model.GitUser;
 import com.huyingbao.hyb.model.HybUser;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -41,23 +45,35 @@ public interface HybApi {
     Observable<HybUser> registerUser(@Body HybUser requestBean);
 
     @POST("/auth/login")
-    Observable<String> login(@Body HybUser requestBean);
+    Observable<HybUser> login(@Body HybUser requestBean);
 
 
     class Factory {
         private static HybApi instance;
 
         private static void create() {
-
-            OkHttpClient client = new OkHttpClient();
+            //初始化OKHttpClient builder
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            //设置缓存目录
+            File cacheDirectory = new File(HybApp.getInstance().getCacheDir().getAbsolutePath(),
+                    "HttpCache");
+            Cache cache = new Cache(cacheDirectory, 20 * 1024 * 1024);
+            builder.cache(cache);
+            //设定30秒超时
+            builder.connectTimeout(30, TimeUnit.SECONDS);
+            //设置拦截器，以用于自定义Cookies的设置
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-
+            builder.addInterceptor(interceptor);
             final Retrofit retrofit = new Retrofit.Builder()
+                    //配置服务器路径
                     .baseUrl(HybApi.ENDPOINT)
-                    .client(client)
+                    //配置转化库Gson
                     .addConverterFactory(GsonConverterFactory.create())
+                    //配置回调库，采用RxJava
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    //设置OKHttpClient为网络客户端
+                    .client(builder.build())
                     .build();
             instance = retrofit.create(HybApi.class);
         }

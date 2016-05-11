@@ -3,7 +3,8 @@ package com.huyingbao.hyb.ui.login;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
@@ -22,6 +24,7 @@ import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
+import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.stores.UsersStore;
 
@@ -35,7 +38,7 @@ import butterknife.OnClick;
 /**
  * A login screen that offers login via email/password.
  */
-public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
+public class RegisterAty extends BaseActivity implements RxViewDispatch {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -47,14 +50,16 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
     AutoCompleteTextView mEmailView;
     @Bind(R.id.password)
     EditText mPasswordView;
-    @Bind(R.id.email_sign_in_button)
-    Button emailSignInButton;
     @Bind(R.id.email_login_form)
     LinearLayout emailLoginForm;
     @Bind(R.id.login_form)
     ScrollView mLoginFormView;
-    private UsersStore usersStore;
+    @Bind(R.id.email_register_button)
+    Button emailRegisterButton;
+    @Bind(R.id.root_coordinator)
+    CoordinatorLayout rootCoordinator;
 
+    private UsersStore usersStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +109,14 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
 
     @Override
     public void onRxError(@NonNull RxError error) {
-
+        Throwable throwable = error.getThrowable();
+        if (throwable != null) {
+            Snackbar.make(rootCoordinator, "有错误", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("重试", v -> HybApp.get(mContext).getGitHubActionCreator().retry(error.getAction())).show();
+            throwable.printStackTrace();
+        } else {
+            Toast.makeText(mContext, "Unknown error", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -130,9 +142,10 @@ public class RegisterAty extends AppCompatActivity implements RxViewDispatch {
         return null;
     }
 
-    @OnClick(R.id.email_sign_in_button)
+    @OnClick(R.id.email_register_button)
     public void onClick() {
         attemptLogin();
     }
+
 }
 
