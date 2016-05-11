@@ -1,5 +1,7 @@
 package com.huyingbao.hyb.actions;
 
+import android.util.Log;
+
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
@@ -7,6 +9,7 @@ import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.model.HybUser;
 
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -35,6 +38,22 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 .subscribeOn(Schedulers.io())
                 // 指定 Subscriber 的回调发生在主线程(事件消费的线程)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("H-Y-B",e.toString());
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.i("H-Y-B",s);
+                    }
+                }));
                 // Observable 并不是在创建的时候就立即开始发送事件，而是在它被订阅的时候，即当 subscribe() 方法执行的时候。
                 // 可以看到，subscribe(Subscriber) 做了3件事：
                 // 调用 Subscriber.onStart() 。这个方法在前面已经介绍过，是一个可选的准备方法。
@@ -43,10 +62,10 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 // 在 RxJava 中， Observable 并不是在创建的时候就立即开始发送事件，
                 // 而是在它被订阅的时候，即当 subscribe() 方法执行的时候。
                 // 将传入的 Subscriber 作为 Subscription 返回。这是为了方便 unsubscribe().
-                .subscribe(userResponse -> {
-                    action.getData().put(Keys.USER, userResponse);
-                    postRxAction(action);
-                }, throwable -> postError(action, throwable)));
+//                .subscribe(userResponse -> {
+//                    action.getData().put(Keys.USER, userResponse);
+//                    postRxAction(action);
+//                }, throwable -> postError(action, throwable)));
     }
 
     @Override
