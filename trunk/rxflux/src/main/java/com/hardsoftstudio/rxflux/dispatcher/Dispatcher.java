@@ -40,13 +40,17 @@ public class Dispatcher {
      * 需要将store注册到dispatcher中
      *
      * @param object
-     * @param <T>
+     * @param <T>    实现RxActionDispatch的RxStore
      */
     public <T extends RxActionDispatch> void subscribeRxStore(final T object) {
+        //获取对象的类名
         final String tag = object.getClass().getSimpleName();
+        //获取key(类名)对应的value(Subscription)
         Subscription subscription = rxActionMap.get(tag);
+        //如果订阅不为空或者订阅是取消状态,则进行订阅
         if (subscription == null || subscription.isUnsubscribed()) {
             logger.logRxStoreRegister(tag);
+            //filter过滤,传入一个Func1类对象,参数Object,返回boolean,若是object是RxAction的子类实现,则返回true,执行订阅
             rxActionMap.put(tag, bus.get().filter(new Func1<Object, Boolean>() {
                 @Override
                 public Boolean call(Object o) {
@@ -56,9 +60,27 @@ public class Dispatcher {
                 @Override
                 public void call(Object o) {
                     logger.logRxAction(tag, (RxAction) o);
+                    //Post RxAction
+                    //(RxStore extends RxActionDispatch)object调用onRxAction方法
                     object.onRxAction((RxAction) o);
                 }
             }));
+        }
+    }
+
+    /**
+     * 解除rxstore的注册
+     *
+     * @param object
+     * @param <T>
+     */
+    public <T extends RxActionDispatch> void unsubscribeRxStore(final T object) {
+        String tag = object.getClass().getSimpleName();
+        Subscription subscription = rxActionMap.get(tag);
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+            rxActionMap.remove(tag);
+            logger.logUnregisterRxAction(tag);
         }
     }
 
@@ -108,15 +130,6 @@ public class Dispatcher {
         subscribeRxError(object);
     }
 
-    public <T extends RxActionDispatch> void unsubscribeRxStore(final T object) {
-        String tag = object.getClass().getSimpleName();
-        Subscription subscription = rxActionMap.get(tag);
-        if (subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-            rxActionMap.remove(tag);
-            logger.logUnregisterRxAction(tag);
-        }
-    }
 
     public <T extends RxViewDispatch> void unsubscribeRxError(final T object) {
         String tag = object.getClass().getSimpleName() + "_error";

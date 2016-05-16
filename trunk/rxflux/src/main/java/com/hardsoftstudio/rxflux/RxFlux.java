@@ -18,6 +18,8 @@ import java.util.List;
  * Main class, the init method of this class must be called onCreate of the Application and must
  * be called just once. This class will automatically track the lifecycle of the application and
  * unregister all the remaining subscriptions for each activity.
+ * 主类,必须在application创建的时候调用该类的实例方法,并仅调用一次.
+ * 这个类会自动跟踪应用程序的生命周期,并且注销每个activity剩余的订阅subscriptions
  */
 public class RxFlux implements Application.ActivityLifecycleCallbacks {
 
@@ -30,6 +32,11 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     private final SubscriptionManager subscriptionManager;
     private int activityCounter;
 
+    /**
+     * 私有构造方法
+     *
+     * @param application
+     */
     private RxFlux(Application application) {
         this.rxBus = RxBus.getInstance();
         this.dispatcher = Dispatcher.getInstance(rxBus);
@@ -38,11 +45,20 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
         application.registerActivityLifecycleCallbacks(this);
     }
 
+    /**
+     * 实例化
+     *
+     * @param application
+     * @return
+     */
     public static RxFlux init(Application application) {
         if (instance != null) throw new IllegalStateException("Init was already called");
         return instance = new RxFlux(application);
     }
 
+    /**
+     * 关闭
+     */
     public static void shutdown() {
         if (instance == null) return;
         instance.subscriptionManager.clear();
@@ -70,6 +86,14 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
         return subscriptionManager;
     }
 
+    /**
+     * activity创建成功之后调用,
+     * 若acitivity是RxViewDispatch的子类,
+     * 获取需要注册的RxStoreList,并进行注册,将其注册到dispatcher
+     *
+     * @param activity
+     * @param bundle
+     */
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
         activityCounter++;
@@ -116,14 +140,14 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityDestroyed(Activity activity) {
         activityCounter--;
-
-        List<RxStore> rxStoreList = ((RxViewDispatch) activity).getRxStoreListToUnRegister();
-        if (rxStoreList != null) {
-            for (RxStore rxStore : rxStoreList) {
-                rxStore.unregister();
+        if (activity instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) activity).getRxStoreListToUnRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.unregister();
+                }
             }
         }
-
         if (activityCounter == 0) {
             RxFlux.shutdown();
         }

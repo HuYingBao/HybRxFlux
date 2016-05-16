@@ -16,6 +16,11 @@ public class LoggerManager {
 
     private int lastActionHash;
 
+    /**
+     * 显示store注册log
+     *
+     * @param tag
+     */
     public void logRxStoreRegister(String tag) {
         switch (LOG_LEVEL) {
             case FULL:

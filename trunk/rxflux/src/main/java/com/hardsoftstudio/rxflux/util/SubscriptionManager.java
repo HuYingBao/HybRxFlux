@@ -9,6 +9,7 @@ import rx.Subscription;
 
 /**
  * Utility class to handle subscriptions
+ * 订阅管理类
  */
 public final class SubscriptionManager {
 
