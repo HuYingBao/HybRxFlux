@@ -49,6 +49,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.adapter.rxjava.HttpException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -194,7 +195,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCall
             HybUser user = new HybUser();
             user.setPhone(email);
             user.setPassword(password);
-            HybApp.get(this).getGitHubActionCreator().login(user);
+            HybApp.get(mContext).getGitHubActionCreator().getUserDetails(1);
+//            HybApp.get(this).getGitHubActionCreator().login(user);
         }
     }
 
@@ -319,9 +321,18 @@ public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCall
         mPasswordView.setError(getString(R.string.error_incorrect_password));
         mPasswordView.requestFocus();
         Throwable throwable = error.getThrowable();
+
         if (throwable != null) {
-            Snackbar.make(rootCoordinator, getString(R.string.error_incorrect_password), Snackbar.LENGTH_INDEFINITE).setAction("重试", v -> HybApp.get(mContext).getGitHubActionCreator().retry(error.getAction())).show();
-            throwable.printStackTrace();
+//            Snackbar.make(rootCoordinator, getString(R.string.error_incorrect_password), Snackbar.LENGTH_INDEFINITE)
+//                    .setAction("重试", v -> HybApp.get(mContext)
+//                            .getGitHubActionCreator()
+//                            .retry(error.getAction()))
+//                    .show();
+//            throwable.printStackTrace();
+            if (throwable instanceof HttpException) {
+                Snackbar.make(rootCoordinator, ((HttpException) throwable).code()+"", Snackbar.LENGTH_INDEFINITE)
+                        .show();
+            }
         } else {
             Toast.makeText(mContext, "未知错误", Toast.LENGTH_LONG).show();
         }

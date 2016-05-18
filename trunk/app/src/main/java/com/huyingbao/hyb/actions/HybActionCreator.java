@@ -96,7 +96,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void getUserDetails(String userId) {
+    public void getUserDetails(int userId) {
         final RxAction action = newRxAction(GET_USER, Keys.ID, userId);
         if (hasRxAction(action)) return;
 

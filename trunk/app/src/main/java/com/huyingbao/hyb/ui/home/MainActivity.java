@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements RxViewDispatch, R
             return;
         }
         setLoadingFrame(true);
-        HybApp.get(this).getGitHubActionCreator().getUserDetails(login);
+//        HybApp.get(this).getGitHubActionCreator().getUserDetails(login);
     }
 
     @Override

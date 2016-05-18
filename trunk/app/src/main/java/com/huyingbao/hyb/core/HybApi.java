@@ -3,7 +3,6 @@ package com.huyingbao.hyb.core;
 
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.model.GitHubRepo;
-import com.huyingbao.hyb.model.GitUser;
 import com.huyingbao.hyb.model.HybUser;
 
 import java.io.File;
@@ -27,13 +26,13 @@ import rx.Observable;
  */
 public interface HybApi {
 
-    String ENDPOINT = "http://192.168.0.112:1337";
+    String ENDPOINT = "http://192.168.0.106:1337";
 
     @GET("/repositories")
     Observable<ArrayList<GitHubRepo>> getRepositories();
 
-    @GET("/users/{id}")
-    Observable<GitUser> getUser(@Path("id") String userId);
+    @GET("/user/{userId}")
+    Observable<HybUser> getUser(@Path("userId") int userId);
 
     /**
      * rxjava中的被观察者

@@ -119,7 +119,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch, RepoAda
             return;
         }
         setLoadingFrame(true);
-        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
+//        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
     }
 
 

@@ -126,7 +126,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
             return;
         }
         setLoadingFrame(true);
-        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
+//        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
     }
 
 

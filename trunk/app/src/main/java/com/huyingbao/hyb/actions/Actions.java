@@ -19,7 +19,7 @@ public interface Actions {
 
     void getPublicRepositories();
 
-    void getUserDetails(String userId);
+    void getUserDetails(int userId);
 
     boolean retry(RxAction action);
 }
