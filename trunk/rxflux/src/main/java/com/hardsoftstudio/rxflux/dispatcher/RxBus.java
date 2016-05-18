@@ -8,8 +8,11 @@ import rx.subjects.Subject;
 /**
  * Rx version of an EventBus
  * 1、首先创建一个可同时充当Observer和Observable的Subject bus；
- * 2、在需要接收事件的地方，订阅该Subject（此时Subject是作为Observable），在这之后，一旦Subject接收到事件，立即发射给该订阅者；
- * 3、在我们需要发送事件的地方，将事件post至Subject，此时Subject作为Observer接收到事件（onNext），然后会发射给所有订阅该Subject的订阅者。
+ * 2、在需要接收事件的地方，订阅该Subject（此时Subject是作为Observable），
+ * 在这之后，一旦Subject接收到事件，立即发射给该订阅者；
+ * 3、在我们需要发送事件的地方，将事件post至Subject，
+ * 此时Subject作为Observer接收到事件（onNext），
+ * 然后会发射给所有订阅该Subject的订阅者。
  */
 public class RxBus {
 
@@ -42,7 +45,9 @@ public class RxBus {
 
     /**
      * 作为Observer接收到事件,发送提供了一个新的事件
-     * 在我们需要发送事件的地方，将事件post至Subject，此时Subject作为Observer接收到事件（onNext），然后会发射给所有订阅该Subject的订阅者。
+     * 在我们需要发送事件的地方，将事件post至Subject，
+     * 此时Subject作为Observer接收到事件（onNext），
+     * 然后会发射给所有订阅该Subject的订阅者。
      *
      * @param o
      */

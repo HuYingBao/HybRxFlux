@@ -36,6 +36,86 @@ public class Dispatcher {
         return instance;
     }
 
+
+    /**
+     * Bus(Subject被监听者)发送一个事件到所有订阅bus(Subject)的监听者Subscription
+     * 当该事件是RxStoreChange的实现类的时候,
+     * 调用监听者Subscription的方法回调方法call
+     * 添加RxViewDispatch到dispatch的订阅中,
+     *
+     * @param object
+     * @param <T>
+     */
+    public <T extends RxViewDispatch> void subscribeRxView(final T object) {
+        //获取传入的Object的名字
+        final String tag = object.getClass().getSimpleName();
+        //获取Map中Object名字对应的value 监听者
+        Subscription subscription = rxStoreMap.get(tag);
+        //如果监听者空或者没订阅被监听者,生成一个新的监听者,并将他添加到 storemap中
+        if (subscription == null || subscription.isUnsubscribed()) {
+            logger.logViewRegisterToStore(tag);
+            //获取rxbus实例,是一个Observable(被监听者)的子类对象
+            //Subject=new SerializedSubject<>(PublishSubject.create())
+            //会把在订阅(subscribe())发生的时间点之后来自原始Observable的数据发射给观察者
+            rxStoreMap.put(tag, bus.get().filter(new Func1<Object, Boolean>() {
+                @Override
+                public Boolean call(Object o) {
+                    //当该事件是RxStoreChange的实现类的时候,
+                    return o instanceof RxStoreChange;
+                }
+            }).subscribe(new Action1<Object>() {
+                //调用监听者Subscription的方法回调方法call
+                @Override
+                public void call(Object o) {
+                    logger.logRxStore(tag, (RxStoreChange) o);
+                    //调用Activity,Fragment,View等所有实现了RxViewDispatch的类对象的onRxStoreChange方法
+                    object.onRxStoreChanged((RxStoreChange) o);
+                }
+            }));
+        }
+        subscribeRxError(object);
+    }
+
+    public <T extends RxViewDispatch> void unsubscribeRxView(final T object) {
+        String tag = object.getClass().getSimpleName();
+        Subscription subscription = rxStoreMap.get(tag);
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+            rxStoreMap.remove(tag);
+            logger.logUnregisterRxStore(tag);
+        }
+        unsubscribeRxError(object);
+    }
+
+    public <T extends RxViewDispatch> void subscribeRxError(final T object) {
+        final String tag = object.getClass().getSimpleName() + "_error";
+        Subscription subscription = rxActionMap.get(tag);
+        if (subscription == null || subscription.isUnsubscribed()) {
+            rxActionMap.put(tag, bus.get().filter(new Func1<Object, Boolean>() {
+                @Override
+                public Boolean call(Object o) {
+                    return o instanceof RxError;
+                }
+            }).subscribe(new Action1<Object>() {
+                @Override
+                public void call(Object o) {
+                    logger.logRxError(tag, (RxError) o);
+                    object.onRxError((RxError) o);
+                }
+            }));
+        }
+    }
+
+    public <T extends RxViewDispatch> void unsubscribeRxError(final T object) {
+        String tag = object.getClass().getSimpleName() + "_error";
+        Subscription subscription = rxActionMap.get(tag);
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+            rxActionMap.remove(tag);
+        }
+    }
+
+
     /**
      * 需要将store注册到dispatcher中
      *
@@ -84,72 +164,6 @@ public class Dispatcher {
         }
     }
 
-    public <T extends RxViewDispatch> void subscribeRxError(final T object) {
-        final String tag = object.getClass().getSimpleName() + "_error";
-        Subscription subscription = rxActionMap.get(tag);
-        if (subscription == null || subscription.isUnsubscribed()) {
-            rxActionMap.put(tag, bus.get().filter(new Func1<Object, Boolean>() {
-                @Override
-                public Boolean call(Object o) {
-                    return o instanceof RxError;
-                }
-            }).subscribe(new Action1<Object>() {
-                @Override
-                public void call(Object o) {
-                    logger.logRxError(tag, (RxError) o);
-                    object.onRxError((RxError) o);
-                }
-            }));
-        }
-    }
-
-    /**
-     * 添加view到dispatch的订阅中
-     *
-     * @param object
-     * @param <T>
-     */
-    public <T extends RxViewDispatch> void subscribeRxView(final T object) {
-        final String tag = object.getClass().getSimpleName();
-        Subscription subscription = rxStoreMap.get(tag);
-        if (subscription == null || subscription.isUnsubscribed()) {
-            logger.logViewRegisterToStore(tag);
-            rxStoreMap.put(tag, bus.get().filter(new Func1<Object, Boolean>() {
-                @Override
-                public Boolean call(Object o) {
-                    return o instanceof RxStoreChange;
-                }
-            }).subscribe(new Action1<Object>() {
-                @Override
-                public void call(Object o) {
-                    logger.logRxStore(tag, (RxStoreChange) o);
-                    object.onRxStoreChanged((RxStoreChange) o);
-                }
-            }));
-        }
-        subscribeRxError(object);
-    }
-
-
-    public <T extends RxViewDispatch> void unsubscribeRxError(final T object) {
-        String tag = object.getClass().getSimpleName() + "_error";
-        Subscription subscription = rxActionMap.get(tag);
-        if (subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-            rxActionMap.remove(tag);
-        }
-    }
-
-    public <T extends RxViewDispatch> void unsubscribeRxView(final T object) {
-        String tag = object.getClass().getSimpleName();
-        Subscription subscription = rxStoreMap.get(tag);
-        if (subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-            rxStoreMap.remove(tag);
-            logger.logUnregisterRxStore(tag);
-        }
-        unsubscribeRxError(object);
-    }
 
     public synchronized void unsubscribeAll() {
         for (Subscription subscription : rxActionMap.values()) {
@@ -164,10 +178,20 @@ public class Dispatcher {
         rxStoreMap.clear();
     }
 
+    /**
+     * 发送action变化
+     *
+     * @param action
+     */
     public void postRxAction(final RxAction action) {
         bus.send(action);
     }
 
+    /**
+     * 发送store变化
+     *
+     * @param storeChange
+     */
     public void postRxStoreChange(final RxStoreChange storeChange) {
         bus.send(storeChange);
     }
