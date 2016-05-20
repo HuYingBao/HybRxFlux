@@ -26,7 +26,8 @@ import rx.Observable;
  */
 public interface HybApi {
 
-    String ENDPOINT = "http://192.168.0.106:1337";
+//    String ENDPOINT = "http://192.168.0.106:1337";
+    String ENDPOINT = "http://192.168.0.112:1337";
 
     @GET("/repositories")
     Observable<ArrayList<GitHubRepo>> getRepositories();
