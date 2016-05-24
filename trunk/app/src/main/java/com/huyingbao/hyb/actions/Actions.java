@@ -1,5 +1,6 @@
 package com.huyingbao.hyb.actions;
 
+import com.baidu.location.BDLocation;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.huyingbao.hyb.model.HybUser;
 
@@ -18,7 +19,7 @@ public interface Actions {
 
     void registerUser(HybUser user);
 
-    void getLocation();
+    void getLocation(BDLocation location);
 
     void getPublicRepositories();
 

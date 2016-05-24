@@ -1,7 +1,6 @@
 package com.huyingbao.hyb.actions;
 
-import android.graphics.drawable.Drawable;
-
+import com.baidu.location.BDLocation;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
@@ -57,6 +56,8 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     @Override
     public void registerUser(HybUser user) {
         //创建RxAction,传入键值对参数
+        //这里对应的键值对为keys.user和user
+        //调用接口之后,得到对应的数据userResponse,传入keys.user
         final RxAction action = newRxAction(REGISTER_USER, Keys.USER, user);
         if (hasRxAction(action)) return;
         addRxAction(action, HybApi.Factory.getApi()
@@ -72,22 +73,22 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void getLocation() {
+    public void getLocation(BDLocation location) {
         //创建RxAction,传入键值对参数
-        final RxAction action = newRxAction(GET_LOCATION);
+        final RxAction action = newRxAction(GET_LOCATION, Keys.LOCATION, location);
         if (hasRxAction(action)) return;
         addRxAction(action,
-                Observable.create(new Observable.OnSubscribe<Drawable>() {
+                Observable.create(new Observable.OnSubscribe<BDLocation>() {
                     @Override
-                    public void call(Subscriber<? super Drawable> subscriber) {
-//                        Drawable drawable = getTheme().getDrawable(drawableRes));
-//                        subscriber.onNext(drawable);
+                    public void call(Subscriber<? super BDLocation> subscriber) {
+                        subscriber.onNext(location);
                         subscriber.onCompleted();
                     }
-                }).subscribe(new Observer<Drawable>() {
+                }).subscribe(new Observer<BDLocation>() {
                     @Override
-                    public void onNext(Drawable drawable) {
-//                        imageView.setImageDrawable(drawable);
+                    public void onNext(BDLocation bdLocation) {
+                        action.getData().put(Keys.USER, bdLocation);
+                        postRxAction(action);
                     }
 
                     @Override
@@ -95,8 +96,8 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-//                        Toast.makeText(activity, "Error!", Toast.LENGTH_SHORT).show();
+                    public void onError(Throwable throwable) {
+                        postError(action, throwable);
                     }
                 }));
     }

@@ -8,4 +8,5 @@ public interface Keys {
     String PUBLIC_REPOS = "repos";
     String USER = "user";
     String ID = "id";
+    String LOCATION = "location";
 }
