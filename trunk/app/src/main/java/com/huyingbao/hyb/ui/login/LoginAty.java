@@ -87,8 +87,10 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+//        String phone = mEmailView.getText().toString();
+//        String password = mPasswordView.getText().toString();
+        String phone = "15810719581";
+        String password = "123456";
 
         boolean cancel = false;
         View focusView = null;
@@ -99,11 +101,11 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(phone)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isPhoneValid(email)) {
+        } else if (!isPhoneValid(phone)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -114,7 +116,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
         } else {
             showProgress(true);
             HybUser user = new HybUser();
-            user.setPhone(email);
+            user.setPhone(phone);
             user.setPassword(password);
             HybApp.get(this).getGitHubActionCreator().login(user);
         }
@@ -179,6 +181,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
                         startActivity(MainAty.class);
+                        finish();
                         break;
                 }
                 break;
@@ -204,6 +207,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                     return;
                 }
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
+                        .setAction("重试", v -> HybApp.get(mContext).getGitHubActionCreator().retry(error.getAction()))
                         .show();
             }
         } else {

@@ -28,6 +28,7 @@ import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.utils.HttpCode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.adapter.rxjava.HttpException;
 
 public class RegisterAty extends BaseActivity implements RxViewDispatch {
 
@@ -52,8 +54,6 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     Button emailRegisterButton;
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
-    @Bind(R.id.a_register_btRegShop)
-    Button aRegisterBtRegShop;
 
     private UsersStore usersStore;
 
@@ -95,6 +95,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_USER:
+                        this.finish();
                         HybUser user = (HybUser) change.getRxAction().getData().get(Keys.USER);
                         break;
                 }
@@ -106,11 +107,24 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     public void onRxError(@NonNull RxError error) {
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
-            Snackbar.make(rootCoordinator, "有错误", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("重试", v -> HybApp.get(mContext).getGitHubActionCreator().retry(error.getAction())).show();
-            throwable.printStackTrace();
+            if (throwable instanceof HttpException) {
+                int httpCode = ((HttpException) throwable).code();
+                if (httpCode == 413) {
+                    mEmailView.setError(HttpCode.getHttpCodeInfo(httpCode));
+                    mEmailView.requestFocus();
+                    return;
+                }
+                if (httpCode == 414) {
+                    mEmailView.setError(HttpCode.getHttpCodeInfo(httpCode));
+                    mEmailView.requestFocus();
+                    return;
+                }
+                Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
+                        .setAction("重试", v -> HybApp.get(mContext).getGitHubActionCreator().retry(error.getAction()))
+                        .show();
+            }
         } else {
-            Toast.makeText(mContext, "Unknown error", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "未知错误", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -137,13 +151,11 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
         return null;
     }
 
-    @OnClick({R.id.email_register_button, R.id.a_register_btRegShop})
+    @OnClick({R.id.email_register_button})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.email_register_button:
                 registerUser();
-                break;
-            case R.id.a_register_btRegShop:
                 break;
         }
     }
