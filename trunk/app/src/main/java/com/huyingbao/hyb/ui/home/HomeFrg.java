@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,14 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
-import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.HybApp;
+import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.RepoAdapter;
@@ -157,12 +155,12 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     public void onRxError(@NonNull RxError error) {
         setLoadingFrame(false);
         Throwable throwable = error.getThrowable();
-        if (throwable != null) {
-            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
-            throwable.printStackTrace();
-        } else {
-            Toast.makeText(getContext(), "Unknown error", Toast.LENGTH_LONG).show();
-        }
+//        if (throwable != null) {
+//            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
+//            throwable.printStackTrace();
+//        } else {
+//            Toast.makeText(getContext(), "Unknown error", Toast.LENGTH_LONG).show();
+//        }
     }
 
     @Override
@@ -194,7 +192,9 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     }
 
     private void setLoadingFrame(boolean show) {
-        progressLoading.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (progressLoading != null) {
+            progressLoading.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
     }
 
     private void refresh() {
