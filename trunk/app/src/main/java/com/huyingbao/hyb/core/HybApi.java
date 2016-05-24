@@ -5,6 +5,8 @@ import com.huyingbao.hyb.BuildConfig;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.model.GitHubRepo;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.model.Product;
+import com.huyingbao.hyb.model.Shop;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -36,16 +40,134 @@ public interface HybApi {
     Observable<HybUser> getUser(@Path("userId") int userId);
 
     /**
-     * rxjava中的被观察者
+     * 用户注册
      *
-     * @POST 请求方式post
-     * @Body 表示将requestBean对象转成成json string作为参数传递给后台
+     * @param user
+     * @return
      */
     @POST("/user/registerUser")
-    Observable<HybUser> registerUser(@Body HybUser requestBean);
+    Observable<HybUser> registerUser(@Body HybUser user);
 
+
+    /**
+     * 用户登录
+     *
+     * @param user
+     * @return
+     */
     @POST("/auth/login")
-    Observable<HybUser> login(@Body HybUser requestBean);
+    Observable<HybUser> login(@Body HybUser user);
+
+    /**
+     * 根据uuid获取个人信息
+     *
+     * @param uuid
+     * @return
+     */
+    @GET("/getUserByUuid/{uuid}")
+    Observable<HybUser> getUserByUuid(@Path("uuid") String uuid);
+
+    /**
+     * 更新个人信息
+     *
+     * @param user
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/user/updateUser")
+    Observable<HybUser> updateUser(@Field("user") String user);
+
+    /**
+     * 更新用户密码
+     *
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/resetPassword")
+    Observable<Boolean> resetPassword(@Field("oldPassword") String oldPassword, @Field("newPassword") String newPassword);
+
+
+    /**
+     * 注册店铺
+     *
+     * @param shop
+     * @return
+     */
+    @POST("/shop/registerShop")
+    Observable<Shop> registerShop(@Body Shop shop);
+
+
+    /**
+     * 店长获取所在的店铺
+     *
+     * @return
+     */
+    @GET("/shop/getBelongShop")
+    Observable<Shop> getBelongShop();
+
+    /**
+     * 更新店铺
+     *
+     * @param shop
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/shop/updateShop")
+    Observable<Shop> updateShop(@Field("shop") String shop);
+
+
+    /**
+     * 根据code获取对应的店铺
+     *
+     * @param code
+     * @return
+     */
+    @GET("/getShopByCode/{code}")
+    Observable<Shop> getShopByCode(@Path("code") String code);
+
+
+    /**
+     * 店长添加商品
+     *
+     * @param product
+     * @return
+     */
+    @POST("/addProduct")
+    Observable<Product> addProduct(@Body Product product);
+
+
+    /**
+     * 根据uuid获取对应的商品
+     *
+     * @param uuid
+     * @return
+     */
+    @GET("/getProductByUuid/{uuid}")
+    Observable<ArrayList<Product>> getProductByUuid(@Path("uuid") String uuid);
+
+
+    /**
+     * 修改商品信息
+     *
+     * @param product
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/product/updateProduct")
+    Observable<ArrayList<Product>> updateProduct(@Field("product") String product);
+
+    /**
+     * 顾客获取店铺中所有的商品
+     *
+     * @param belongShop 店铺id
+     * @param status
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/getEnableProductByShopCode")
+    Observable<ArrayList<Product>> getEnableProductByShopCode(@Field("belongShop") int belongShop, @Field("status") int status);
 
 
     class Factory {
