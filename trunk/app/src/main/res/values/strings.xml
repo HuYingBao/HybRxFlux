@@ -17,4 +17,5 @@
     <string name="error_field_required">需要填写</string>
     <string name="permission_rationale">需要读取通讯录权限</string>
     <string name="title_activity_register_aty">注册</string>
+    <string name="title_activity_register_shop">注册店铺</string>
 </resources>

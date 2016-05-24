@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -35,15 +36,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * A login screen that offers login via email/password.
- */
 public class RegisterAty extends BaseActivity implements RxViewDispatch {
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
     @Bind(R.id.login_progress)
     ProgressBar mProgressView;
     @Bind(R.id.email)
@@ -58,6 +52,8 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     Button emailRegisterButton;
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
+    @Bind(R.id.a_register_btRegShop)
+    Button aRegisterBtRegShop;
 
     private UsersStore usersStore;
 
@@ -71,7 +67,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    registerUser();
                     return true;
                 }
                 return false;
@@ -80,10 +76,9 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     }
 
 
-    private void attemptLogin() {
+    private void registerUser() {
         mEmailView.setError(null);
         mPasswordView.setError(null);
-        // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         HybUser user = new HybUser();
@@ -142,10 +137,15 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
         return null;
     }
 
-    @OnClick(R.id.email_register_button)
-    public void onClick() {
-        attemptLogin();
+    @OnClick({R.id.email_register_button, R.id.a_register_btRegShop})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.email_register_button:
+                registerUser();
+                break;
+            case R.id.a_register_btRegShop:
+                break;
+        }
     }
-
 }
 

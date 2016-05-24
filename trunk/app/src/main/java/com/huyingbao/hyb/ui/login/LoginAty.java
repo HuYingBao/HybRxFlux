@@ -188,12 +188,21 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Override
     public void onRxError(@NonNull RxError error) {
         showProgress(false);
-        mPasswordView.setError(getString(R.string.error_incorrect_password));
-        mPasswordView.requestFocus();
+
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
             if (throwable instanceof HttpException) {
                 int httpCode = ((HttpException) throwable).code();
+                if (httpCode == 411) {
+                    mEmailView.setError(HttpCode.getHttpCodeInfo(httpCode));
+                    mEmailView.requestFocus();
+                    return;
+                }
+                if (httpCode == 412) {
+                    mPasswordView.setError(HttpCode.getHttpCodeInfo(httpCode));
+                    mPasswordView.requestFocus();
+                    return;
+                }
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
                         .show();
             }

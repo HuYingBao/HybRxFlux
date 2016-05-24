@@ -46,6 +46,11 @@
                     style="@style/s_button"
                     android:text="@string/title_activity_register_aty" />
 
+                <Button
+                    android:id="@+id/a_register_btRegShop"
+                    style="@style/s_button"
+                    android:text="@string/title_activity_register_shop" />
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
