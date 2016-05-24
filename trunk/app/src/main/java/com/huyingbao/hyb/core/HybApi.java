@@ -3,7 +3,6 @@ package com.huyingbao.hyb.core;
 
 import com.huyingbao.hyb.BuildConfig;
 import com.huyingbao.hyb.HybApp;
-import com.huyingbao.hyb.model.GitHubRepo;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
@@ -32,12 +31,6 @@ import rx.Observable;
 public interface HybApi {
 
     String ENDPOINT = BuildConfig.DEBUG ? "http://52.79.131.9:1337" : "http://52.79.131.9:1337";
-
-    @GET("/repositories")
-    Observable<ArrayList<GitHubRepo>> getRepositories();
-
-    @GET("/user/{userId}")
-    Observable<HybUser> getUser(@Path("userId") int userId);
 
     /**
      * 用户注册

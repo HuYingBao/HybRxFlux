@@ -18,7 +18,6 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
-import com.huyingbao.hyb.adapter.RepoAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.stores.UsersStore;
 
@@ -47,7 +46,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     CoordinatorLayout rootCoordinator;
 
 
-    private RepoAdapter adapter;
     private UsersStore usersStore;
 
     public ContactsFrg() {
@@ -159,7 +157,5 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     }
 
     private void refresh() {
-        setLoadingFrame(true);
-        HybApp.get(getContext()).startLocation();
     }
 }

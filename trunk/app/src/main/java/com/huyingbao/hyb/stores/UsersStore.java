@@ -1,7 +1,5 @@
 package com.huyingbao.hyb.stores;
 
-import android.support.v4.util.ArrayMap;
-
 import com.baidu.location.BDLocation;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
@@ -9,7 +7,6 @@ import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
-import com.huyingbao.hyb.model.GitUser;
 import com.huyingbao.hyb.model.HybUser;
 
 /**
@@ -24,7 +21,6 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
     public static final String STORE_ID = "UsersStore";
 
     private static UsersStore instance;
-    private ArrayMap<String, GitUser> users;
 
     /**
      * store 中存储的user
@@ -37,7 +33,6 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
 
     private UsersStore(Dispatcher dispatcher) {
         super(dispatcher);
-        users = new ArrayMap<>();
     }
 
     public static synchronized UsersStore get(Dispatcher dispatcher) {
@@ -64,10 +59,6 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 break;
             case Actions.GET_LOCATION:
                 bdLocation = action.get(Keys.LOCATION);
-                break;
-            case Actions.GET_USER:
-                GitUser user = action.get(Keys.USER);
-                users.put(user.getLogin(), user);
                 break;
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
