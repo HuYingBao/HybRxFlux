@@ -319,19 +319,6 @@ public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCall
         }
     }
 
-//    case RepositoriesStore.STORE_NAME:
-//            switch (change.getRxAction().getType()) {
-//        case Actions.GET_PUBLIC_REPOS:
-//            adapter.setRepos(repositoriesStore.getRepositories());
-//            break;
-//    }
-//    break;
-//    case UsersStore.STORE_NAME:
-//            switch (change.getRxAction().getType()) {
-//        case Actions.GET_USER:
-//            showUserFragment((String) change.getRxAction().getData().get(Keys.ID));
-//    }
-
     @Override
     public void onRxError(@NonNull RxError error) {
         showProgress(false);

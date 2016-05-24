@@ -97,7 +97,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getStoreId()) {
-            case UsersStore.STORE_NAME:
+            case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_USER:
                         HybUser user = (HybUser) change.getRxAction().getData().get(Keys.USER);

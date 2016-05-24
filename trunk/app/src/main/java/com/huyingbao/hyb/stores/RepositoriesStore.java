@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class RepositoriesStore extends RxStore implements RepositoriesStoreInterface {
 
-    public static final String STORE_NAME = "RepositoriesStore";
+    public static final String STORE_ID = "RepositoriesStore";
     private static RepositoriesStore instance;
     private ArrayList<GitHubRepo> gitHubRepos;
 
@@ -42,7 +42,7 @@ public class RepositoriesStore extends RxStore implements RepositoriesStoreInter
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
         }
-        postChange(new RxStoreChange(STORE_NAME, action));
+        postChange(new RxStoreChange(STORE_ID, action));
     }
 
     @Override
