@@ -36,12 +36,11 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
+import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
-import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
-import com.huyingbao.hyb.stores.RepositoriesStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.HttpCode;
 
@@ -307,13 +306,14 @@ public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCall
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         showProgress(false);
         switch (change.getStoreId()) {
-            case UsersStore.STORE_NAME:
+            case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
-                        change.getRxAction().getData()
-
+                        startActivity(MainAty.class);
                         break;
                 }
+                break;
+            case "sdf":
                 break;
 
         }

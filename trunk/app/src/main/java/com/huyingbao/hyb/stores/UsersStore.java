@@ -18,6 +18,11 @@ import java.util.ArrayList;
  */
 public class UsersStore extends RxStore implements UsersStoreInterface {
 
+    /**
+     * StoreId,用来在postChange(RxStoreChange change)时,生成RxStoreChange
+     * 在接受RxStoreChange的时候,区分是哪个store
+     */
+    public static final String STORE_ID = "UsersStore";
 
     private static UsersStore instance;
     private ArrayMap<String, GitUser> users;
@@ -53,12 +58,12 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 mUser = action.get(Keys.USER);
                 break;
             case Actions.LOGIN:
-            	mUser = action.get(Keys.USER);
-            	break;
+                mUser = action.get(Keys.USER);
+                break;
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
         }
-        postChange(new RxStoreChange(getStoreId(), action));
+        postChange(new RxStoreChange(STORE_ID, action));
     }
 
     @Override

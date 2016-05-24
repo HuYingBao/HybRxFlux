@@ -14,11 +14,6 @@ import com.hardsoftstudio.rxflux.dispatcher.RxActionDispatch;
  */
 public abstract class RxStore implements RxActionDispatch {
 
-    /**
-     * 当前Store的名字,用来
-     */
-    private String storeId;
-
     private final Dispatcher dispatcher;
 
     /**
@@ -27,7 +22,6 @@ public abstract class RxStore implements RxActionDispatch {
      * @param dispatcher
      */
     public RxStore(Dispatcher dispatcher) {
-        this.storeId = this.getClass().getName();
         this.dispatcher = dispatcher;
     }
 
@@ -53,14 +47,5 @@ public abstract class RxStore implements RxActionDispatch {
      */
     protected void postChange(RxStoreChange change) {
         dispatcher.postRxStoreChange(change);
-    }
-
-    /**
-     * 获取StoreId,用来在postChange(RxStoreChange change)时,生成RxStoreChange
-     *
-     * @return
-     */
-    public String getStoreId() {
-        return storeId;
     }
 }
