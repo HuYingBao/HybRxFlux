@@ -69,6 +69,12 @@ public class Dispatcher {
         }
     }
 
+    /**
+     * 注册view 到错误监听
+     *
+     * @param object
+     * @param <T>
+     */
     public <T extends RxViewDispatch> void subscribeRxError(final T object) {
         final String tag = object.getClass().getSimpleName() + "_error";
         Subscription subscription = rxActionMap.get(tag);
@@ -154,6 +160,12 @@ public class Dispatcher {
         }
     }
 
+    /**
+     * 将view解除注册
+     *
+     * @param object
+     * @param <T>
+     */
     public <T extends RxViewDispatch> void unsubscribeRxView(final T object) {
         String tag = object.getClass().getSimpleName();
         Subscription subscription = rxStoreMap.get(tag);

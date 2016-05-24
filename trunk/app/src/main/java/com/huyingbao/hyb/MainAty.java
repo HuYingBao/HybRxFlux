@@ -303,16 +303,28 @@ public class MainAty extends AppCompatActivity
 
     }
 
+
+    /**
+     * 将activity拥有的fragment注册到dispatcher
+     */
     @Override
     public void onRxViewRegistered() {
         Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
         if (fragment instanceof HomeFrg) {
-            HybApp.get(this).getRxFlux().getDispatcher().subscribeRxView((HomeFrg) fragment);
+            HybApp.get(this).getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
     }
 
+    /**
+     * 从dispatcher中解除fragment的注册
+     */
     @Override
     public void onRxViewUnRegistered() {
+        for (Fragment fragment : mFragments) {
+            if (fragment instanceof HomeFrg) {
+                HybApp.get(this).getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
+            }
+        }
     }
 
     @Nullable
@@ -340,4 +352,5 @@ public class MainAty extends AppCompatActivity
         mCurrentPosition = position;
         mViewPager.setCurrentItem(position, false);
     }
+
 }
