@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +19,8 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
-import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.RepoAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
-import com.huyingbao.hyb.model.GitHubRepo;
-import com.huyingbao.hyb.stores.RepositoriesStore;
 import com.huyingbao.hyb.stores.UsersStore;
 
 import java.util.List;
@@ -35,7 +32,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter.OnRepoClicked {
+public class HomeFrg extends BaseFragment implements RxViewDispatch {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -53,12 +50,11 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
 
     private RepoAdapter adapter;
     private UsersStore usersStore;
-    private RepositoriesStore repositoriesStore;
 
     public HomeFrg() {
-        repositoriesStore = RepositoriesStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
+        //调用getRxStoreListToRegister,注册rxstore,只能手动注册
         usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
-        repositoriesStore.register();
         usersStore.register();
     }
 
@@ -79,13 +75,6 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.f_home, container, false);
         ButterKnife.bind(this, rootView);
-
-        adapter = new RepoAdapter();
-        adapter.setCallback(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         return rootView;
     }
 
@@ -117,37 +106,19 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     }
 
     @Override
-    public void onClicked(GitHubRepo repo) {
-        String login = repo.getOwner().getLogin();
-        if (usersStore.getUser(login) != null) {
-            showUserFragment(login);
-            return;
-        }
-        setLoadingFrame(true);
-//        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
-    }
-
-
-    @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         setLoadingFrame(false);
-
         switch (change.getStoreId()) {
-            case RepositoriesStore.STORE_ID:
-                switch (change.getRxAction().getType()) {
-                    case Actions.GET_PUBLIC_REPOS:
-                        if (repositoriesStore != null) {
-
-                            adapter.setRepos(repositoriesStore.getRepositories());
-                        }
-                        break;
-                }
-                break;
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
-                    case Actions.GET_USER:
-                        showUserFragment((String) change.getRxAction().getData().get(Keys.ID));
+                    case Actions.GET_LOCATION:
+                        Snackbar.make(rootCoordinator, usersStore.getBDLocation().getCity(), Snackbar.LENGTH_INDEFINITE)
+                                .setAction("重试", v -> HybApp.get(getContext()).startLocation())
+                                .show();
+                        break;
+
                 }
+                break;
         }
     }
 
@@ -155,22 +126,14 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
     public void onRxError(@NonNull RxError error) {
         setLoadingFrame(false);
         Throwable throwable = error.getThrowable();
-//        if (throwable != null) {
-//            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
-//            throwable.printStackTrace();
-//        } else {
-//            Toast.makeText(getContext(), "Unknown error", Toast.LENGTH_LONG).show();
-//        }
     }
 
     @Override
     public void onRxViewRegistered() {
-        // If there is any fragment that needs to register store changes we can do it here
     }
 
     @Override
     public void onRxViewUnRegistered() {
-        // If there is any fragment that has registered for store changes we can unregister now
     }
 
     @Nullable
@@ -185,12 +148,11 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
         return null;
     }
 
-    private void showUserFragment(String id) {
-
-        UserFragment user_fragment = UserFragment.newInstance(id);
-        getFragmentManager().beginTransaction().replace(R.id.root, user_fragment).addToBackStack(null).commit();
-    }
-
+    /**
+     * 是否显示进度条
+     *
+     * @param show
+     */
     private void setLoadingFrame(boolean show) {
         if (progressLoading != null) {
             progressLoading.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -199,6 +161,6 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch, RepoAdapter
 
     private void refresh() {
         setLoadingFrame(true);
-        HybApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
+        HybApp.get(getContext()).startLocation();
     }
 }

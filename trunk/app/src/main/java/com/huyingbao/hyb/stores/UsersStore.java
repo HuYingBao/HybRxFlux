@@ -2,6 +2,7 @@ package com.huyingbao.hyb.stores;
 
 import android.support.v4.util.ArrayMap;
 
+import com.baidu.location.BDLocation;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
@@ -10,8 +11,6 @@ import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.model.GitUser;
 import com.huyingbao.hyb.model.HybUser;
-
-import java.util.ArrayList;
 
 /**
  * Created by marcel on 09/10/15.
@@ -27,7 +26,14 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
     private static UsersStore instance;
     private ArrayMap<String, GitUser> users;
 
+    /**
+     * store 中存储的user
+     */
     private HybUser mUser;
+    /**
+     * store 中存储的BDLocation
+     */
+    private BDLocation bdLocation;
 
     private UsersStore(Dispatcher dispatcher) {
         super(dispatcher);
@@ -56,6 +62,9 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
             case Actions.LOGIN:
                 mUser = action.get(Keys.USER);
                 break;
+            case Actions.GET_LOCATION:
+                bdLocation = action.get(Keys.LOCATION);
+                break;
             case Actions.GET_USER:
                 GitUser user = action.get(Keys.USER);
                 users.put(user.getLogin(), user);
@@ -67,14 +76,12 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
     }
 
     @Override
-    public GitUser getUser(String id) {
-        return users.get(id);
+    public HybUser getUser() {
+        return mUser;
     }
 
     @Override
-    public ArrayList<GitUser> getUsers() {
-        // TODO Make this store contains a list of users so every time we fetch a user we added to
-        // the list, so we don't need to request it again
-        return new ArrayList<>();
+    public BDLocation getBDLocation() {
+        return bdLocation;
     }
 }

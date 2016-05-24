@@ -59,7 +59,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginAtyCopy extends BaseActivity implements RxViewDispatch, LoaderCallbacks<Cursor> {
+public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -285,7 +285,7 @@ public class LoginAtyCopy extends BaseActivity implements RxViewDispatch, Loader
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginAtyCopy.this,
+                new ArrayAdapter<>(LoginAty.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
