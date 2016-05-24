@@ -38,9 +38,12 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
+import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.stores.RepositoriesStore;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.utils.HttpCode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -195,8 +198,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCall
             HybUser user = new HybUser();
             user.setPhone(email);
             user.setPassword(password);
-            HybApp.get(mContext).getGitHubActionCreator().getUserDetails(1);
-//            HybApp.get(this).getGitHubActionCreator().login(user);
+            HybApp.get(this).getGitHubActionCreator().login(user);
         }
     }
 
@@ -308,12 +310,27 @@ public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCall
             case UsersStore.STORE_NAME:
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
+                        change.getRxAction().getData()
+
                         break;
                 }
                 break;
 
         }
     }
+
+//    case RepositoriesStore.STORE_NAME:
+//            switch (change.getRxAction().getType()) {
+//        case Actions.GET_PUBLIC_REPOS:
+//            adapter.setRepos(repositoriesStore.getRepositories());
+//            break;
+//    }
+//    break;
+//    case UsersStore.STORE_NAME:
+//            switch (change.getRxAction().getType()) {
+//        case Actions.GET_USER:
+//            showUserFragment((String) change.getRxAction().getData().get(Keys.ID));
+//    }
 
     @Override
     public void onRxError(@NonNull RxError error) {
@@ -330,7 +347,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch, LoaderCall
 //                    .show();
 //            throwable.printStackTrace();
             if (throwable instanceof HttpException) {
-                Snackbar.make(rootCoordinator, ((HttpException) throwable).code()+"", Snackbar.LENGTH_INDEFINITE)
+                int httpCode = ((HttpException) throwable).code();
+                Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
                         .show();
             }
         } else {

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class UsersStore extends RxStore implements UsersStoreInterface {
 
-    public static final String STORE_NAME = "UsersStore";
+
     private static UsersStore instance;
     private ArrayMap<String, GitUser> users;
 
@@ -39,6 +39,8 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
      * some logic with the model, for example add it to the list to cache it, modify
      * fields etc.. all the logic for the models should go here and then call postChange so the
      * view request the new data
+     * 这个回调接收所有的actions(RxAction),每个store都必须根据action的type做出反应,,例如将其添加到列表缓存,修改字段等。
+     * 所有的逻辑模型应该在这里,然后调用postChange请求新数据视图
      */
     @Override
     public void onRxAction(RxAction action) {
@@ -50,10 +52,13 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
             case Actions.REGISTER_USER:
                 mUser = action.get(Keys.USER);
                 break;
+            case Actions.LOGIN:
+            	mUser = action.get(Keys.USER);
+            	break;
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
         }
-        postChange(new RxStoreChange(STORE_NAME, action));
+        postChange(new RxStoreChange(getStoreId(), action));
     }
 
     @Override
