@@ -50,6 +50,7 @@ public interface RxViewDispatch {
      * <p>
      * For example, a base method could create a list with the common stores and each activity will add stores
      * in case they are needed.
+     * activity启动的时候调用该方法,
      *
      * @return list of {@link RxStore} to be registered, can be null.
      */
