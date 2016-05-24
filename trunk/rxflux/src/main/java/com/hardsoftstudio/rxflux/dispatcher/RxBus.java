@@ -65,23 +65,4 @@ public class RxBus {
     public boolean hasObservers() {
         return bus.hasObservers();
     }
-
-
-    /**
-     * 根据传递的 eventType 类型返回特定类型(eventType)的 被观察者
-     *
-     * @param eventType
-     * @param <T>
-     * @return
-     */
-    public <T> Observable<T> toObserverable(Class<T> eventType) {
-        return bus.ofType(eventType);
-//        这里感谢小鄧子的提醒: ofType = filter + cast
-//        return bus.filter(new Func1<Object, Boolean>() {
-//            @Override
-//            public Boolean call(Object o) {
-//                return eventType.isInstance(o);
-//            }
-//        }) .cast(eventType);
-    }
 }
