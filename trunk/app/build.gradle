@@ -8,15 +8,39 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    //签名配置,自定义,用在defaultConfig中
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+        }
+        release {
+            storeFile file('release.keystore')
+            storePassword 'hyzcrsz85870855'
+            keyAlias 'huanyuzhicheng'
+            keyPassword 'hyzcrsz85870855'
+        }
+    }
+
+    //默认配置
     defaultConfig {
         applicationId "com.huyingbao.hyb"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        //签名配置
+        signingConfig signingConfigs.debug
     }
+
+    //构建过程
     buildTypes {
+        debug {
+            //混淆开关
+            minifyEnabled false
+            proguardFile 'proguard-rules.pro'
+        }
         release {
+            //混淆开关
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
