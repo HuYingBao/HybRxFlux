@@ -25,7 +25,7 @@ public class HybApp extends Application {
     private HybActionCreator gitHubActionCreator;
     private RxFlux rxFlux;
 
-    public LocationClient mLocationClient = null;
+    private static LocationClient mLocationClient;
 
     public static HybApp get(Context context) {
         return ((HybApp) context.getApplicationContext());
@@ -56,6 +56,18 @@ public class HybApp extends Application {
     }
 
     /**
+     * 位置监听器
+     */
+    private BDLocationListener bdLocationListener = new BDLocationListener() {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            getGitHubActionCreator().getLocation(bdLocation);
+            //接收到位置信息之后,LocationClient取消位置监听器
+            mLocationClient.unRegisterLocationListener(this);
+        }
+    };
+
+    /**
      * 初始化百度定位
      */
     private void initLocation() {
@@ -75,23 +87,19 @@ public class HybApp extends Application {
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
         mLocationClient.setLocOption(option);
-        //注册监听函数
-        mLocationClient.registerLocationListener(new BDLocationListener() {
-
-            @Override
-            public void onReceiveLocation(BDLocation bdLocation) {
-                getGitHubActionCreator().getLocation(bdLocation);
-            }
-        });
     }
 
     /**
      * 开始定位
      */
     public void startLocation() {
+        //如果没有初始化,先初始化
         if (mLocationClient == null) {
             initLocation();
         }
+        //注册位置监听器
+        mLocationClient.registerLocationListener(bdLocationListener);
+        //开始定位
         mLocationClient.start();
     }
 }
