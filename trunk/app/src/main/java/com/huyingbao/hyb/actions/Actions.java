@@ -16,5 +16,7 @@ public interface Actions {
 
     void getLocation(BDLocation location);
 
+
+
     boolean retry(RxAction action);
 }
