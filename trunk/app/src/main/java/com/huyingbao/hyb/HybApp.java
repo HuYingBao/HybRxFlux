@@ -11,9 +11,6 @@ import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.hyb.actions.HybActionCreator;
 
-/**
- * Created by marcel on 10/09/15.
- */
 public class HybApp extends Application {
 
     private static HybApp intantce;
