@@ -68,6 +68,7 @@ public class MainAty extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //设置toolbar
         setSupportActionBar(toolbar);
         setContentView(R.layout.a_main);
         ButterKnife.bind(this);

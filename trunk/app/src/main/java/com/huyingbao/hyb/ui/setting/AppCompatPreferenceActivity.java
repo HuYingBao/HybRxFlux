@@ -18,6 +18,9 @@ import android.view.ViewGroup;
  */
 public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
 
+    /**
+     * 该activity并未继承AppCompatActivity,需要AppCompatDelegate将 Toolbar 添加到 Activity 上。
+     */
     private AppCompatDelegate mDelegate;
 
     @Override
@@ -100,6 +103,9 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().invalidateOptionsMenu();
     }
 
+    /**
+     * @return
+     */
     private AppCompatDelegate getDelegate() {
         if (mDelegate == null) {
             mDelegate = AppCompatDelegate.create(this, null);
