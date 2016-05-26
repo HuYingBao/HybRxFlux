@@ -5,78 +5,81 @@ package com.huyingbao.hyb.model;
  */
 public class Shop {
 
+
     /**
-     * phone : 15810719581
-     * uuid : 4b3c9bd1-4acb-4a6c-94b6-a98db5df1538
-     * voip : 8009549900000099
-     * userName : 普通用户
-     * type : 1
-     * sex : 0
+     * shopName : dsfgfd使得法国
+     * code : 45853594
+     * shopType : 0
+     * longitude : 118.768226
+     * latitude : 31.984898
+     * enableShowPro : 0
      * status : 0
-     * belongShop : 1
-     * createdAt : 2016-05-24T00:11:02.277Z
-     * updatedAt : 2016-05-24T05:38:50.907Z
-     * userId : 1
+     * createdAt : 2016-05-24T05:38:50.902Z
+     * updatedAt : 2016-05-24T06:33:35.360Z
+     * shopId : 1
+     * headImg : http://www.jf258.com/uploads/2014-08-31/062812761.jpg
+     * shopDesc : dfgdfg
      */
 
-    private String phone;
-    private String uuid;
-    private String voip;
-    private String userName;
-    private int type;
-    private int sex;
+    private String shopName;
+    private int code;
+    private int shopType;
+    private double longitude;
+    private double latitude;
+    private int enableShowPro;
     private int status;
-    private int belongShop;
     private String createdAt;
     private String updatedAt;
-    private int userId;
+    private int shopId;
+    private String headImg;
+    private String shopDesc;
 
-    public String getPhone() {
-        return phone;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
-    public String getUuid() {
-        return uuid;
+    public int getCode() {
+        return code;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getVoip() {
-        return voip;
+    public int getShopType() {
+        return shopType;
     }
 
-    public void setVoip(String voip) {
-        this.voip = voip;
+    public void setShopType(int shopType) {
+        this.shopType = shopType;
     }
 
-    public String getUserName() {
-        return userName;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public int getType() {
-        return type;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public int getSex() {
-        return sex;
+    public int getEnableShowPro() {
+        return enableShowPro;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
+    public void setEnableShowPro(int enableShowPro) {
+        this.enableShowPro = enableShowPro;
     }
 
     public int getStatus() {
@@ -85,14 +88,6 @@ public class Shop {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public int getBelongShop() {
-        return belongShop;
-    }
-
-    public void setBelongShop(int belongShop) {
-        this.belongShop = belongShop;
     }
 
     public String getCreatedAt() {
@@ -111,11 +106,27 @@ public class Shop {
         this.updatedAt = updatedAt;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getShopId() {
+        return shopId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getShopDesc() {
+        return shopDesc;
+    }
+
+    public void setShopDesc(String shopDesc) {
+        this.shopDesc = shopDesc;
     }
 }

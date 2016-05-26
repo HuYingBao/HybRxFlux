@@ -28,6 +28,7 @@ import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.ui.shop.RegisterShopAty;
 import com.huyingbao.hyb.utils.HttpCode;
 
 import java.util.Arrays;
@@ -85,7 +86,6 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
         user.setPhone(email);
         user.setPassword(password);
         HybApp.get(this).getGitHubActionCreator().registerUser(user);
-
     }
 
 
@@ -95,8 +95,9 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_USER:
-                        this.finish();
+//                        this.finish();
                         HybUser user = (HybUser) change.getRxAction().getData().get(Keys.USER);
+
                         break;
                 }
                 break;
@@ -155,7 +156,8 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.email_register_button:
-                registerUser();
+//                registerUser();
+                startActivity(RegisterShopAty.class);
                 break;
         }
     }

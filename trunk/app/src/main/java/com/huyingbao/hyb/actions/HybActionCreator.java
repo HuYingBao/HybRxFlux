@@ -7,6 +7,7 @@ import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.model.Shop;
 
 import rx.Observable;
 import rx.Observer;
@@ -100,6 +101,20 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                         postError(action, throwable);
                     }
                 }));
+    }
+
+    @Override
+    public void registerShop(Shop shop) {
+        final RxAction action = newRxAction(REGISTER_SHOP, Keys.SHOP, shop);
+        if (hasRxAction(action)) return;
+        addRxAction(action, HybApi.Factory.getApi()
+                .registerShop(shop)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(shopResponse -> {
+                    action.getData().put(Keys.SHOP, shopResponse);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
     }
 
     @Override

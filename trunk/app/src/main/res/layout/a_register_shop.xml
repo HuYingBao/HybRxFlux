@@ -1,0 +1,49 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_coordinator"
+    style="@style/s_coordinator"
+    tools:context=".ui.shop.RegisterShopAty">
+
+    <LinearLayout style="@style/s_linearlayout">
+
+        <ProgressBar
+            android:id="@+id/login_progress"
+            style="@style/s_progressbar"
+            tools:visibility="visible" />
+
+        <ScrollView
+            android:id="@+id/login_form"
+            style="@style/s_scrollview">
+
+            <LinearLayout
+                android:id="@+id/email_login_form"
+                style="@style/s_linearlayout_contant">
+
+                <android.support.design.widget.TextInputLayout style="@style/s_textinput">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/shop"
+                        style="@style/s_autocomplete"
+                        android:hint="@string/shop" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:entries="@array/shop_type"
+                    android:spinnerMode="dialog" />
+
+                <Button
+                    android:id="@+id/email_register_button"
+                    style="@style/s_button"
+                    android:text="@string/title_activity_register_aty" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
+
+
