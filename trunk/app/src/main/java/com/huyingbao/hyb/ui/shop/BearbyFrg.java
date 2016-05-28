@@ -131,6 +131,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_NEARBY_SHOP:
                         shopStore.getShopList();
+                        break;
                 }
                 break;
         }
