@@ -45,7 +45,7 @@ public class MainAty extends BaseActivity
      */
     private static final int COUNT_FRAGMENT = 3;
 
-    @Bind(R.id.a_main_tbBar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.container)
     ViewPager mViewPager;
@@ -206,10 +206,10 @@ public class MainAty extends BaseActivity
         return true;
     }
 
-    @OnClick({R.id.a_main_tbBar, R.id.container, R.id.tabs, R.id.fab, R.id.a_main_nvMain, R.id.a_main_dlMain})
+    @OnClick({R.id.toolbar, R.id.container, R.id.tabs, R.id.fab, R.id.a_main_nvMain, R.id.a_main_dlMain})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.a_main_tbBar:
+            case R.id.toolbar:
                 break;
             case R.id.container:
                 break;
