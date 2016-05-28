@@ -147,7 +147,6 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
                 }
                 break;
         }
-
     }
 
     @Override

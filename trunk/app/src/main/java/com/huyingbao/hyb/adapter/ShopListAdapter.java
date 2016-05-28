@@ -81,7 +81,6 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
         this.onShopClickCallBack = onShopClickCallBack;
     }
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.description)
         public TextView descView;
