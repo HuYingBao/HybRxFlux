@@ -38,7 +38,7 @@ import retrofit2.adapter.rxjava.HttpException;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnRepoClicked {
+public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnShopClicked {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -90,7 +90,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShopListAdapter();
-        adapter.setCallback(this);
+        adapter.setOnShopClickCallBack(this);
         recyclerView.setAdapter(adapter);
         return rootView;
     }
@@ -142,7 +142,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_NEARBY_SHOP:
                         setLoadingFrame(false);
-                        adapter.setRepos(shopStore.getShopList());
+                        adapter.setShopList(shopStore.getShopList());
                         break;
                 }
                 break;
@@ -206,7 +206,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
     }
 
     @Override
-    public void onClicked(Shop repo) {
+    public void onClicked(Shop shop) {
 
     }
 }

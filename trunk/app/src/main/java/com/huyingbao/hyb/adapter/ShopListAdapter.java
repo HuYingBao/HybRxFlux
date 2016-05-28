@@ -4,8 +4,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.model.Shop;
 
@@ -19,12 +22,24 @@ import butterknife.ButterKnife;
  */
 public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHolder> {
 
-    private ArrayList<Shop> repos;
-    private OnRepoClicked callback;
+    /**
+     * 点击回调接口
+     */
+    public interface OnShopClicked {
+        void onClicked(Shop shop);
+    }
 
+    private OnShopClicked onShopClickCallBack;
+
+    private ArrayList<Shop> mShopList;
+
+
+    /**
+     * 构造方法,初始化数据list
+     */
     public ShopListAdapter() {
         super();
-        repos = new ArrayList<Shop>();
+        mShopList = new ArrayList<Shop>();
     }
 
     @Override
@@ -35,30 +50,37 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Shop repo = repos.get(i);
-        viewHolder.setUp(repo);
+        Shop repo = mShopList.get(i);
+        viewHolder.setShowData(repo);
         viewHolder.itemView.setOnClickListener(view -> {
-            if (callback != null) callback.onClicked(repo);
+            if (onShopClickCallBack != null) onShopClickCallBack.onClicked(repo);
         });
     }
 
     @Override
     public int getItemCount() {
-        return repos.size();
+        return mShopList.size();
     }
 
-    public void setRepos(ArrayList<Shop> repos) {
-        this.repos = repos;
+    /**
+     * 适配数据
+     *
+     * @param shopList
+     */
+    public void setShopList(ArrayList<Shop> shopList) {
+        this.mShopList = shopList;
         notifyDataSetChanged();
     }
 
-    public void setCallback(OnRepoClicked callback) {
-        this.callback = callback;
+    /**
+     * 设置点击回调
+     *
+     * @param onShopClickCallBack
+     */
+    public void setOnShopClickCallBack(OnShopClicked onShopClickCallBack) {
+        this.onShopClickCallBack = onShopClickCallBack;
     }
 
-    public interface OnRepoClicked {
-        void onClicked(Shop repo);
-    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.description)
@@ -67,16 +89,25 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
         public TextView idView;
         @Bind(R.id.name)
         TextView nameView;
+        @Bind(R.id.imageView)
+        ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void setUp(Shop repo) {
-            nameView.setText(repo.getShopName());
-            descView.setText(repo.getShopDesc());
-            idView.setText("shop code: " + repo.getCode());
+        public void setShowData(Shop shop) {
+            nameView.setText(shop.getShopName());
+            descView.setText(shop.getShopDesc());
+            idView.setText("shop code: " + shop.getCode());
+            Glide.with(HybApp.getInstance())
+                    .load(shop.getHeadImg())
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_menu_camera)
+                    .crossFade()
+                    .into(imageView);
+
         }
     }
 }
