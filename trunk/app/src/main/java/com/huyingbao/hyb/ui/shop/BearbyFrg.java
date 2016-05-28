@@ -118,9 +118,9 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_LOCATION:
                         HybApp.getInstance().getGitHubActionCreator().getNearbyShopList(
-                                usersStore.getBDLocation().getLatitude(),
                                 usersStore.getBDLocation().getLongitude(),
-                                1000,
+                                usersStore.getBDLocation().getLatitude(),
+                                10000,
                                 0
                         );
                         break;

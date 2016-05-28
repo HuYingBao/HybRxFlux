@@ -8,10 +8,17 @@ import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 
 import java.io.File;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -184,6 +191,11 @@ public interface HybApi {
         private static HybApi instance;
 
         private static void create() {
+
+            CookieManager cookieManager = new CookieManager();
+            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+            CookieHandler.setDefault(cookieManager);
+
             //初始化OKHttpClient builder
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             //设置缓存目录
@@ -191,6 +203,53 @@ public interface HybApi {
                     "HttpCache");
             Cache cache = new Cache(cacheDirectory, 20 * 1024 * 1024);
             builder.cache(cache);
+            //通过cookiejar来实现cookies的持久化
+//            builder.cookieJar(new CookieJar() {
+//                private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
+//
+//                @Override
+//                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//                    cookieStore.put(url, cookies);
+//                }
+//
+//                @Override
+//                public List<Cookie> loadForRequest(HttpUrl url) {
+//                    List<Cookie> cookies = cookieStore.get(url);
+//                    return cookies != null ? cookies : new ArrayList<Cookie>();
+//                }
+//            });
+//            builder.cookieJar(new CookieJar() {
+//                private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+//                //Tip：這裡key必須是String
+//                @Override
+//                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//                    cookieStore.put(url.host(), cookies);
+//                }
+//                @Override
+//                public List<Cookie> loadForRequest(HttpUrl url) {
+//                    List<Cookie> cookies = cookieStore.get(url.host());
+//                    return cookies != null ? cookies : new ArrayList<Cookie>();
+//                }
+//            });
+            builder.cookieJar(new CookieJar() {
+                private final PersistentCookieStore cookieStore = new PersistentCookieStore(HybApp.getInstance());
+
+                //Tip：這裡key必須是String
+                @Override
+                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                    if (cookies != null && cookies.size() > 0) {
+                        for (Cookie item : cookies) {
+                            cookieStore.add(url, item);
+                        }
+                    }
+                }
+
+                @Override
+                public List<Cookie> loadForRequest(HttpUrl url) {
+                    List<Cookie> cookies = cookieStore.get(url);
+                    return cookies != null ? cookies : new ArrayList<Cookie>();
+                }
+            });
             //设定30秒超时
             builder.connectTimeout(30, TimeUnit.SECONDS);
             //设置拦截器，以用于自定义Cookies的设置
