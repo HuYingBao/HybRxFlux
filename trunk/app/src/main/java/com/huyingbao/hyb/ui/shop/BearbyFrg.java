@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,9 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
+import com.huyingbao.hyb.adapter.RepoAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
+import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.HttpCode;
@@ -35,7 +38,7 @@ import retrofit2.adapter.rxjava.HttpException;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class BearbyFrg extends BaseFragment implements RxViewDispatch {
+public class BearbyFrg extends BaseFragment implements RxViewDispatch, RepoAdapter.OnRepoClicked {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -44,6 +47,8 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
 
     private final ShopStore shopStore;
     private UsersStore usersStore;
+    private RepoAdapter adapter;
+
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     @Bind(R.id.progress_loading)
@@ -81,6 +86,12 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.f_home, container, false);
         ButterKnife.bind(this, rootView);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new RepoAdapter();
+        adapter.setCallback(this);
+        recyclerView.setAdapter(adapter);
         return rootView;
     }
 
@@ -130,7 +141,9 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
             case ShopStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_NEARBY_SHOP:
-                        shopStore.getShopList();
+                        setLoadingFrame(false);
+                        adapter.setRepos(shopStore.getShopList());
+
                         break;
                 }
                 break;
@@ -191,5 +204,10 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
     private void getNearbyShopList() {
         setLoadingFrame(true);
         HybApp.getInstance().startLocation();
+    }
+
+    @Override
+    public void onClicked(Shop repo) {
+
     }
 }
