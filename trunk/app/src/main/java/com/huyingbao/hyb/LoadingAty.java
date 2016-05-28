@@ -1,12 +1,10 @@
-package com.huyingbao.hyb.ui;
+package com.huyingbao.hyb;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-import com.huyingbao.hyb.MainAty;
-import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.ui.login.LoginAty;
 

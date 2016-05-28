@@ -34,7 +34,7 @@
             android:value="qj06uzGwzhigefqCMXQyuIoWEa0QB6Fn" />
 
         <activity
-            android:name=".ui.LoadingAty"
+            android:name=".LoadingAty"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_loading_aty"
             android:theme="@style/FullscreenTheme">
