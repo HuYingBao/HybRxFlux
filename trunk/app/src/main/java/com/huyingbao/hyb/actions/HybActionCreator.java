@@ -10,7 +10,6 @@ import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Shop;
 
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -74,7 +73,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void getLocation(BDLocation location) {
+    public void postLocation(BDLocation location) {
         //创建RxAction,传入键值对参数
         final RxAction action = newRxAction(GET_LOCATION, Keys.LOCATION, location);
         if (hasRxAction(action)) return;
@@ -85,22 +84,10 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                         subscriber.onNext(location);
                         subscriber.onCompleted();
                     }
-                }).subscribe(new Observer<BDLocation>() {
-                    @Override
-                    public void onNext(BDLocation bdLocation) {
-                        action.getData().put(Keys.USER, bdLocation);
-                        postRxAction(action);
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        postError(action, throwable);
-                    }
-                }));
+                }).subscribe(bdLocation -> {
+                    action.getData().put(Keys.USER, bdLocation);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
     }
 
     @Override
@@ -118,6 +105,20 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
+    public void getNearbyShopList(double longitude, double latitude, int radius, int shopType) {
+        final RxAction action = newRxAction(GET_NEARBY_SHOP, Keys.LONGITUDE, longitude, Keys.LATITUDE, latitude, Keys.RADIUS, radius, Keys.SHOPTYPE, shopType);
+        if (hasRxAction(action)) return;
+        addRxAction(action, HybApi.Factory.getApi()
+                .getShopByLocation(longitude, latitude, radius, shopType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(shopListResponse -> {
+                    action.getData().put(Keys.SHOP_LIST, shopListResponse);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
     public boolean retry(RxAction action) {
         if (hasRxAction(action)) return true;
 
@@ -127,6 +128,17 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 return true;
             case REGISTER_USER:
                 registerUser((HybUser) action.getData().get(Keys.USER));
+                return true;
+            case GET_LOCATION:
+                postLocation((BDLocation) action.getData().get(Keys.LOCATION));
+                return true;
+            case GET_NEARBY_SHOP:
+                getNearbyShopList(
+                        (double) action.getData().get(Keys.LONGITUDE),
+                        (double) action.getData().get(Keys.LATITUDE),
+                        (int) action.getData().get(Keys.RADIUS),
+                        (int) action.getData().get(Keys.SHOPTYPE)
+                );
                 return true;
         }
         return false;

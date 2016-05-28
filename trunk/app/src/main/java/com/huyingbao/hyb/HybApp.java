@@ -86,7 +86,7 @@ public class HybApp extends Application {
         mBDLocationListener = new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                getGitHubActionCreator().getLocation(bdLocation);
+                getGitHubActionCreator().postLocation(bdLocation);
                 //接收到位置信息之后,LocationClient取消位置监听器
                 mLocationClient.unRegisterLocationListener(this);
             }

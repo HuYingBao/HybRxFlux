@@ -1,15 +1,17 @@
-package com.huyingbao.hyb.ui.home;
+package com.huyingbao.hyb.ui.shop;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
@@ -19,6 +21,7 @@ import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseFragment;
+import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 
 import java.util.List;
@@ -30,12 +33,15 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class HomeFrg extends BaseFragment implements RxViewDispatch {
+public class BearbyFrg extends BaseFragment implements RxViewDispatch {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+
+    private final ShopStore shopStore;
+    private UsersStore usersStore;
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     @Bind(R.id.progress_loading)
@@ -45,21 +51,23 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
-    private UsersStore usersStore;
 
-    public HomeFrg() {
+    public BearbyFrg() {
         //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
         //调用getRxStoreListToRegister,注册rxstore,只能手动注册
         usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
         usersStore.register();
+        shopStore = ShopStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        shopStore.register();
+
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static HomeFrg newInstance(int sectionNumber) {
-        HomeFrg fragment = new HomeFrg();
+    public static BearbyFrg newInstance(int sectionNumber) {
+        BearbyFrg fragment = new BearbyFrg();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -78,7 +86,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        getNearbyShopList();
     }
 
     @Override
@@ -107,21 +115,36 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_LOCATION:
-//                        Snackbar.make(rootCoordinator, usersStore.getBDLocation().getLatitude() + "," + usersStore.getBDLocation().getLongitude(), Snackbar.LENGTH_INDEFINITE)
-//                                .setAction("重试", v -> HybApp.getInstance().startLocation())
-//                                .show();
-//                        HybApp.getInstance().getGitHubActionCreator().
+                        HybApp.getInstance().getGitHubActionCreator().getNearbyShopList(
+                                usersStore.getBDLocation().getLatitude(),
+                                usersStore.getBDLocation().getLongitude(),
+                                1000,
+                                0
+                        );
                         break;
 
                 }
                 break;
+            case ShopStore.STORE_ID:
+                switch (change.getRxAction().getType()){
+                    case Actions.GET_NEARBY_SHOP:
+                        shopStore.getShopList();
+                }
+                break;
         }
+
     }
 
     @Override
     public void onRxError(@NonNull RxError error) {
         setLoadingFrame(false);
         Throwable throwable = error.getThrowable();
+        if (throwable != null) {
+            Snackbar.make(rootCoordinator, "有错误,请重试!" + error.getAction().getType(), Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.getInstance().getGitHubActionCreator().retry(error.getAction())).show();
+            throwable.printStackTrace();
+        } else {
+            Toast.makeText(getContext(), "未知错误!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -155,7 +178,10 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
         }
     }
 
-    private void refresh() {
+    /**
+     * 获取附近的店铺
+     */
+    private void getNearbyShopList() {
         setLoadingFrame(true);
         HybApp.getInstance().startLocation();
     }

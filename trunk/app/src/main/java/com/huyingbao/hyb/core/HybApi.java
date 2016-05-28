@@ -120,6 +120,23 @@ public interface HybApi {
     @GET("/getShopByCode/{code}")
     Observable<Shop> getShopByCode(@Path("code") String code);
 
+    /**
+     * 获取店铺-根据用户所在位置,半径以内的
+     *
+     * @param longitude
+     * @param latitude
+     * @param radius
+     * @param shopType
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/shop/getShopByLocation")
+    Observable<ArrayList<Shop>> getShopByLocation(
+            @Field("longitude") double longitude,
+            @Field("latitude") double latitude,
+            @Field("radius") int radius,
+            @Field("shopType") int shopType
+    );
 
     /**
      * 店长添加商品
@@ -132,7 +149,7 @@ public interface HybApi {
 
 
     /**
-     * 根据uuid获取对应的商品
+     * 根据uuid获取对应的商品,@Path:是在get请求中用到
      *
      * @param uuid
      * @return

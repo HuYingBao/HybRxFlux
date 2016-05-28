@@ -30,6 +30,7 @@ import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.home.HomeFrg;
+import com.huyingbao.hyb.ui.shop.BearbyFrg;
 
 import java.util.List;
 
@@ -40,6 +41,9 @@ import butterknife.OnClick;
 public class MainAty extends AppCompatActivity
         implements RxViewDispatch, NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * 页面个数
+     */
     private static final int COUNT_FRAGMENT = 3;
 
     @Bind(R.id.a_main_tbBar)
@@ -253,7 +257,7 @@ public class MainAty extends AppCompatActivity
             }
             switch (position) {
                 case 0:
-                    mFragments[position] = HomeFrg.newInstance(position);
+                    mFragments[position] = BearbyFrg.newInstance(position);
                     break;
                 case 1:
                     mFragments[position] = ContactsFrg.newInstance(position);
@@ -314,6 +318,9 @@ public class MainAty extends AppCompatActivity
         if (fragment instanceof HomeFrg) {
             HybApp.getInstance().getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
+        if (fragment instanceof BearbyFrg) {
+            HybApp.getInstance().getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+        }
     }
 
     /**
@@ -323,6 +330,9 @@ public class MainAty extends AppCompatActivity
     public void onRxViewUnRegistered() {
         for (Fragment fragment : mFragments) {
             if (fragment instanceof HomeFrg) {
+                HybApp.getInstance().getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
+            }
+            if (fragment instanceof BearbyFrg) {
                 HybApp.getInstance().getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
             }
         }
