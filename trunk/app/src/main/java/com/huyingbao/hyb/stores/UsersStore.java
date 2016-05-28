@@ -5,6 +5,7 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.model.HybUser;
@@ -55,6 +56,8 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 mUser = action.get(Keys.USER);
                 break;
             case Actions.LOGIN:
+                //保存登录状态
+                HybApp.getInstance().getLocalSorageUtils().setLogin(true);
                 mUser = action.get(Keys.USER);
                 break;
             case Actions.GET_LOCATION:

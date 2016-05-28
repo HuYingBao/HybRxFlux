@@ -2,16 +2,18 @@ package com.huyingbao.hyb.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.ui.login.LoginAty;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class LoadingAty extends AppCompatActivity {
+public class LoadingAty extends BaseActivity {
     private static final int DELAY_ACTION = 300;
     private final Handler mHideHandler = new Handler();
     /**
@@ -19,7 +21,14 @@ public class LoadingAty extends AppCompatActivity {
      */
     private final Runnable mHandleActionRunnable = new Runnable() {
         public void run() {
-
+            if (mLocalStorageUtils.isFirstTime()) {
+                startActivity(LoginAty.class);
+            } else if (!mLocalStorageUtils.isLogin()) {
+                startActivity(LoginAty.class);
+            } else {
+                startActivity(MainAty.class);
+            }
+            finish();
         }
     };
 

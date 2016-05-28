@@ -16,6 +16,9 @@ public class LocalStorageUtils {
     private static final String FIRST_TIME = "first_time";
     private static final boolean FIRST_TIME_DEFAULT = true;
 
+    private static final String LOGIN = "login";//是否登录
+    private static final boolean LOGIN_DEFAULT = false;
+
     private static final String INTRODUCE = "introduce";
     private static final String INTRODUCE_1_2_0 = "introduce 1.2.0";
     private static final boolean INTRODUCE_DEFAULT = false;
@@ -89,6 +92,28 @@ public class LocalStorageUtils {
         }
         return value;
     }
+
+
+    /**
+     * 判断是否登录
+     *
+     * @return
+     */
+    public boolean isLogin() {
+        return mSharedPreferences.getBoolean(LOGIN, LOGIN_DEFAULT);
+    }
+
+    /**
+     * 设置登录状态
+     *
+     * @param loginState true已经登录
+     */
+    public void setLogin(boolean loginState) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(LOGIN, loginState);
+        editor.commit();
+    }
+
 
     /**
      * 是不是进入introduce界面
