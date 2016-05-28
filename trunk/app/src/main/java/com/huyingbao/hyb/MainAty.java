@@ -14,16 +14,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.home.HomeFrg;
 import com.huyingbao.hyb.ui.shop.BearbyFrg;
@@ -34,7 +37,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainAty extends AppCompatActivity
+public class MainAty extends BaseActivity
         implements RxViewDispatch, NavigationView.OnNavigationItemSelectedListener {
 
     /**
@@ -63,6 +66,7 @@ public class MainAty extends AppCompatActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private FragmentManager mFragmentManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +80,10 @@ public class MainAty extends AppCompatActivity
         toggle.syncState();
         //右侧导航视图
         navView.setNavigationItemSelectedListener(this);
+
+        //初始化左侧导航
+        initNavView();
+
         //初始化fragment数组
         mFragments = new Fragment[COUNT_FRAGMENT];
         //初始化fragmentmanger
@@ -90,6 +98,26 @@ public class MainAty extends AppCompatActivity
         //底部tab跟随viewpager
         tabs.setupWithViewPager(mViewPager);
         recover(savedInstanceState);
+    }
+
+    /**
+     * 初始化左侧导航
+     */
+    private void initNavView() {
+        View headerView = navView.getHeaderView(navView.getHeaderCount() - 1);
+        ImageView nHeaderIvUserHeadImg = (ImageView) headerView.findViewById(R.id.n_header_ivUserHeadImg);
+        TextView nHeaderTvUserName = (TextView) headerView.findViewById(R.id.n_header_tvUserName);
+        TextView nHeaderTvPhone = (TextView) headerView.findViewById(R.id.n_header_tvPhone);
+        LinearLayout nHeaderLlUserInfo = (LinearLayout) headerView.findViewById(R.id.n_header_llUserInfo);
+
+        nHeaderTvUserName.setText("用户");
+        nHeaderLlUserInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  TODO
+//              startActivity();
+            }
+        });
     }
 
     /**
@@ -122,6 +150,7 @@ public class MainAty extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        //回退键先关闭左侧导航view
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.a_main_dlMain);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -171,6 +200,7 @@ public class MainAty extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
+        //点击之后关闭左侧导航
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.a_main_dlMain);
         drawer.closeDrawer(GravityCompat.START);
         return true;

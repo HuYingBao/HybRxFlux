@@ -21,7 +21,7 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
-import com.huyingbao.hyb.adapter.RepoAdapter;
+import com.huyingbao.hyb.adapter.ShopListAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
@@ -38,7 +38,7 @@ import retrofit2.adapter.rxjava.HttpException;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class BearbyFrg extends BaseFragment implements RxViewDispatch, RepoAdapter.OnRepoClicked {
+public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnRepoClicked {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -47,7 +47,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, RepoAdapt
 
     private final ShopStore shopStore;
     private UsersStore usersStore;
-    private RepoAdapter adapter;
+    private ShopListAdapter adapter;
 
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -89,7 +89,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, RepoAdapt
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RepoAdapter();
+        adapter = new ShopListAdapter();
         adapter.setCallback(this);
         recyclerView.setAdapter(adapter);
         return rootView;
@@ -143,7 +143,6 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, RepoAdapt
                     case Actions.GET_NEARBY_SHOP:
                         setLoadingFrame(false);
                         adapter.setRepos(shopStore.getShopList());
-
                         break;
                 }
                 break;

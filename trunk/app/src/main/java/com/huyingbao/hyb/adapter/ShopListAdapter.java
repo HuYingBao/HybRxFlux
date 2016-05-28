@@ -17,12 +17,12 @@ import butterknife.ButterKnife;
 /**
  * Created by marcel on 09/10/15.
  */
-public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
+public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHolder> {
 
     private ArrayList<Shop> repos;
     private OnRepoClicked callback;
 
-    public RepoAdapter() {
+    public ShopListAdapter() {
         super();
         repos = new ArrayList<Shop>();
     }
