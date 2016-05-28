@@ -6,6 +6,9 @@ import android.text.TextUtils;
 
 import java.util.UUID;
 
+/**
+ * 本地配出存贮类
+ */
 public class LocalStorageUtils {
 
     private static final String SETTING_NAME = "Setting";

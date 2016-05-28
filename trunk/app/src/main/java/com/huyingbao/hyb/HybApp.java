@@ -10,6 +10,7 @@ import com.hardsoftstudio.rxflux.BuildConfig;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 public class HybApp extends Application {
 
@@ -22,13 +23,17 @@ public class HybApp extends Application {
     private HybActionCreator gitHubActionCreator;
     private RxFlux rxFlux;
 
-
     /**
      * 定位配置类
      */
     private static LocationClientOption mLocationClientOption;
     private static BDLocationListener mBDLocationListener;
     private LocationClient mLocationClient;
+
+    /**
+     * 本地配出存贮类
+     */
+    private LocalStorageUtils mLocalStorageUtils;
 
 
 //    public static HybApp get(Context context) {
@@ -88,7 +93,6 @@ public class HybApp extends Application {
         };
     }
 
-
     /**
      * 开始定位
      */
@@ -101,5 +105,15 @@ public class HybApp extends Application {
         mLocationClient.registerLocationListener(mBDLocationListener);
         //开始定位
         mLocationClient.start();
+    }
+
+    /**
+     * 获取本地存贮管理类对象
+     *
+     * @return
+     */
+    public LocalStorageUtils getLocalSorageUtils() {
+        mLocalStorageUtils = LocalStorageUtils.getInstance(getInstance());
+        return mLocalStorageUtils;
     }
 }
