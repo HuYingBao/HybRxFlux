@@ -23,12 +23,14 @@ import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.utils.HttpCode;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.adapter.rxjava.HttpException;
 
 /**
  * Created by Administrator on 2016/5/6.
@@ -126,7 +128,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
                 }
                 break;
             case ShopStore.STORE_ID:
-                switch (change.getRxAction().getType()){
+                switch (change.getRxAction().getType()) {
                     case Actions.GET_NEARBY_SHOP:
                         shopStore.getShopList();
                 }
@@ -140,8 +142,12 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch {
         setLoadingFrame(false);
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
-            Snackbar.make(rootCoordinator, "有错误,请重试!" + error.getAction().getType(), Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.getInstance().getGitHubActionCreator().retry(error.getAction())).show();
-            throwable.printStackTrace();
+            if (throwable instanceof HttpException) {
+                int httpCode = ((HttpException) throwable).code();
+                Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
+                        .setAction("重试", v -> HybApp.getInstance().getGitHubActionCreator().retry(error.getAction()))
+                        .show();
+            }
         } else {
             Toast.makeText(getContext(), "未知错误!", Toast.LENGTH_LONG).show();
         }
