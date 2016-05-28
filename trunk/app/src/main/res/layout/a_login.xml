@@ -1,39 +1,39 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_coordinator"
-    style="@style/s_coordinator"
+    style="@style/BaseCoordinatorStyle"
     tools:context=".ui.login.LoginAty">
 
-    <LinearLayout style="@style/s_linearlayout">
+    <LinearLayout style="@style/BaseLinearlayoutStyle">
 
         <!-- Login progress -->
         <ProgressBar
             android:id="@+id/login_progress"
-            style="@style/s_progressbar"
+            style="@style/BaseProgressbarStyle"
             tools:visibility="visible" />
 
         <ScrollView
             android:id="@+id/login_form"
-            style="@style/s_scrollview">
+            style="@style/BaseScrollviewStyle">
 
             <LinearLayout
                 android:id="@+id/email_login_form"
-                style="@style/s_linearlayout_contant">
+                style="@style/BaseLinearlayoutContantStyle">
 
-                <android.support.design.widget.TextInputLayout style="@style/s_textinput">
+                <android.support.design.widget.TextInputLayout style="@style/BaseTextinputStyle">
 
                     <AutoCompleteTextView
                         android:id="@+id/email"
-                        style="@style/s_autocomplete"
+                        style="@style/BaseAutocompleteStyle"
                         android:hint="@string/prompt_email" />
 
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout style="@style/s_textinput">
+                <android.support.design.widget.TextInputLayout style="@style/BaseTextinputStyle">
 
                     <EditText
                         android:id="@+id/password"
-                        style="@style/s_edit"
+                        style="@style/BaseEditStyle"
                         android:hint="@string/prompt_password"
                         android:imeActionId="@+id/login"
                         android:imeActionLabel="@string/action_sign_in_short"
@@ -43,12 +43,12 @@
 
                 <Button
                     android:id="@+id/email_sign_in_button"
-                    style="@style/s_button"
+                    style="@style/BaseButtonStyle"
                     android:text="@string/action_sign_in" />
 
                 <Button
                     android:id="@+id/email_register_button"
-                    style="@style/s_button"
+                    style="@style/BaseButtonStyle"
                     android:text="@string/title_activity_register_aty" />
 
             </LinearLayout>

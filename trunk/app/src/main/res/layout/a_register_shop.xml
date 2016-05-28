@@ -1,29 +1,29 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_coordinator"
-    style="@style/s_coordinator"
+    style="@style/BaseCoordinatorStyle"
     tools:context=".ui.shop.RegisterShopAty">
 
-    <LinearLayout style="@style/s_linearlayout">
+    <LinearLayout style="@style/BaseLinearlayoutStyle">
 
         <ProgressBar
             android:id="@+id/login_progress"
-            style="@style/s_progressbar"
+            style="@style/BaseProgressbarStyle"
             tools:visibility="visible" />
 
         <ScrollView
             android:id="@+id/login_form"
-            style="@style/s_scrollview">
+            style="@style/BaseScrollviewStyle">
 
             <LinearLayout
                 android:id="@+id/email_login_form"
-                style="@style/s_linearlayout_contant">
+                style="@style/BaseLinearlayoutContantStyle">
 
-                <android.support.design.widget.TextInputLayout style="@style/s_textinput">
+                <android.support.design.widget.TextInputLayout style="@style/BaseTextinputStyle">
 
                     <AutoCompleteTextView
                         android:id="@+id/shop"
-                        style="@style/s_autocomplete"
+                        style="@style/BaseAutocompleteStyle"
                         android:hint="@string/shop" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -39,7 +39,7 @@
 
                 <Button
                     android:id="@+id/email_register_button"
-                    style="@style/s_button"
+                    style="@style/BaseButtonStyle"
                     android:text="@string/title_activity_register_aty" />
             </LinearLayout>
         </ScrollView>
