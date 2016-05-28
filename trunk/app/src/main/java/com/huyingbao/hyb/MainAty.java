@@ -312,7 +312,7 @@ public class MainAty extends AppCompatActivity
     public void onRxViewRegistered() {
         Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
         if (fragment instanceof HomeFrg) {
-            HybApp.get(this).getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+            HybApp.getInstance().getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
     }
 
@@ -323,7 +323,7 @@ public class MainAty extends AppCompatActivity
     public void onRxViewUnRegistered() {
         for (Fragment fragment : mFragments) {
             if (fragment instanceof HomeFrg) {
-                HybApp.get(this).getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
+                HybApp.getInstance().getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
             }
         }
     }

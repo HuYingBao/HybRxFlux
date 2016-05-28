@@ -1,7 +1,6 @@
 package com.huyingbao.hyb;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -23,19 +22,18 @@ public class HybApp extends Application {
     private HybActionCreator gitHubActionCreator;
     private RxFlux rxFlux;
 
+
     /**
      * 定位配置类
      */
     private static LocationClientOption mLocationClientOption;
-    /**
-     * 定位监听器
-     */
     private static BDLocationListener mBDLocationListener;
     private LocationClient mLocationClient;
 
-    public static HybApp get(Context context) {
-        return ((HybApp) context.getApplicationContext());
-    }
+
+//    public static HybApp get(Context context) {
+//        return ((HybApp) context.getApplicationContext());
+//    }
 
     public static HybApp getInstance() {
         if (intantce == null) {

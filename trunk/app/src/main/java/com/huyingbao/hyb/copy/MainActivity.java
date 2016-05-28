@@ -105,7 +105,7 @@
 //        setLoadingFrame(false);
 //        Throwable throwable = error.getThrowable();
 //        if (throwable != null) {
-//            Snackbar.make(coordinatorLayout, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(this).getGitHubActionCreator().retry(error.getAction())).show();
+//            Snackbar.make(coordinatorLayout, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.getInstance().getGitHubActionCreator().retry(error.getAction())).show();
 //            throwable.printStackTrace();
 //        } else {
 //            Toast.makeText(this, "Unknown error", Toast.LENGTH_LONG).show();
@@ -124,8 +124,8 @@
 //
 //    @Override
 //    public List<RxStore> getRxStoreListToRegister() {
-//        repositoriesStore = RepositoriesStore.get(HybApp.get(this).getRxFlux().getDispatcher());
-//        usersStore = UsersStore.get(HybApp.get(this).getRxFlux().getDispatcher());
+//        repositoriesStore = RepositoriesStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
 //        return Arrays.asList(repositoriesStore, usersStore);
 //    }
 //
@@ -146,7 +146,7 @@
 //
 //    private void refresh() {
 //        setLoadingFrame(true);
-//        HybApp.get(this).getGitHubActionCreator().getPublicRepositories();
+//        HybApp.getInstance().getGitHubActionCreator().getPublicRepositories();
 //    }
 //
 //    @Override
@@ -157,7 +157,7 @@
 //            return;
 //        }
 //        setLoadingFrame(true);
-////        HybApp.get(this).getGitHubActionCreator().getUserDetails(login);
+////        HybApp.getInstance().getGitHubActionCreator().getUserDetails(login);
 //    }
 //
 //    @Override

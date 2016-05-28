@@ -125,7 +125,7 @@
 //            return;
 //        }
 //        setLoadingFrame(true);
-////        HybApp.get(getContext()).getGitHubActionCreator().getUserDetails(login);
+////        HybApp.getInstance().getGitHubActionCreator().getUserDetails(login);
 //    }
 //
 //
@@ -157,7 +157,7 @@
 //        setLoadingFrame(false);
 //        Throwable throwable = error.getThrowable();
 ////        if (throwable != null) {
-////            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.get(getContext()).getGitHubActionCreator().retry(error.getAction())).show();
+////            Snackbar.make(rootCoordinator, "An error ocurred", Snackbar.LENGTH_INDEFINITE).setAction("Retry", v -> HybApp.getInstance().getGitHubActionCreator().retry(error.getAction())).show();
 ////            throwable.printStackTrace();
 ////        } else {
 ////            Toast.makeText(getContext(), "Unknown error", Toast.LENGTH_LONG).show();
@@ -200,6 +200,6 @@
 //
 //    private void refresh() {
 //        setLoadingFrame(true);
-//        HybApp.get(getContext()).getGitHubActionCreator().getPublicRepositories();
+//        HybApp.getInstance().getGitHubActionCreator().getPublicRepositories();
 //    }
 //}

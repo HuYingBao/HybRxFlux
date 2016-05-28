@@ -198,7 +198,7 @@
 //            HybUser user = new HybUser();
 //            user.setPhone(email);
 //            user.setPassword(password);
-//            HybApp.get(this).getGitHubActionCreator().login(user);
+//            HybApp.getInstance().getGitHubActionCreator().login(user);
 //        }
 //    }
 //
@@ -329,7 +329,7 @@
 //
 //        if (throwable != null) {
 ////            Snackbar.make(rootCoordinator, getString(R.string.error_incorrect_password), Snackbar.LENGTH_INDEFINITE)
-////                    .setAction("重试", v -> HybApp.get(mContext)
+////                    .setAction("重试", v -> HybApp.getInstance()
 ////                            .getGitHubActionCreator()
 ////                            .retry(error.getAction()))
 ////                    .show();
@@ -357,7 +357,7 @@
 //    @Nullable
 //    @Override
 //    public List<RxStore> getRxStoreListToRegister() {
-//        usersStore = UsersStore.get(HybApp.get(this).getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
 //        return Arrays.asList(usersStore);
 //    }
 //

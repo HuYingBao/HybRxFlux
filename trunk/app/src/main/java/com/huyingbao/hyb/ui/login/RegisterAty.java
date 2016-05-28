@@ -85,7 +85,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
         HybUser user = new HybUser();
         user.setPhone(email);
         user.setPassword(password);
-        HybApp.get(this).getGitHubActionCreator().registerUser(user);
+        HybApp.getInstance().getGitHubActionCreator().registerUser(user);
     }
 
 
@@ -121,7 +121,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
                     return;
                 }
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("重试", v -> HybApp.get(mContext).getGitHubActionCreator().retry(error.getAction()))
+                        .setAction("重试", v -> HybApp.getInstance().getGitHubActionCreator().retry(error.getAction()))
                         .show();
             }
         } else {
@@ -142,7 +142,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        usersStore = UsersStore.get(HybApp.get(this).getRxFlux().getDispatcher());
+        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
         return Arrays.asList(usersStore);
     }
 
