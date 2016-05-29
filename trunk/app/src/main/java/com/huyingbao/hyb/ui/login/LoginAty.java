@@ -118,7 +118,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
             HybUser user = new HybUser();
             user.setPhone(phone);
             user.setPassword(password);
-            HybApp.getInstance().getGitHubActionCreator().login(user);
+            HybApp.getInstance().getHybActionCreator().login(user);
         }
     }
 
@@ -207,7 +207,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                     return;
                 }
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("重试", v -> HybApp.getInstance().getGitHubActionCreator().retry(error.getAction()))
+                        .setAction("重试", v -> HybApp.getInstance().getHybActionCreator().retry(error.getAction()))
                         .show();
             }
         } else {

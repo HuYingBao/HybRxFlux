@@ -107,10 +107,6 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_LOCATION:
-//                        Snackbar.make(rootCoordinator, usersStore.getBDLocation().getLatitude() + "," + usersStore.getBDLocation().getLongitude(), Snackbar.LENGTH_INDEFINITE)
-//                                .setAction("重试", v -> HybApp.getInstance().startLocation())
-//                                .show();
-//                        HybApp.getInstance().getGitHubActionCreator().
                         break;
 
                 }

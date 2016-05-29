@@ -8,38 +8,25 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.hardsoftstudio.rxflux.BuildConfig;
 import com.hardsoftstudio.rxflux.RxFlux;
+import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.util.LogLevel;
+import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 public class HybApp extends Application {
-
-    private static HybApp intantce;
-
-    /**
-     * Please, note that it would be much better to use a singleton patter or DI instead of keeping
-     * the variable reference here.
-     */
-    private HybActionCreator gitHubActionCreator;
-    private RxFlux rxFlux;
-
-    /**
-     * 定位配置类
-     */
-    private static LocationClientOption mLocationClientOption;
-    private static BDLocationListener mBDLocationListener;
-    private LocationClient mLocationClient;
 
     /**
      * 本地配出存贮类
      */
     private LocalStorageUtils mLocalStorageUtils;
 
+    private static HybApp intantce;
 
-//    public static HybApp get(Context context) {
-//        return ((HybApp) context.getApplicationContext());
-//    }
-
+    //    public static HybApp get(Context context) {
+    //        return ((HybApp) context.getApplicationContext());
+    //    }
     public static HybApp getInstance() {
         if (intantce == null) {
             intantce = new HybApp();
@@ -57,13 +44,29 @@ public class HybApp extends Application {
         initLocationClient();
     }
 
+    /**
+     * Please, note that it would be much better to use a singleton patter or DI instead of keeping
+     * the variable reference here.
+     */
+    private HybActionCreator gitHubActionCreator;
+
+    public HybActionCreator getHybActionCreator() {
+        return gitHubActionCreator;
+    }
+
+    private RxFlux rxFlux;
+
     public RxFlux getRxFlux() {
         return rxFlux;
     }
 
-    public HybActionCreator getGitHubActionCreator() {
-        return gitHubActionCreator;
-    }
+
+    /**
+     * 定位配置类
+     */
+    private static LocationClientOption mLocationClientOption;
+    private static BDLocationListener mBDLocationListener;
+    private LocationClient mLocationClient;
 
     /**
      * 初始化百度定位配置和监听器
@@ -86,7 +89,9 @@ public class HybApp extends Application {
         mBDLocationListener = new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                getGitHubActionCreator().postLocation(bdLocation);
+                RxAction action = getHybActionCreator().newRxAction(Actions.GET_LOCATION, Keys.LOCATION,bdLocation);
+                getHybActionCreator().postRxAction(action);
+//                getHybActionCreator().postLocation(bdLocation);
                 //接收到位置信息之后,LocationClient取消位置监听器
                 mLocationClient.unRegisterLocationListener(this);
             }

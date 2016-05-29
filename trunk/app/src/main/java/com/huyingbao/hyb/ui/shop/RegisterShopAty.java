@@ -79,7 +79,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
         shop.setLongitude(mLatitude);
         shop.setLatitude(mLongitude);
         shop.setShopType(mShopTyep);
-        HybApp.getInstance().getGitHubActionCreator().registerShop(shop);
+        HybApp.getInstance().getHybActionCreator().registerShop(shop);
 
     }
 

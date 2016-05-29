@@ -1,6 +1,5 @@
 package com.huyingbao.hyb.actions;
 
-import com.baidu.location.BDLocation;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
@@ -9,8 +8,6 @@ import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Shop;
 
-import rx.Observable;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -73,24 +70,6 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void postLocation(BDLocation location) {
-        //创建RxAction,传入键值对参数
-        final RxAction action = newRxAction(GET_LOCATION, Keys.LOCATION, location);
-        if (hasRxAction(action)) return;
-        addRxAction(action,
-                Observable.create(new Observable.OnSubscribe<BDLocation>() {
-                    @Override
-                    public void call(Subscriber<? super BDLocation> subscriber) {
-                        subscriber.onNext(location);
-                        subscriber.onCompleted();
-                    }
-                }).subscribe(bdLocation -> {
-                    action.getData().put(Keys.USER, bdLocation);
-                    postRxAction(action);
-                }, throwable -> postError(action, throwable)));
-    }
-
-    @Override
     public void registerShop(Shop shop) {
         final RxAction action = newRxAction(REGISTER_SHOP, Keys.SHOP, shop);
         if (hasRxAction(action)) return;
@@ -128,9 +107,6 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 return true;
             case REGISTER_USER:
                 registerUser((HybUser) action.getData().get(Keys.USER));
-                return true;
-            case GET_LOCATION:
-                postLocation((BDLocation) action.getData().get(Keys.LOCATION));
                 return true;
             case GET_NEARBY_SHOP:
                 getNearbyShopList(
