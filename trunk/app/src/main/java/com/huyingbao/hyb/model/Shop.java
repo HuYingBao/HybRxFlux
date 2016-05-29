@@ -1,9 +1,11 @@
 package com.huyingbao.hyb.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/5/24.
  */
-public class Shop {
+public class Shop implements Serializable {
 
 
     /**

@@ -36,7 +36,10 @@ public class ShopStore extends RxStore implements ShopStoreInterface {
             case Actions.GET_NEARBY_SHOP:
                 mShopList = action.get(Keys.SHOP_LIST);
                 break;
-            default:
+            case Actions.A_TO_SHOP_INFO:
+                mShop = action.get(Keys.SHOP);
+                break;
+            default://若是接收到的action中type不是需要处理的type,则直接返回,不调用postChange()
                 return;
         }
         postChange(new RxStoreChange(STORE_ID, action));

@@ -1,5 +1,6 @@
 package com.huyingbao.hyb.ui.shop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -146,8 +147,13 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
                         setLoadingFrame(false);
                         adapter.setShopList(shopStore.getShopList());
                         break;
+                    case Actions.A_TO_SHOP_INFO:
+                        Intent intent = new Intent(getContext(), ShopAty.class);
+                        intent.putExtra(Keys.SHOP, shopStore.getShop());
+                        startActivity(intent);
                 }
                 break;
+
         }
     }
 
@@ -208,7 +214,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
 
     @Override
     public void onClicked(Shop shop) {
-        RxAction action = HybApp.getInstance().getHybActionCreator().newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP);
+        RxAction action = HybApp.getInstance().getHybActionCreator().newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shop);
         HybApp.getInstance().getHybActionCreator().postRxAction(action);
     }
 }
