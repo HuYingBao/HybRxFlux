@@ -191,7 +191,7 @@ public class Dispatcher {
     }
 
     /**
-     * 发送action变化
+     * 发送action变化,到所有订阅的store,
      *
      * @param action
      */

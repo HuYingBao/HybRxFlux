@@ -102,7 +102,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
                 break;
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()){
-                    case Actions.GET_LOCATION:
+                    case Actions.A_GET_LOCATION:
                         mLatitude= usersStore.getBDLocation().getLatitude();
                         mLongitude = usersStore.getBDLocation().getLongitude();
                         break;

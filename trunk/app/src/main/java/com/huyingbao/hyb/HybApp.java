@@ -89,7 +89,7 @@ public class HybApp extends Application {
         mBDLocationListener = new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                RxAction action = getHybActionCreator().newRxAction(Actions.GET_LOCATION, Keys.LOCATION,bdLocation);
+                RxAction action = getHybActionCreator().newRxAction(Actions.A_GET_LOCATION, Keys.LOCATION,bdLocation);
                 getHybActionCreator().postRxAction(action);
 //                getHybActionCreator().postLocation(bdLocation);
                 //接收到位置信息之后,LocationClient取消位置监听器

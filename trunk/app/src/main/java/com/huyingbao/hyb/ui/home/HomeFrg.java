@@ -106,7 +106,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
         switch (change.getStoreId()) {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
-                    case Actions.GET_LOCATION:
+                    case Actions.A_GET_LOCATION:
                         break;
 
                 }

@@ -13,6 +13,11 @@ public interface Actions {
     String REGISTER_USER = "register_user";
     String REGISTER_SHOP = "register_shop";
     String GET_NEARBY_SHOP = "get_nearby_shop";
+    /**
+     * action type 非api操作
+     */
+    String A_GET_LOCATION = "a_get_location";
+    String A_TO_SHOP_INFO = "a_to_shop_info";
 
     void login(HybUser user);
 
@@ -24,10 +29,5 @@ public interface Actions {
 
     boolean retry(RxAction action);
 
-
-    /**
-     * action type 非api操作
-     */
-    String GET_LOCATION = "get_location";
 
 }

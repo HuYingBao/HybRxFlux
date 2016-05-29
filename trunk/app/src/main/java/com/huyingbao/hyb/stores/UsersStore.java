@@ -60,7 +60,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 HybApp.getInstance().getLocalSorageUtils().setLogin(true);
                 mUser = action.get(Keys.USER);
                 break;
-            case Actions.GET_LOCATION:
+            case Actions.A_GET_LOCATION:
                 bdLocation = action.get(Keys.LOCATION);
                 break;
             default: // IMPORTANT if we don't modify the store just ignore

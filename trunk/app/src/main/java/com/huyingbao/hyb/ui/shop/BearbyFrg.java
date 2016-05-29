@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
@@ -21,6 +22,7 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
+import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.ShopListAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.Shop;
@@ -96,8 +98,6 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
     }
 
 
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -129,16 +129,13 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
         switch (change.getStoreId()) {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
-                    case Actions.GET_LOCATION:
-                        Snackbar.make(rootCoordinator, "long"+ usersStore.getBDLocation().getLongitude(), Snackbar.LENGTH_INDEFINITE)
-//                                .setAction("重试", v -> HybApp.getInstance().getHybActionCreator().retry(error.getAction()))
-                                .show();
-//                        HybApp.getInstance().getHybActionCreator().getNearbyShopList(
-//                                usersStore.getBDLocation().getLongitude(),
-//                                usersStore.getBDLocation().getLatitude(),
-//                                10000,
-//                                0
-//                        );
+                    case Actions.A_GET_LOCATION:
+                        HybApp.getInstance().getHybActionCreator().getNearbyShopList(
+                                usersStore.getBDLocation().getLongitude(),
+                                usersStore.getBDLocation().getLatitude(),
+                                10000,
+                                0
+                        );
                         break;
 
                 }
@@ -211,6 +208,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
 
     @Override
     public void onClicked(Shop shop) {
-//        HybApp.getInstance().getHybActionCreator().postRxAction();
+        RxAction action = HybApp.getInstance().getHybActionCreator().newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP);
+        HybApp.getInstance().getHybActionCreator().postRxAction(action);
     }
 }
