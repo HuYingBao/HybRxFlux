@@ -4,31 +4,56 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.actions.Keys;
+import com.huyingbao.hyb.model.Shop;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ShopDetailFrg.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ShopDetailFrg#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ShopDetailFrg extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    @Bind(R.id.wv_news)
+    WebView mWvNews;
+    @Bind(R.id.cpb_loading)
+    ContentLoadingProgressBar mCpbLoading;
+    @Bind(R.id.iv_header)
+    ImageView mImageView;
+    @Bind(R.id.tv_source)
+    TextView mTvSource;
+    @Bind(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+    @Bind(R.id.nested_view)
+    NestedScrollView mNestedScrollView;
+    @Bind(R.id.tv_load_empty)
+    TextView mTvLoadEmpty;
+    @Bind(R.id.tv_load_error)
+    TextView mTvLoadError;
     private OnFragmentInteractionListener mListener;
+    private Shop mShop;
 
     public ShopDetailFrg() {
         // Required empty public constructor
@@ -38,16 +63,13 @@ public class ShopDetailFrg extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param shop
      * @return A new instance of fragment ShopDetailFrg.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ShopDetailFrg newInstance(String param1, String param2) {
+    public static ShopDetailFrg newInstance(Shop shop) {
         ShopDetailFrg fragment = new ShopDetailFrg();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(Keys.SHOP, shop);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,8 +78,7 @@ public class ShopDetailFrg extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mShop = (Shop) getArguments().getSerializable(Keys.SHOP);
         }
     }
 
@@ -65,7 +86,40 @@ public class ShopDetailFrg extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.f_shop_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+
+    /**
+     * 初始化
+     */
+    private void init() {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(mToolbar);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        mTvLoadError.setOnClickListener(this);
+
+        setHasOptionsMenu(true);
+
+        mNestedScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mNestedScrollView.setElevation(0);
+
+        mWvNews.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mWvNews.setElevation(0);
+        mWvNews.getSettings().setLoadsImagesAutomatically(true);
+        //设置 缓存模式
+        mWvNews.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        // 开启 DOM storage API 功能
+        mWvNews.getSettings().setDomStorageEnabled(true);
+
+        //为可折叠toolbar设置标题
+        mCollapsingToolbarLayout.setTitle(getString(R.string.app_name));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,6 +144,12 @@ public class ShopDetailFrg extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     /**
