@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,30 +93,30 @@ public class ShopDetailFrg extends Fragment {
      * 初始化
      */
     private void init() {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(mToolbar);
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        mTvLoadError.setOnClickListener(this);
-
-        setHasOptionsMenu(true);
-
-        mNestedScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mNestedScrollView.setElevation(0);
-
-        mWvNews.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mWvNews.setElevation(0);
-        mWvNews.getSettings().setLoadsImagesAutomatically(true);
-        //设置 缓存模式
-        mWvNews.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-        // 开启 DOM storage API 功能
-        mWvNews.getSettings().setDomStorageEnabled(true);
-
-        //为可折叠toolbar设置标题
-        mCollapsingToolbarLayout.setTitle(getString(R.string.app_name));
+//        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//        activity.setSupportActionBar(mToolbar);
+//        ActionBar actionBar = activity.getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//        }
+//
+//        mTvLoadError.setOnClickListener(this);
+//
+//        setHasOptionsMenu(true);
+//
+//        mNestedScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//        mNestedScrollView.setElevation(0);
+//
+//        mWvNews.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//        mWvNews.setElevation(0);
+//        mWvNews.getSettings().setLoadsImagesAutomatically(true);
+//        //设置 缓存模式
+//        mWvNews.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+//        // 开启 DOM storage API 功能
+//        mWvNews.getSettings().setDomStorageEnabled(true);
+//
+//        //为可折叠toolbar设置标题
+//        mCollapsingToolbarLayout.setTitle(getString(R.string.app_name));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
