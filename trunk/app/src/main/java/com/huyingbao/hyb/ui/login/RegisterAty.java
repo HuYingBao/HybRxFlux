@@ -35,7 +35,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -59,11 +58,12 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     private UsersStore usersStore;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_register);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.a_register;
+    }
 
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {

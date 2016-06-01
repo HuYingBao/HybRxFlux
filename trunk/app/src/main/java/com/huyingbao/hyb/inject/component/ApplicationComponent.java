@@ -3,6 +3,7 @@ package com.huyingbao.hyb.inject.component;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
@@ -30,15 +31,31 @@ public interface ApplicationComponent {
 
     void inject(BaseFragment fragment);
 
+    void inject(HybApp application);
+
     Application getApplication();
 
     class Instance {
+        /**
+         * 实例化对象
+         */
         private static ApplicationComponent sComponent;
 
+        /**
+         * 实例化方法
+         *
+         * @param component
+         */
         public static void init(@NonNull ApplicationComponent component) {
             sComponent = component;
         }
 
+        /**
+         * 静态方法得到实例化对象,
+         * 依赖注入的时候,得到实例化对象,调用其中的inject()注入到contaner中
+         *
+         * @return
+         */
         public static ApplicationComponent get() {
             return sComponent;
         }

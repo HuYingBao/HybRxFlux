@@ -34,12 +34,15 @@ public interface RxViewDispatch {
     /**
      * When an activity has been registered RxFlux will notify the activity so it can register
      * custom views or fragments.
+     * 当一个activity已经被注册到dispatcher,rxFlux 将通知activity,以便它能注册view或者fragment
+     * 在activity onStart()时调用
      */
     void onRxViewRegistered();
 
     /**
      * When the activity goes to Stop {@link com.hardsoftstudio.rxflux.RxFlux#onActivityStopped(Activity)}
      * RxFlux will unregister it and the call this method so the activity can unregister custom views or fragments
+     * 在activity onStop()
      */
     void onRxViewUnRegistered();
 
@@ -50,7 +53,7 @@ public interface RxViewDispatch {
      * <p>
      * For example, a base method could create a list with the common stores and each activity will add stores
      * in case they are needed.
-     * activity启动的时候调用该方法,
+     * activity onCreate()的时候调用该方法,
      *
      * @return list of {@link RxStore} to be registered, can be null.
      */
@@ -63,6 +66,7 @@ public interface RxViewDispatch {
      * Notice that if the Application is destroyed RxFlux will automatically unregister any store to avoid leaks.
      *
      * @return list of {@link RxStore} to be unregister, can be null
+     * activity onDistroy()
      */
     @Nullable
     List<RxStore> getRxStoreListToUnRegister();

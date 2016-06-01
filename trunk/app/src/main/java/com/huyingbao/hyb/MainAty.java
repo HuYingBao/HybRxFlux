@@ -34,7 +34,6 @@ import com.huyingbao.hyb.ui.shop.BearbyFrg;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainAty extends BaseActivity
@@ -66,14 +65,15 @@ public class MainAty extends BaseActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private FragmentManager mFragmentManager;
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.a_main;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void afterCreate(Bundle savedInstanceState) {
         //设置toolbar
         setSupportActionBar(toolbar);
-        setContentView(R.layout.a_main);
-        ButterKnife.bind(this);
         //侧滑菜单控件
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -92,7 +92,7 @@ public class MainAty extends BaseActivity
         mSectionsPagerAdapter = new SectionsPagerAdapter(mFragmentManager);
         mViewPager.setOffscreenPageLimit(COUNT_FRAGMENT + 1);
         //viewpager设置page变化监听器
-//        mViewPager.addOnPageChangeListener(onPagechangeListener);
+        // mViewPager.addOnPageChangeListener(onPagechangeListener);
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
         //底部tab跟随viewpager
@@ -115,7 +115,6 @@ public class MainAty extends BaseActivity
             @Override
             public void onClick(View v) {
                 //  TODO
-//              startActivity();
             }
         });
     }
@@ -227,6 +226,19 @@ public class MainAty extends BaseActivity
     }
 
     /**
+     * 设置当前位置
+     *
+     * @param position
+     */
+    public void setPosition(int position) {
+        if (position < 0 || position > COUNT_FRAGMENT - 1) {// 位置非法
+            return;
+        }
+        mCurrentPosition = position;
+        mViewPager.setCurrentItem(position, false);
+    }
+
+    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -302,10 +314,10 @@ public class MainAty extends BaseActivity
     public void onRxViewRegistered() {
         Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
         if (fragment instanceof HomeFrg) {
-            HybApp.getInstance().getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
         if (fragment instanceof BearbyFrg) {
-            HybApp.getInstance().getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
     }
 
@@ -316,38 +328,36 @@ public class MainAty extends BaseActivity
     public void onRxViewUnRegistered() {
         for (Fragment fragment : mFragments) {
             if (fragment instanceof HomeFrg) {
-                HybApp.getInstance().getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
+                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
             }
             if (fragment instanceof BearbyFrg) {
-                HybApp.getInstance().getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
+                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
             }
         }
     }
 
+    /**
+     * 需要注册rxstore list 在activity创建的时候调用该方法,
+     * 注册rxstore list 到 dispatcher
+     *
+     * @return
+     */
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
         return null;
     }
 
+    /**
+     * 需要解除注册rxstore list 在activity创建的时候调用该方法,
+     * 从 dispatcher 解除注册rxstore list
+     *
+     * @return
+     */
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
         return null;
-    }
-
-
-    /**
-     * 设置当前位置
-     *
-     * @param position
-     */
-    public void setPosition(int position) {
-        if (position < 0 || position > COUNT_FRAGMENT - 1) {// 位置非法
-            return;
-        }
-        mCurrentPosition = position;
-        mViewPager.setCurrentItem(position, false);
     }
 
 }

@@ -5,8 +5,11 @@ import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.huyingbao.hyb.core.HybApi;
+import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Shop;
+
+import javax.inject.Inject;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -23,14 +26,23 @@ public class HybActionCreator extends RxActionCreator implements Actions {
      */
     public HybActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
         super(dispatcher, manager);
+        ApplicationComponent.Instance.get().
     }
+
+    @Inject
+    HybApi hybApi;
+
+    private HybApi getApi() {
+        return hybApi;
+    }
+
 
     @Override
     public void login(HybUser user) {
         //创建RxAction,传入键值对参数
         final RxAction action = newRxAction(LOGIN, Keys.USER, user);
         if (hasRxAction(action)) return;
-        addRxAction(action, HybApi.Factory.getApi()
+        addRxAction(action, getApi()
                 .login(user)
                 // 指定 subscribe() 发生在 IO 线程(事件产生的线程)
                 .subscribeOn(Schedulers.io())
@@ -49,6 +61,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                     postRxAction(action);
                 }, throwable -> postError(action, throwable)));
     }
+
 
     @Override
     public void registerUser(HybUser user) {

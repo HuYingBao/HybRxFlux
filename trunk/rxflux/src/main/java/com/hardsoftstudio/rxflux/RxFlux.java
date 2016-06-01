@@ -107,10 +107,16 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
         }
     }
 
+    /**
+     * 当activity start的时候,如果当前activity是RxViewDispatch,
+     * 将该activity添加到dispatcher的订阅中,
+     * 并调用onRxViewRegistered方法
+     *
+     * @param activity
+     */
     @Override
     public void onActivityStarted(Activity activity) {
         if (activity instanceof RxViewDispatch) {
-            //当activity start的时候条用该方法,将该activity添加到dispatcher的订阅中
             dispatcher.subscribeRxView((RxViewDispatch) activity);
             ((RxViewDispatch) activity).onRxViewRegistered();
         }
@@ -124,6 +130,13 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     public void onActivityPaused(Activity activity) {
     }
 
+    /**
+     * 在activity stop时,如果当前activity是RxViewDispatch,
+     * 从dispatcher中取消当前view的注册
+     * 并调用onRxViewUnRegistered方法
+     *
+     * @param activity
+     */
     @Override
     public void onActivityStopped(Activity activity) {
         if (activity instanceof RxViewDispatch) {
@@ -137,6 +150,11 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
 
     }
 
+    /**
+     * 在activity 销毁的时候,
+     *
+     * @param activity
+     */
     @Override
     public void onActivityDestroyed(Activity activity) {
         activityCounter--;

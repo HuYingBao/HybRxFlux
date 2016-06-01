@@ -3,7 +3,6 @@ package com.huyingbao.hyb.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hardsoftstudio.rxflux.RxFlux;
@@ -19,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/5/10.
  */
-public class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     @Inject
     HybActionCreator hybActionCreator;
     @Inject
@@ -47,17 +46,21 @@ public class BaseActivity extends RxAppCompatActivity {
         ButterKnife.unbind(this);
     }
 
-    /**
-     * 启动一个不需要传参数的新activity
-     *
-     * @param cls
-     */
     protected void startActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
     }
 
+    public HybActionCreator getHybActionCreator() {
+        return hybActionCreator;
+    }
+
+    public RxFlux getRxFlux() {
+        return rxFlux;
+    }
+
     protected abstract int getLayoutId();
 
     protected abstract void afterCreate(Bundle savedInstanceState);
+
 }

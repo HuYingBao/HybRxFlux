@@ -30,7 +30,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
@@ -57,10 +56,13 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     private double mLongitude;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_register_shop);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.a_register_shop;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -79,7 +81,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
         shop.setLongitude(mLatitude);
         shop.setLatitude(mLongitude);
         shop.setShopType(mShopTyep);
-        HybApp.getInstance().getHybActionCreator().registerShop(shop);
+        getHybActionCreator().registerShop(shop);
 
     }
 
@@ -101,9 +103,9 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
                 }
                 break;
             case UsersStore.STORE_ID:
-                switch (change.getRxAction().getType()){
+                switch (change.getRxAction().getType()) {
                     case Actions.A_GET_LOCATION:
-                        mLatitude= usersStore.getBDLocation().getLatitude();
+                        mLatitude = usersStore.getBDLocation().getLatitude();
                         mLongitude = usersStore.getBDLocation().getLongitude();
                         break;
 
@@ -131,8 +133,8 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        shopStore = ShopStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
-        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        shopStore = ShopStore.get(getRxFlux().getDispatcher());
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(shopStore, usersStore);
     }
 

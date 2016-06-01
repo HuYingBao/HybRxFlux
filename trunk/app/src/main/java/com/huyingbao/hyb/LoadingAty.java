@@ -9,14 +9,10 @@ import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.ui.login.LoginAty;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class LoadingAty extends BaseActivity {
     private static final int DELAY_ACTION = 300;
     private final Handler mHideHandler = new Handler();
-    /**
-     * 处理跳转逻辑
-     */
     private final Runnable mHandleActionRunnable = new Runnable() {
         public void run() {
             if (mLocalStorageUtils.isFirstTime()) {
@@ -29,15 +25,16 @@ public class LoadingAty extends BaseActivity {
             finish();
         }
     };
-
     @Bind(R.id.fullscreen_content)
     TextView fullscreenContent;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_loading);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.a_loading;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         fullscreenContent.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -47,7 +44,12 @@ public class LoadingAty extends BaseActivity {
         handleAction();
     }
 
+    /**
+     * 延时300毫秒,运行跳转逻辑
+     */
     private void handleAction() {
         mHideHandler.postDelayed(mHandleActionRunnable, DELAY_ACTION);
     }
+
+
 }

@@ -15,6 +15,11 @@ import dagger.Provides;
 public class ApplicationModule {
     Application mApplication;
 
+    /**
+     * 带有参数的 module 构造方法,必须显式的调用生成实例对象
+     *
+     * @param application
+     */
     public ApplicationModule(Application application) {
         mApplication = application;
     }
