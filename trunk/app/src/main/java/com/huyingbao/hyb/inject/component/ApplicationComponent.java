@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.huyingbao.hyb.HybApp;
+import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
@@ -32,6 +33,9 @@ public interface ApplicationComponent {
     void inject(BaseFragment fragment);
 
     void inject(HybApp application);
+
+
+    void inject(HybActionCreator actionCreator);
 
     Application getApplication();
 

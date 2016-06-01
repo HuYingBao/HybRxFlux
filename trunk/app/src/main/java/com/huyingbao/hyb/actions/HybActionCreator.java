@@ -19,6 +19,8 @@ import rx.schedulers.Schedulers;
  * Action Creator responsible of creating the needed actions
  */
 public class HybActionCreator extends RxActionCreator implements Actions {
+    @Inject
+    HybApi hybApi;
 
     /**
      * If you want to give more things to the constructor like API or Preferences or any other
@@ -26,11 +28,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
      */
     public HybActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
         super(dispatcher, manager);
-        ApplicationComponent.Instance.get().
+        ApplicationComponent.Instance.get().inject(this);
     }
 
-    @Inject
-    HybApi hybApi;
 
     private HybApi getApi() {
         return hybApi;
@@ -70,7 +70,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         //调用接口之后,得到对应的数据userResponse,传入keys.user
         final RxAction action = newRxAction(REGISTER_USER, Keys.USER, user);
         if (hasRxAction(action)) return;
-        addRxAction(action, HybApi.Factory.getApi()
+        addRxAction(action, getApi()
                 .registerUser(user)
                 // 指定 subscribe() 发生在 IO 线程
                 .subscribeOn(Schedulers.io())
@@ -86,7 +86,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void registerShop(Shop shop) {
         final RxAction action = newRxAction(REGISTER_SHOP, Keys.SHOP, shop);
         if (hasRxAction(action)) return;
-        addRxAction(action, HybApi.Factory.getApi()
+        addRxAction(action, getApi()
                 .registerShop(shop)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -100,7 +100,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void getNearbyShopList(double longitude, double latitude, int radius, int shopType) {
         final RxAction action = newRxAction(GET_NEARBY_SHOP, Keys.LONGITUDE, longitude, Keys.LATITUDE, latitude, Keys.RADIUS, radius, Keys.SHOPTYPE, shopType);
         if (hasRxAction(action)) return;
-        addRxAction(action, HybApi.Factory.getApi()
+        addRxAction(action, getApi()
                 .getShopByLocation(longitude, latitude, radius, shopType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
