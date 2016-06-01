@@ -13,6 +13,8 @@ import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.actions.Keys;
+import com.huyingbao.hyb.inject.component.ApplicationComponent;
+import com.huyingbao.hyb.inject.module.ApplicationModule;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 public class HybApp extends Application {
@@ -37,11 +39,20 @@ public class HybApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initDagger();
+
         intantce = this;
-        RxFlux.LOG_LEVEL = BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE;
-        rxFlux = RxFlux.init(this);
-        gitHubActionCreator = new HybActionCreator(rxFlux.getDispatcher(), rxFlux.getSubscriptionManager());
+//        RxFlux.LOG_LEVEL = BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE;
+//        rxFlux = RxFlux.init(this);
+//        gitHubActionCreator = new HybActionCreator(rxFlux.getDispatcher(), rxFlux.getSubscriptionManager());
         initLocationClient();
+    }
+
+    private void initDagger() {
+        ApplicationComponent.Instance.init(DaggerApplicationComponent
+                .builder()
+                .applicationModule(new ApplicationModule(this))
+                .build());
     }
 
     /**
@@ -89,7 +100,7 @@ public class HybApp extends Application {
         mBDLocationListener = new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                RxAction action = getHybActionCreator().newRxAction(Actions.A_GET_LOCATION, Keys.LOCATION,bdLocation);
+                RxAction action = getHybActionCreator().newRxAction(Actions.A_GET_LOCATION, Keys.LOCATION, bdLocation);
                 getHybActionCreator().postRxAction(action);
 //                getHybActionCreator().postLocation(bdLocation);
                 //接收到位置信息之后,LocationClient取消位置监听器

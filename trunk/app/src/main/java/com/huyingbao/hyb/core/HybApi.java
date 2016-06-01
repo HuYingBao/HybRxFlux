@@ -1,29 +1,12 @@
 package com.huyingbao.hyb.core;
 
 
-import com.huyingbao.hyb.BuildConfig;
-import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 
-import java.io.File;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -36,8 +19,6 @@ import rx.Observable;
  * Created by marcel on 09/10/15.
  */
 public interface HybApi {
-
-    String ENDPOINT = BuildConfig.DEBUG ? "http://52.79.131.9:1337" : "http://52.79.131.9:1337";
 
     /**
      * 用户注册
@@ -187,29 +168,61 @@ public interface HybApi {
     Observable<ArrayList<Product>> getEnableProductByShopCode(@Field("belongShop") int belongShop, @Field("status") int status);
 
 
-    class Factory {
-        private static HybApi instance;
-
-        private static void create() {
-
-            CookieManager cookieManager = new CookieManager();
-            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-            CookieHandler.setDefault(cookieManager);
-
-            //初始化OKHttpClient builder
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            //设置缓存目录
-            File cacheDirectory = new File(HybApp.getInstance().getCacheDir().getAbsolutePath(),
-                    "HttpCache");
-            Cache cache = new Cache(cacheDirectory, 20 * 1024 * 1024);
-            builder.cache(cache);
-            //通过cookiejar来实现cookies的持久化
-//            builder.cookieJar(new CookieJar() {
-//                private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
+//    class Factory {
+//        private static HybApi instance;
 //
+//        private static void create() {
+//
+//            CookieManager cookieManager = new CookieManager();
+//            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+//            CookieHandler.setDefault(cookieManager);
+//
+//            //初始化OKHttpClient builder
+//            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+//            //设置缓存目录
+//            File cacheDirectory = new File(HybApp.getInstance().getCacheDir().getAbsolutePath(),
+//                    "HttpCache");
+//            Cache cache = new Cache(cacheDirectory, 20 * 1024 * 1024);
+//            builder.cache(cache);
+//            //通过cookiejar来实现cookies的持久化
+////            builder.cookieJar(new CookieJar() {
+////                private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
+////
+////                @Override
+////                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+////                    cookieStore.put(url, cookies);
+////                }
+////
+////                @Override
+////                public List<Cookie> loadForRequest(HttpUrl url) {
+////                    List<Cookie> cookies = cookieStore.get(url);
+////                    return cookies != null ? cookies : new ArrayList<Cookie>();
+////                }
+////            });
+////            builder.cookieJar(new CookieJar() {
+////                private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+////                //Tip：這裡key必須是String
+////                @Override
+////                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+////                    cookieStore.put(url.host(), cookies);
+////                }
+////                @Override
+////                public List<Cookie> loadForRequest(HttpUrl url) {
+////                    List<Cookie> cookies = cookieStore.get(url.host());
+////                    return cookies != null ? cookies : new ArrayList<Cookie>();
+////                }
+////            });
+//            builder.cookieJar(new CookieJar() {
+//                private final PersistentCookieStore cookieStore = new PersistentCookieStore(HybApp.getInstance());
+//
+//                //Tip：這裡key必須是String
 //                @Override
 //                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-//                    cookieStore.put(url, cookies);
+//                    if (cookies != null && cookies.size() > 0) {
+//                        for (Cookie item : cookies) {
+//                            cookieStore.add(url, item);
+//                        }
+//                    }
 //                }
 //
 //                @Override
@@ -218,62 +231,30 @@ public interface HybApi {
 //                    return cookies != null ? cookies : new ArrayList<Cookie>();
 //                }
 //            });
-//            builder.cookieJar(new CookieJar() {
-//                private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-//                //Tip：這裡key必須是String
-//                @Override
-//                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-//                    cookieStore.put(url.host(), cookies);
-//                }
-//                @Override
-//                public List<Cookie> loadForRequest(HttpUrl url) {
-//                    List<Cookie> cookies = cookieStore.get(url.host());
-//                    return cookies != null ? cookies : new ArrayList<Cookie>();
-//                }
-//            });
-            builder.cookieJar(new CookieJar() {
-                private final PersistentCookieStore cookieStore = new PersistentCookieStore(HybApp.getInstance());
-
-                //Tip：這裡key必須是String
-                @Override
-                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                    if (cookies != null && cookies.size() > 0) {
-                        for (Cookie item : cookies) {
-                            cookieStore.add(url, item);
-                        }
-                    }
-                }
-
-                @Override
-                public List<Cookie> loadForRequest(HttpUrl url) {
-                    List<Cookie> cookies = cookieStore.get(url);
-                    return cookies != null ? cookies : new ArrayList<Cookie>();
-                }
-            });
-            //设定30秒超时
-            builder.connectTimeout(30, TimeUnit.SECONDS);
-            //设置拦截器，以用于自定义Cookies的设置
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-            builder.addInterceptor(interceptor);
-            final Retrofit retrofit = new Retrofit.Builder()
-                    //配置服务器路径
-                    .baseUrl(HybApi.ENDPOINT)
-                    //配置转化库Gson
-                    .addConverterFactory(GsonConverterFactory.create())
-                    //配置回调库，采用RxJava
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    //设置OKHttpClient为网络客户端
-                    .client(builder.build())
-                    .build();
-            instance = retrofit.create(HybApi.class);
-        }
-
-        public static synchronized HybApi getApi() {
-            if (instance == null) {
-                create();
-            }
-            return instance;
-        }
-    }
+//            //设定30秒超时
+//            builder.connectTimeout(30, TimeUnit.SECONDS);
+//            //设置拦截器，以用于自定义Cookies的设置
+//            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//            interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+//            builder.addInterceptor(interceptor);
+//            final Retrofit retrofit = new Retrofit.Builder()
+//                    //配置服务器路径
+//                    .baseUrl(HybApi.ENDPOINT)
+//                    //配置转化库Gson
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    //配置回调库，采用RxJava
+//                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                    //设置OKHttpClient为网络客户端
+//                    .client(builder.build())
+//                    .build();
+//            instance = retrofit.create(HybApi.class);
+//        }
+//
+//        public static synchronized HybApi getApi() {
+//            if (instance == null) {
+//                create();
+//            }
+//            return instance;
+//        }
+//    }
 }

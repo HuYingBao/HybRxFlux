@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
-//Retrolambda 是一个 Java 类库,
-// 在 Java 5、6、7 上实现 Java 8 的 Lambda 表达式的功能。
-// 你可以通过 Retrolambda 让使用 Lambda 表达式的 Java 8 代码运行在...
+// 添加其他插件添加apt命令
+apply plugin: 'com.neenbedankt.android-apt'
+//Retrolambda 是一个 Java 类库,在 Java 5、6、7 上实现 Java 8 的 Lambda 表达式的功能。
+//可以通过 Retrolambda 让使用 Lambda 表达式的 Java 8 代码运行
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
@@ -56,10 +57,17 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     //----- Support Libs
+    compile "com.android.support:support-v4:${rootProject.ext.supportVersion}"
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportVersion}"
     compile "com.android.support:design:${rootProject.ext.supportVersion}"
     compile "com.android.support:recyclerview-v7:${rootProject.ext.supportVersion}"
     compile "com.android.support:cardview-v7:${rootProject.ext.supportVersion}"
+    compile "com.android.support:support-annotations:${rootProject.ext.supportVersion}"
+
+    //----dagger2
+    apt 'com.google.dagger:dagger-compiler:2.2' //指定注解处理器
+    compile 'com.google.dagger:dagger:2.2'  //dagger公用api
+    provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
 
     //----网络Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -67,11 +75,11 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:2.0.2"
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
 
-    //图片加载
+    //----图片加载
 //    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
-    //图片上传
+    //----图片上传
 //    compile 'com.qiniu:qiniu-android-sdk:7.2.+'
 
     //----Butterknife,view注解
@@ -79,7 +87,6 @@ dependencies {
 
     //Logger
     compile 'com.github.orhanobut:logger:1.12'
-
 
     compile project(':rxflux')
 
