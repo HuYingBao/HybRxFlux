@@ -45,7 +45,7 @@ public interface ApplicationComponent {
         private static ApplicationComponent sComponent;
 
         /**
-         * 实例化方法
+         * 实例化ApplicationComponent方法
          *
          * @param component
          */

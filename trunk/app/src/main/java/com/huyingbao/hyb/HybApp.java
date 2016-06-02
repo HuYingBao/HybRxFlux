@@ -52,11 +52,14 @@ public class HybApp extends Application {
         initLocationClient();
     }
 
+    /**
+     * Module实例的创建,如果Module只有有参构造器，则必须显式传入Module实例
+     */
     private void initDagger() {
-        ApplicationComponent.Instance.init(DaggerApplicationComponent
-                .builder()
+        ApplicationComponent applicationComponet = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .build());
+                .build();
+        ApplicationComponent.Instance.init(applicationComponet);
     }
 
 
