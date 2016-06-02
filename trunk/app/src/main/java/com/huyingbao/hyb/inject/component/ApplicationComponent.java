@@ -34,7 +34,6 @@ public interface ApplicationComponent {
 
     void inject(HybApp application);
 
-
     void inject(HybActionCreator actionCreator);
 
     Application getApplication();

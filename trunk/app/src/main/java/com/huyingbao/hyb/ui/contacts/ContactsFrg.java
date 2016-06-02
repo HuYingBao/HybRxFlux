@@ -108,9 +108,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.A_GET_LOCATION:
-//                        Snackbar.make(rootCoordinator, usersStore.getBDLocation().getCity(), Snackbar.LENGTH_INDEFINITE)
-//                                .setAction("重试", v -> HybApp.getInstance().startLocation())
-//                                .show();
                         break;
 
                 }

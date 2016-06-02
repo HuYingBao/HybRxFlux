@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.inject.component.ApplicationComponent;
 
 import javax.inject.Inject;
 
@@ -30,11 +31,14 @@ public abstract class BaseFragment extends Fragment {
 //        afterCreate(savedInstanceState);
 //    }
 
-//    @Override
+    //    @Override
 //    public void onDestroyView() {
 //        super.onDestroyView();
 //        ButterKnife.unbind(this);
 //    }
+    public BaseFragment() {
+        ApplicationComponent.Instance.get().inject(this);
+    }
 
     /**
      * 得到上下文

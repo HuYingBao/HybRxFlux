@@ -20,6 +20,7 @@ import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
@@ -208,7 +209,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
      */
     private void getNearbyShopList() {
         setLoadingFrame(true);
-//        HybApp.getInstance().startLocation();
+        HybApp.getInstance().startLocation();
     }
 
     @Override
