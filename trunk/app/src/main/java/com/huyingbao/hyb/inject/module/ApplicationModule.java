@@ -29,7 +29,7 @@ public class ApplicationModule {
      *
      * @return Application
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public Application provideApplication() {
         return mApplication;

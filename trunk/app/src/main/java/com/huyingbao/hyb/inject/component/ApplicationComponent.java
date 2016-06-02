@@ -14,6 +14,8 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
+ * Dagger通过Singleton创建出来的单例并不保持在静态域上，而是保留在Component实例中
+ *
  * @author ljf
  *         接口，自动生成实现
  */

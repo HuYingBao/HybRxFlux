@@ -54,6 +54,7 @@ public class HybApp extends Application {
 
     /**
      * Module实例的创建,如果Module只有有参构造器，则必须显式传入Module实例
+     * 单例的有效范围随着其依附的Component，为了使得@Singleton的作用范围是整个Application，你需要添加以下代码
      */
     private void initDagger() {
         ApplicationComponent applicationComponet = DaggerApplicationComponent.builder()

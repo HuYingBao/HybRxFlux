@@ -42,7 +42,7 @@ public class HybApiModule {
      * @param client             OkHttpClient
      * @return HybApi
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public HybApi provideClientApi(Converter.Factory converterFactory,
                                    CallAdapter.Factory callAdapterFactory,
@@ -63,7 +63,7 @@ public class HybApiModule {
      * @param gson Gson
      * @return Converter.Factory
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public Converter.Factory provideConverter(Gson gson) {
         return GsonConverterFactory.create(gson);
@@ -74,7 +74,7 @@ public class HybApiModule {
      *
      * @return Gson
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public Gson provideGson() {
         return new GsonBuilder().serializeNulls().create();
@@ -85,7 +85,7 @@ public class HybApiModule {
      *
      * @return
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public CallAdapter.Factory provideCallAdapter() {
         return RxJavaCallAdapterFactory.create();
@@ -98,7 +98,7 @@ public class HybApiModule {
      * @param loggingInterceptor HttpLoggingInterceptor
      * @return OkHttpClient
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public OkHttpClient provideClient(HttpLoggingInterceptor loggingInterceptor, CookieJar cookieJar) {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -115,7 +115,7 @@ public class HybApiModule {
      *
      * @return HttpLoggingInterceptor
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public HttpLoggingInterceptor provideLogger() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -128,7 +128,7 @@ public class HybApiModule {
      *
      * @return
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public CookieJar provideCookieJar(PersistentCookieStore cookieStore) {
         CookieJar cookieJar = new CookieJar() {
@@ -156,7 +156,7 @@ public class HybApiModule {
      *
      * @return
      */
-    @Singleton
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public PersistentCookieStore providePersistentCookieStore() {
         return new PersistentCookieStore(HybApp.getInstance());
