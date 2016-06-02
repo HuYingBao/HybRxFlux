@@ -55,6 +55,8 @@
             android:name=".ui.login.RegisterAty"
             android:label="@string/title_activity_register_aty" />
         <activity android:name=".ui.shop.RegisterShopAty" />
+        <activity android:name=".ui.shop.ShopAty"></activity>
+
         <activity
             android:name=".ui.setting.SettingAty"
             android:label="@string/title_activity_setting_aty"
@@ -69,8 +71,6 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-
-        <activity android:name=".ui.shop.ShopAty"></activity>
     </application>
 
 </manifest>

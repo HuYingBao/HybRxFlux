@@ -89,8 +89,6 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
 
         String phone = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-//        String phone = "15810719581";
-//        String password = "123456";
 
         boolean cancel = false;
         View focusView = null;
