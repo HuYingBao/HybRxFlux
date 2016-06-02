@@ -51,12 +51,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public HybActionCreator getHybActionCreator() {
-        return hybActionCreator;
-    }
-
     public RxFlux getRxFlux() {
         return rxFlux;
+    }
+
+    public HybActionCreator getHybActionCreator() {
+        return hybActionCreator;
     }
 
     protected abstract int getLayoutId();

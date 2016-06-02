@@ -3,7 +3,16 @@ package com.huyingbao.hyb.base;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.hardsoftstudio.rxflux.RxFlux;
+import com.huyingbao.hyb.actions.HybActionCreator;
+
+import javax.inject.Inject;
+
 public abstract class BaseFragment extends Fragment {
+    @Inject
+    HybActionCreator hybActionCreator;
+    @Inject
+    RxFlux rxFlux;
 //    public static final String TAG = BaseFragment.class.getSimpleName();
 //    protected View mRootView;
 //
@@ -36,6 +45,13 @@ public abstract class BaseFragment extends Fragment {
         return getActivity();
     }
 
+    public RxFlux getRxFlux() {
+        return rxFlux;
+    }
+
+    public HybActionCreator getHybActionCreator() {
+        return hybActionCreator;
+    }
 //    protected abstract int getLayoutId();
 //
 //    protected abstract void afterCreate(Bundle savedInstanceState);

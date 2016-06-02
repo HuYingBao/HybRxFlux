@@ -26,7 +26,6 @@ import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
-import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
@@ -119,7 +118,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
             HybUser user = new HybUser();
             user.setPhone(phone);
             user.setPassword(password);
-            HybApp.getInstance().getHybActionCreator().login(user);
+            getHybActionCreator().login(user);
         }
     }
 
@@ -208,7 +207,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                     return;
                 }
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("重试", v -> HybApp.getInstance().getHybActionCreator().retry(error.getAction()))
+                        .setAction("重试", v -> getHybActionCreator().retry(error.getAction()))
                         .show();
             }
         } else {
@@ -229,7 +228,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(usersStore);
     }
 

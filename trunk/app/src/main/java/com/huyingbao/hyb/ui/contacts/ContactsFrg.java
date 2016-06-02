@@ -15,7 +15,6 @@ import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
-import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseFragment;
@@ -51,7 +50,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     public ContactsFrg() {
         //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
         //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         usersStore.register();
     }
 

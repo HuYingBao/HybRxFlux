@@ -20,7 +20,6 @@ import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
-import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
@@ -65,9 +64,9 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
     public BearbyFrg() {
         //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
         //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-        usersStore = UsersStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         usersStore.register();
-        shopStore = ShopStore.get(HybApp.getInstance().getRxFlux().getDispatcher());
+        shopStore = ShopStore.get(getRxFlux().getDispatcher());
         shopStore.register();
 
     }
@@ -131,7 +130,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.A_GET_LOCATION:
-                        HybApp.getInstance().getHybActionCreator().getNearbyShopList(
+                        getHybActionCreator().getNearbyShopList(
                                 usersStore.getBDLocation().getLongitude(),
                                 usersStore.getBDLocation().getLatitude(),
                                 10000,
@@ -165,7 +164,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
             if (throwable instanceof HttpException) {
                 int httpCode = ((HttpException) throwable).code();
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("重试", v -> HybApp.getInstance().getHybActionCreator().retry(error.getAction()))
+                        .setAction("重试", v -> getHybActionCreator().retry(error.getAction()))
                         .show();
             }
         } else {
@@ -209,12 +208,12 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
      */
     private void getNearbyShopList() {
         setLoadingFrame(true);
-        HybApp.getInstance().startLocation();
+//        HybApp.getInstance().startLocation();
     }
 
     @Override
     public void onClicked(Shop shop) {
-        RxAction action = HybApp.getInstance().getHybActionCreator().newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shop);
-        HybApp.getInstance().getHybActionCreator().postRxAction(action);
+        RxAction action = getHybActionCreator().newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shop);
+        getHybActionCreator().postRxAction(action);
     }
 }
