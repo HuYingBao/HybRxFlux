@@ -12,7 +12,6 @@ import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
-import com.huyingbao.hyb.inject.component.DaggerApplicationComponent;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 

@@ -1,16 +1,16 @@
 package com.huyingbao.hyb.inject.module;
 
 import android.app.Application;
+import android.content.Context;
+
+import com.huyingbao.hyb.inject.qualifier.ContextLife;
+import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * author lsxiao
- * date 2016-05-09 20:06
- */
 @Module(includes = {HybApiModule.class, FluxModule.class})
 public class ApplicationModule {
     Application mApplication;
@@ -24,14 +24,17 @@ public class ApplicationModule {
         mApplication = application;
     }
 
-    /**
-     * 提供Application单例对象
-     *
-     * @return Application
-     */
-    @Singleton//添加@Singleton标明该方法产生只产生一个实例
+    @Provides//添加@Singleton标明该方法产生只产生一个实例
+    @Singleton
+    @ContextLife("Application")
+    public Context provideContext() {
+        return mApplication.getApplicationContext();
+    }
+
+
     @Provides
-    public Application provideApplication() {
-        return mApplication;
+    @Singleton
+    public LocalStorageUtils provideLocalStorageUtils() {
+        return LocalStorageUtils.getInstance(mApplication.getApplicationContext());
     }
 }

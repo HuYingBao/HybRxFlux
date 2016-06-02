@@ -1,9 +1,10 @@
 package com.huyingbao.hyb.core;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.huyingbao.hyb.HybApp;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.inject.Inject;
 
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
@@ -31,8 +34,9 @@ public class PersistentCookieStore {
     private final SharedPreferences cookiePrefs;
 
 
-    public PersistentCookieStore(Context context) {
-        cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
+    @Inject
+    public PersistentCookieStore() {
+        cookiePrefs = HybApp.getInstance().getSharedPreferences(COOKIE_PREFS, 0);
         cookies = new HashMap<>();
 
         //将持久化的cookies缓存到内存中 即map cookies

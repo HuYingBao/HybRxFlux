@@ -1,13 +1,14 @@
 package com.huyingbao.hyb.inject.component;
 
-import android.app.Application;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
-import com.huyingbao.hyb.base.BaseActivity;
-import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
+import com.huyingbao.hyb.inject.qualifier.ContextLife;
+import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 import javax.inject.Singleton;
 
@@ -23,22 +24,25 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)//指明Component从ApplicationModule中找依赖
 public interface ApplicationComponent {
 
+    @ContextLife("Application")
+    Context getContext();
+
+    LocalStorageUtils getLocalStorageUtils();
+
+    RxFlux getRxFlux();
+
+    HybActionCreator getHybActionCreator();
+
 
     /**
      * 添加注入方法,一般使用inject做为方法名，方法参数为对应的Container
      * 注入方法，在Container中调用
      *
-     * @param activity
+     * @param application
      */
-    void inject(BaseActivity activity);
-
-    void inject(BaseFragment fragment);
-
     void inject(HybApp application);
 
     void inject(HybActionCreator actionCreator);
-
-    Application getApplication();
 
     class Instance {
         /**

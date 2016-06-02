@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.inject.component.ActivityComponent;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
+import com.huyingbao.hyb.inject.module.ActivityModule;
+import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 import javax.inject.Inject;
@@ -23,8 +26,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     HybActionCreator hybActionCreator;
     @Inject
     RxFlux rxFlux;
-    protected Context mContext;
-    protected LocalStorageUtils mLocalStorageUtils;
+    @Inject
+    @ContextLife("Activity")
+    Context mContext;
+    @Inject
+    LocalStorageUtils mLocalStorageUtils;
+
+    protected ActivityComponent mActivityComponent;
 
     public BaseActivity() {
         ApplicationComponent.Instance.get().inject(this);
@@ -33,8 +41,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
-        mLocalStorageUtils = LocalStorageUtils.getInstance(HybApp.getInstance());
+        mActivityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .applicationComponent(ApplicationComponent.Instance.get())
+                .build();
+        mActivityComponent.inject(this);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         afterCreate(savedInstanceState);

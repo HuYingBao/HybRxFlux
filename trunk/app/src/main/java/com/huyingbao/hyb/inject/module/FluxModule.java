@@ -19,8 +19,6 @@ import dagger.Provides;
  */
 @Module
 public class FluxModule {
-
-
     @Singleton
     @Provides
     public RxFlux provideRxFlux() {
