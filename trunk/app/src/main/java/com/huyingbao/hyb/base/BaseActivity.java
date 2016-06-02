@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ActivityComponent;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
+import com.huyingbao.hyb.inject.component.DaggerActivityComponent;
 import com.huyingbao.hyb.inject.module.ActivityModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
@@ -23,20 +23,16 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     @Inject
-    HybActionCreator hybActionCreator;
+    protected HybActionCreator hybActionCreator;
     @Inject
-    RxFlux rxFlux;
+    protected RxFlux rxFlux;
     @Inject
     @ContextLife("Activity")
-    Context mContext;
+    protected Context mContext;
     @Inject
-    LocalStorageUtils mLocalStorageUtils;
+    protected LocalStorageUtils mLocalStorageUtils;
 
     protected ActivityComponent mActivityComponent;
-
-    public BaseActivity() {
-        ApplicationComponent.Instance.get().inject(this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

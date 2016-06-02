@@ -8,6 +8,7 @@ import android.view.View;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
+import com.huyingbao.hyb.inject.component.DaggerFragmentComponent;
 import com.huyingbao.hyb.inject.component.FragmentComponent;
 import com.huyingbao.hyb.inject.module.FragmentModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
@@ -19,14 +20,14 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
     @Inject
-    HybActionCreator hybActionCreator;
+    protected HybActionCreator hybActionCreator;
     @Inject
-    RxFlux rxFlux;
+    protected RxFlux rxFlux;
     @Inject
     @ContextLife("Activity")
-    Context mContext;
+    protected Context mContext;
     @Inject
-    LocalStorageUtils mLocalStorageUtils;
+    protected LocalStorageUtils mLocalStorageUtils;
     protected FragmentComponent mFragmentComponent;
 
     //    public static final String TAG = BaseFragment.class.getSimpleName();
