@@ -40,6 +40,7 @@ public class ShopDetailAty extends BaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         mShop = (Shop) getIntent().getSerializableExtra(Keys.SHOP);
+        toolbarLayout.setTitle(mShop.getShopName());
         showShopFragment();
     }
 
