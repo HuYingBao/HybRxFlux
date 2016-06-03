@@ -37,8 +37,9 @@ ext {
     targetSdkVersion = compileSdkVersion
     versionCode = 1
     versionName = "1.0"
+    supportVersion = "23.4.0"
 
-    supportVersion = '23.4.0'
+    dagger = "2.2"
 }
 
 

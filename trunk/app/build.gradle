@@ -65,8 +65,8 @@ dependencies {
     compile "com.android.support:support-annotations:${rootProject.ext.supportVersion}"
 
     //----dagger2
-    apt 'com.google.dagger:dagger-compiler:2.2' //指定注解处理器
-    compile 'com.google.dagger:dagger:2.2'  //dagger公用api
+    apt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger}" //指定注解处理器
+    compile "com.google.dagger:dagger:${rootProject.ext.dagger}"  //dagger公用api
     provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
 
     //----网络Retrofit

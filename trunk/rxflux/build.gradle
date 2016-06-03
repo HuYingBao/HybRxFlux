@@ -46,6 +46,10 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.4'
     compile "com.android.support:support-v4:${rootProject.ext.supportVersion}"
 
+    apt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger}" //指定注解处理器
+    compile "com.google.dagger:dagger:${rootProject.ext.dagger}"  //dagger公用api
+    provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
+
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.10.17"
 }
