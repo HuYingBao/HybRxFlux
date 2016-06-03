@@ -36,16 +36,45 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //初始化注入器
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .applicationComponent(ApplicationComponent.Instance.get())
                 .build();
+        //注入Injector
+        initInjector();
+
+        //设置view
         setContentView(getLayoutId());
-        mActivityComponent.inject(this);
+        //绑定view
         ButterKnife.bind(this);
+
+        //创建之后的操作
         afterCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
     }
+
+
+    /**
+     * 注入Injector
+     */
+    public void initInjector() {
+        mActivityComponent.inject(this);
+    }
+
+    /**
+     * 设置view
+     *
+     * @return
+     */
+    protected abstract int getLayoutId();
+
+    /**
+     * 创建之后的操作
+     *
+     * @param savedInstanceState
+     */
+    protected abstract void afterCreate(Bundle savedInstanceState);
 
     @Override
     protected void onDestroy() {
@@ -66,8 +95,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         return hybActionCreator;
     }
 
-    protected abstract int getLayoutId();
-
-    protected abstract void afterCreate(Bundle savedInstanceState);
 
 }

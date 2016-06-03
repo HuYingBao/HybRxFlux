@@ -8,9 +8,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -34,7 +32,6 @@ import com.huyingbao.hyb.utils.HttpCode;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -48,7 +45,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private final ShopStore shopStore;
+    private ShopStore shopStore;
     private UsersStore usersStore;
     private ShopListAdapter adapter;
 
@@ -61,16 +58,6 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
-
-    public BearbyFrg() {
-        //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
-        //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
-        usersStore.register();
-        shopStore = ShopStore.get(getRxFlux().getDispatcher());
-        shopStore.register();
-
-    }
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -85,17 +72,24 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.f_home, container, false);
-        ButterKnife.bind(this, rootView);
+    protected int getLayoutId() {
+        return R.layout.f_home;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+        //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
+        //调用getRxStoreListToRegister,注册rxstore,只能手动注册
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+        usersStore.register();
+        shopStore = ShopStore.get(getRxFlux().getDispatcher());
+        shopStore.register();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShopListAdapter();
         adapter.setOnShopClickCallBack(this);
         recyclerView.setAdapter(adapter);
-        return rootView;
     }
 
 
@@ -103,12 +97,6 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
     public void onResume() {
         super.onResume();
         getNearbyShopList();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @OnClick({R.id.recycler_view, R.id.progress_loading, R.id.root, R.id.root_coordinator})

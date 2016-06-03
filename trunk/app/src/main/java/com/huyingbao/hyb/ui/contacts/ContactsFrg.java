@@ -5,9 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -23,7 +21,6 @@ import com.huyingbao.hyb.stores.UsersStore;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -47,13 +44,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
 
     private UsersStore usersStore;
 
-    public ContactsFrg() {
-        //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
-        //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
-        usersStore.register();
-    }
-
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -67,11 +57,14 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.f_home, container, false);
-        ButterKnife.bind(this, rootView);
-        return rootView;
+    protected int getLayoutId() {
+        return R.layout.f_home;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+        usersStore.register();
     }
 
 
@@ -81,11 +74,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
         refresh();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 
     @OnClick({R.id.recycler_view, R.id.progress_loading, R.id.root, R.id.root_coordinator})
     public void onClick(View view) {
