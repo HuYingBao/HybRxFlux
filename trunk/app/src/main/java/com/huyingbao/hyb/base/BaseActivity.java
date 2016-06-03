@@ -36,15 +36,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .applicationComponent(ApplicationComponent.Instance.get())
                 .build();
-        mActivityComponent.inject(this);
         setContentView(getLayoutId());
+        mActivityComponent.inject(this);
         ButterKnife.bind(this);
         afterCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
