@@ -52,20 +52,24 @@ public class Dispatcher {
         if (subscription == null || subscription.isUnsubscribed()) {
             logger.logRxStoreRegister(tag);
             //filter过滤,传入一个Func1类对象,参数Object,返回boolean,若是object是RxAction的子类实现,则返回true,执行订阅
-            rxActionMap.put(tag, bus.get().onBackpressureBuffer().filter(new Func1<Object, Boolean>() {
-                @Override
-                public Boolean call(Object o) {
-                    return o instanceof RxAction;
-                }
-            }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Object>() {
-                @Override
-                public void call(Object o) {
-                    logger.logRxAction(tag, (RxAction) o);
-                    //Post RxAction
-                    //(RxStore extends RxActionDispatch)object调用onRxAction方法
-                    object.onRxAction((RxAction) o);
-                }
-            }));
+            rxActionMap.put(tag, bus.get()
+                    .onBackpressureBuffer()
+                    .filter(new Func1<Object, Boolean>() {
+                        @Override
+                        public Boolean call(Object o) {
+                            return o instanceof RxAction;
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Object>() {
+                        @Override
+                        public void call(Object o) {
+                            logger.logRxAction(tag, (RxAction) o);
+                            //Post RxAction
+                            //(RxStore extends RxActionDispatch)object调用onRxAction方法
+                            object.onRxAction((RxAction) o);
+                        }
+                    }));
         }
     }
 
@@ -79,18 +83,22 @@ public class Dispatcher {
         final String tag = object.getClass().getSimpleName() + "_error";
         Subscription subscription = rxActionMap.get(tag);
         if (subscription == null || subscription.isUnsubscribed()) {
-            rxActionMap.put(tag, bus.get().onBackpressureBuffer().filter(new Func1<Object, Boolean>() {
-                @Override
-                public Boolean call(Object o) {
-                    return o instanceof RxError;
-                }
-            }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Object>() {
-                @Override
-                public void call(Object o) {
-                    logger.logRxError(tag, (RxError) o);
-                    object.onRxError((RxError) o);
-                }
-            }));
+            rxActionMap.put(tag, bus.get()
+                    .onBackpressureBuffer()
+                    .filter(new Func1<Object, Boolean>() {
+                        @Override
+                        public Boolean call(Object o) {
+                            return o instanceof RxError;
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Object>() {
+                        @Override
+                        public void call(Object o) {
+                            logger.logRxError(tag, (RxError) o);
+                            object.onRxError((RxError) o);
+                        }
+                    }));
         }
     }
 
@@ -115,21 +123,24 @@ public class Dispatcher {
             //获取rxbus实例,是一个Observable(被监听者)的子类对象
             //Subject=new SerializedSubject<>(PublishSubject.create())
             //会把在订阅(subscribe())发生的时间点之后来自原始Observable的数据发射给观察者
-            rxStoreMap.put(tag, bus.get().onBackpressureBuffer().filter(new Func1<Object, Boolean>() {
-                @Override
-                public Boolean call(Object o) {
-                    //当该事件是RxStoreChange的实现类的时候,
-                    return o instanceof RxStoreChange;
-                }
-            }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Object>() {
-                //调用监听者Subscription的方法回调方法call
-                @Override
-                public void call(Object o) {
-                    logger.logRxStore(tag, (RxStoreChange) o);
-                    //调用Activity,Fragment,View等所有实现了RxViewDispatch的类对象的onRxStoreChange方法
-                    object.onRxStoreChanged((RxStoreChange) o);
-                }
-            }));
+            rxStoreMap.put(tag, bus.get()
+                    .onBackpressureBuffer().filter(new Func1<Object, Boolean>() {
+                        @Override
+                        public Boolean call(Object o) {
+                            //当该事件是RxStoreChange的实现类的时候,
+                            return o instanceof RxStoreChange;
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Object>() {
+                        //调用监听者Subscription的方法回调方法call
+                        @Override
+                        public void call(Object o) {
+                            logger.logRxStore(tag, (RxStoreChange) o);
+                            //调用Activity,Fragment,View等所有实现了RxViewDispatch的类对象的onRxStoreChange方法
+                            object.onRxStoreChanged((RxStoreChange) o);
+                        }
+                    }));
         }
         subscribeRxError(object);
     }
@@ -191,7 +202,7 @@ public class Dispatcher {
     }
 
     /**
-     * 发送action变化,到所有订阅的store,
+     * 1:发送action变化,到所有订阅的store,
      *
      * @param action
      */
@@ -200,7 +211,7 @@ public class Dispatcher {
     }
 
     /**
-     * 发送store变化
+     * 2:发送store变化
      *
      * @param storeChange
      */
