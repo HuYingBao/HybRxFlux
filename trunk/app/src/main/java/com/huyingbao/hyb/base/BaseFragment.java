@@ -34,9 +34,6 @@ public abstract class BaseFragment extends Fragment {
     protected FragmentComponent mFragmentComponent;
     private View mRootView;
 
-    //    public static final String TAG = BaseFragment.class.getSimpleName();
-//    protected View mRootView;
-//
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
