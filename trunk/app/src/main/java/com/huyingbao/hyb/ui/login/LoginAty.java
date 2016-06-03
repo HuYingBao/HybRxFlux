@@ -173,11 +173,11 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
-        showProgress(false);
         switch (change.getStoreId()) {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
+                        showProgress(false);
                         startActivity(MainAty.class);
                         finish();
                         break;
@@ -189,7 +189,6 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Override
     public void onRxError(@NonNull RxError error) {
         showProgress(false);
-
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
             if (throwable instanceof HttpException) {
