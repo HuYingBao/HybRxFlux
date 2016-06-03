@@ -18,7 +18,7 @@ import com.huyingbao.hyb.model.Shop;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class ShopAty extends BaseActivity {
+public class ShopDetailAty extends BaseActivity {
 
     @Bind(R.id.detail_toolbar)
     Toolbar detailToolbar;
@@ -34,7 +34,7 @@ public class ShopAty extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.a_shop;
+        return R.layout.a_shop_detail;
     }
 
     @Override

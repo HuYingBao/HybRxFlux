@@ -136,7 +136,7 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
                         adapter.setShopList(shopStore.getShopList());
                         break;
                     case Actions.A_TO_SHOP_INFO:
-                        Intent intent = new Intent(getContext(), ShopAty.class);
+                        Intent intent = new Intent(getContext(), ShopDetailAty.class);
                         intent.putExtra(Keys.SHOP, shopStore.getShop());
                         startActivity(intent);
                 }
