@@ -1,6 +1,9 @@
 package com.huyingbao.hyb.ui.shop;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.huyingbao.hyb.R;
@@ -21,10 +24,10 @@ public class ShopAty extends AppCompatActivity {
 
 
     private void showShopFragment(Shop shop) {
-//        Fragment fragment = NewsDetailFragment.newInstance(story);
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction ft = fm.beginTransaction();
-//        ft.replace(R.id.rl_news_container, fragment, NewsDetailFragment.TAG);
-//        ft.commit();
+        Fragment fragment = ShopDetailFrg.newInstance(shop);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.rl_news_container, fragment, "asdf");
+        ft.commit();
     }
 }

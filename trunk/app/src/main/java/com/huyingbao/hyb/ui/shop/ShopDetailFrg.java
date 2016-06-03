@@ -1,6 +1,5 @@
 package com.huyingbao.hyb.ui.shop;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,29 +7,19 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Keys;
+import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.Shop;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ShopDetailFrg#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ShopDetailFrg extends Fragment {
+public class ShopDetailFrg extends BaseFragment {
     @Bind(R.id.wv_news)
     WebView mWvNews;
     @Bind(R.id.cpb_loading)
@@ -52,10 +41,6 @@ public class ShopDetailFrg extends Fragment {
     private OnFragmentInteractionListener mListener;
     private Shop mShop;
 
-    public ShopDetailFrg() {
-        // Required empty public constructor
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -72,20 +57,15 @@ public class ShopDetailFrg extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mShop = (Shop) getArguments().getSerializable(Keys.SHOP);
-        }
+    protected int getLayoutId() {
+        return R.layout.fragment_news_detail;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+    protected void afterCreate(Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            mShop = (Shop) getArguments().getSerializable(Keys.SHOP);
+        }
     }
 
 
