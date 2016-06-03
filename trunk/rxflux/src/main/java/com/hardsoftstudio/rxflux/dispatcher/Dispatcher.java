@@ -124,7 +124,8 @@ public class Dispatcher {
             //Subject=new SerializedSubject<>(PublishSubject.create())
             //会把在订阅(subscribe())发生的时间点之后来自原始Observable的数据发射给观察者
             rxStoreMap.put(tag, bus.get()
-                    .onBackpressureBuffer().filter(new Func1<Object, Boolean>() {
+                    .onBackpressureBuffer()
+                    .filter(new Func1<Object, Boolean>() {
                         @Override
                         public Boolean call(Object o) {
                             //当该事件是RxStoreChange的实现类的时候,
