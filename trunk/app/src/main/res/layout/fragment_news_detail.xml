@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,25 +33,23 @@
                     android:id="@+id/iv_header"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
-                    android:background="@drawable/bg_shadow_mask"/>
+                    android:background="@drawable/bg_shadow_mask" />
 
                 <TextView
                     android:id="@+id/tv_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|bottom"
-                    android:padding="8dp"/>
+                    android:padding="8dp" />
             </FrameLayout>
 
-            <include
-                layout="@layout/include_tool_bar"
-                />
+            <include layout="@layout/include_tool_bar" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -69,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:isScrollContainer="false"
-            android:scrollbars="none"/>
+            android:scrollbars="none" />
     </android.support.v4.widget.NestedScrollView>
 
 
@@ -78,22 +75,20 @@
         android:layout_height="match_parent"
         android:layout_marginTop="128dp">
 
-        <include
-            layout="@layout/include_empty"/>
+        <include layout="@layout/include_empty" />
 
-        <include
-            layout="@layout/include_error"/>
+        <include layout="@layout/include_error" />
     </FrameLayout>
 
 
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/cpb_loading"
-        android:visibility="gone"
         style="?android:attr/android:progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="128dp"/>
+        android:layout_marginTop="128dp"
+        android:visibility="gone" />
 
 
 </android.support.design.widget.CoordinatorLayout>
