@@ -1,19 +1,15 @@
 package com.huyingbao.hyb.ui.shop;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.widget.Toast;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.Shop;
-
-import butterknife.OnClick;
 
 public class ShopDetailAty extends BaseActivity {
     private Shop mShop;
@@ -26,13 +22,8 @@ public class ShopDetailAty extends BaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         mShop = (Shop) getIntent().getSerializableExtra(Keys.SHOP);
-        
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         showShopFragment(mShop);
+        
     }
 
     private void showShopFragment(Shop shop) {
@@ -53,13 +44,4 @@ public class ShopDetailAty extends BaseActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.fab})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fab:
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                break;
-        }
-    }
 }

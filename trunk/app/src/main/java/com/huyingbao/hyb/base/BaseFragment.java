@@ -52,9 +52,10 @@ public abstract class BaseFragment extends Fragment {
         initInjector();
         //绑定view
         ButterKnife.bind(this, view);
+
+        super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
         afterCreate(savedInstanceState);
-        super.onViewCreated(view, savedInstanceState);
     }
 
     private void initInjector() {

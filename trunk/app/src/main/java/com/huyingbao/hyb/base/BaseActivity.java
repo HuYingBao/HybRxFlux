@@ -36,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         //初始化注入器
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
@@ -51,7 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         //创建之后的操作
         afterCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
     }
 
 
