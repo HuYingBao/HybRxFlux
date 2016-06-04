@@ -38,7 +38,7 @@ import retrofit2.adapter.rxjava.HttpException;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnShopClicked {
+public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnShopClicked {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -63,8 +63,8 @@ public class BearbyFrg extends BaseFragment implements RxViewDispatch, ShopListA
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static BearbyFrg newInstance(int sectionNumber) {
-        BearbyFrg fragment = new BearbyFrg();
+    public static ShopListBearbyFrg newInstance(int sectionNumber) {
+        ShopListBearbyFrg fragment = new ShopListBearbyFrg();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

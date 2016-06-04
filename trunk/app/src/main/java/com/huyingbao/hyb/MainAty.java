@@ -29,7 +29,7 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.home.HomeFrg;
-import com.huyingbao.hyb.ui.shop.BearbyFrg;
+import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 
 import java.util.List;
 
@@ -255,7 +255,7 @@ public class MainAty extends BaseActivity
             }
             switch (position) {
                 case 0:
-                    mFragments[position] = BearbyFrg.newInstance(position);
+                    mFragments[position] = ShopListBearbyFrg.newInstance(position);
                     break;
                 case 1:
                     mFragments[position] = ContactsFrg.newInstance(position);
@@ -316,7 +316,7 @@ public class MainAty extends BaseActivity
         if (fragment instanceof HomeFrg) {
             getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
-        if (fragment instanceof BearbyFrg) {
+        if (fragment instanceof ShopListBearbyFrg) {
             getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
     }
@@ -330,7 +330,7 @@ public class MainAty extends BaseActivity
             if (fragment instanceof HomeFrg) {
                 getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
             }
-            if (fragment instanceof BearbyFrg) {
+            if (fragment instanceof ShopListBearbyFrg) {
                 getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
             }
         }
