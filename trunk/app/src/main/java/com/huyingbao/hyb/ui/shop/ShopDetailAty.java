@@ -8,7 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
@@ -28,6 +32,10 @@ public class ShopDetailAty extends BaseActivity {
     NestedScrollView itemDetailContainer;
     @Bind(R.id.fab)
     FloatingActionButton fab;
+    @Bind(R.id.iv_header)
+    ImageView ivHeader;
+    @Bind(R.id.tv_source)
+    TextView tvSource;
     private Shop mShop;
 
     @Override
@@ -45,6 +53,12 @@ public class ShopDetailAty extends BaseActivity {
         }
         mShop = (Shop) getIntent().getSerializableExtra(Keys.SHOP);
         toolbarLayout.setTitle(mShop.getShopName());
+        Glide.with(HybApp.getInstance())
+                .load(mShop.getHeadImg())
+                .centerCrop()
+                .placeholder(R.drawable.ic_menu_camera)
+                .crossFade()
+                .into(ivHeader);
         showShopFragment(mShop);
 
     }
@@ -62,4 +76,5 @@ public class ShopDetailAty extends BaseActivity {
     @OnClick(R.id.fab)
     public void onClick() {
     }
+
 }
