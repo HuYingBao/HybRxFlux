@@ -36,7 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         //初始化注入器
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
@@ -44,7 +43,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .build();
         //注入Injector
         initInjector();
-
+        //需要在onCrate之前先注入对象
+        super.onCreate(savedInstanceState);
         //设置view
         setContentView(getLayoutId());
         //绑定view

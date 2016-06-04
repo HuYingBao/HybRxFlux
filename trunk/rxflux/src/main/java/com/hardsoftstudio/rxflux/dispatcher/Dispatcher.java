@@ -174,7 +174,7 @@ public class Dispatcher {
                         @Override
                         public Boolean call(Object o) {
                             //当该事件是RxStoreChange的实现类的时候,
-                            return o instanceof RxStoreChange && o instanceof RxFragment;
+                            return o instanceof RxStoreChange;
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
