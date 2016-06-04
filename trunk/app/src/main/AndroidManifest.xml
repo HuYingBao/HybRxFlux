@@ -56,7 +56,9 @@
             android:name=".ui.login.RegisterAty"
             android:label="@string/title_activity_register_aty" />
         <activity android:name=".ui.shop.RegisterShopAty" />
-        <activity android:name=".ui.shop.ShopDetailAty"></activity>
+        <activity
+            android:name=".ui.shop.ShopDetailAty"
+            android:parentActivityName=".MainAty" />
 
         <activity
             android:name=".ui.setting.SettingAty"

@@ -1,17 +1,33 @@
 package com.huyingbao.hyb.ui.shop;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.Shop;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 public class ShopDetailAty extends BaseActivity {
+    @Bind(R.id.detail_toolbar)
+    Toolbar detailToolbar;
+    @Bind(R.id.toolbar_layout)
+    CollapsingToolbarLayout toolbarLayout;
+    @Bind(R.id.app_bar)
+    AppBarLayout appBar;
+    @Bind(R.id.item_detail_container)
+    NestedScrollView itemDetailContainer;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
     private Shop mShop;
 
     @Override
@@ -21,9 +37,16 @@ public class ShopDetailAty extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        setSupportActionBar(detailToolbar);
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         mShop = (Shop) getIntent().getSerializableExtra(Keys.SHOP);
+        toolbarLayout.setTitle(mShop.getShopName());
         showShopFragment(mShop);
-        
+
     }
 
     private void showShopFragment(Shop shop) {
@@ -31,17 +54,12 @@ public class ShopDetailAty extends BaseActivity {
         arguments.putSerializable(Keys.SHOP, shop);
         Fragment fragment = ShopDetailFrg.newInstance();
         fragment.setArguments(arguments);
-        FragmentManager fm = this.getSupportFragmentManager();
-        fm.popBackStack();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.rl_news_container, fragment, "asdf");
-        ft.commit();
-        Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.item_detail_container, fragment)
+                .commit();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    @OnClick(R.id.fab)
+    public void onClick() {
     }
-
 }
