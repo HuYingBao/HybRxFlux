@@ -13,6 +13,7 @@ public interface Actions {
     String REGISTER_USER = "register_user";
     String REGISTER_SHOP = "register_shop";
     String GET_NEARBY_SHOP = "get_nearby_shop";
+    String GET_PRODUCT_BY_SHOP = "get_product_by_shop";
     /**
      * action type 非api操作
      */
@@ -26,6 +27,8 @@ public interface Actions {
     void registerShop(Shop shop);
 
     void getNearbyShopList(double longitude, double latitude, int radius, int shopType);
+
+    void getProductByShop(int shopId, int status);
 
     boolean retry(RxAction action);
 

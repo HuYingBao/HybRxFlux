@@ -6,6 +6,8 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.hardsoftstudio.rxflux.util.LoggerManager;
+import com.trello.rxlifecycle.FragmentEvent;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -133,6 +135,50 @@ public class Dispatcher {
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Object>() {
+                        //调用监听者Subscription的方法回调方法call
+                        @Override
+                        public void call(Object o) {
+                            logger.logRxStore(tag, (RxStoreChange) o);
+                            //调用Activity,Fragment,View等所有实现了RxViewDispatch的类对象的onRxStoreChange方法
+                            object.onRxStoreChanged((RxStoreChange) o);
+                        }
+                    }));
+        }
+        subscribeRxError(object);
+    }
+
+    /**
+     * Bus(Subject被监听者)发送一个事件到所有订阅bus(Subject)的监听者Subscription
+     * 当该事件是RxStoreChange的实现类的时候,
+     * 调用监听者Subscription的方法回调方法call
+     * 添加RxViewDispatch到dispatch的订阅中,
+     *
+     * @param object
+     * @param <T>
+     */
+    public <T extends RxViewDispatch> void subscribeRxFragment(final T object) {
+        //获取传入的Object的名字
+        final String tag = object.getClass().getSimpleName();
+        //获取Map中Object名字对应的value 监听者
+        Subscription subscription = rxStoreMap.get(tag);
+        //如果监听者空或者没订阅被监听者,生成一个新的监听者,并将他添加到 storemap中
+        if (subscription == null || subscription.isUnsubscribed()) {
+            logger.logViewRegisterToStore(tag);
+            //获取rxbus实例,是一个Observable(被监听者)的子类对象
+            //Subject=new SerializedSubject<>(PublishSubject.create())
+            //会把在订阅(subscribe())发生的时间点之后来自原始Observable的数据发射给观察者
+            rxStoreMap.put(tag, bus.get()
+                    .onBackpressureBuffer()
+                    .filter(new Func1<Object, Boolean>() {
+                        @Override
+                        public Boolean call(Object o) {
+                            //当该事件是RxStoreChange的实现类的时候,
+                            return o instanceof RxStoreChange && o instanceof RxFragment;
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(((RxFragment) object).bindUntilEvent(FragmentEvent.DESTROY))
                     .subscribe(new Action1<Object>() {
                         //调用监听者Subscription的方法回调方法call
                         @Override

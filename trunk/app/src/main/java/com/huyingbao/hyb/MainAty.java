@@ -314,10 +314,10 @@ public class MainAty extends BaseActivity
     public void onRxViewRegistered() {
         Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
         if (fragment instanceof HomeFrg) {
-            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+            getRxFlux().getDispatcher().subscribeRxFragment((RxViewDispatch) fragment);
         }
         if (fragment instanceof ShopListBearbyFrg) {
-            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+            getRxFlux().getDispatcher().subscribeRxFragment((RxViewDispatch) fragment);
         }
     }
 

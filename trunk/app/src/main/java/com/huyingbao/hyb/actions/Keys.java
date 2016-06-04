@@ -15,5 +15,8 @@ public interface Keys {
     String LONGITUDE = "longitude";
     String LATITUDE = "latitude";
     String RADIUS = "radius";
-    String SHOPTYPE = "shoptype";
+    String SHOP_TYPE = "shopType";
+    String SHOP_ID = "shopId";
+    String PRODUCT_LIST = "product_list";
+    String PRODUCT_STATUS = "productStatus";
 }

@@ -43,9 +43,13 @@ android {
 }
 
 dependencies {
-    compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'io.reactivex:rxjava:1.1.4'
     compile "com.android.support:support-v4:${rootProject.ext.supportVersion}"
+
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.5'
+
+    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
+    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
 
     apt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger}" //指定注解处理器
     compile "com.google.dagger:dagger:${rootProject.ext.dagger}"  //dagger公用api
