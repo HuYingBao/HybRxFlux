@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hardsoftstudio.rxflux.RxFlux;
+import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.hardsoftstudio.rxflux.store.RxStore;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.inject.component.DaggerFragmentComponent;
@@ -16,6 +18,8 @@ import com.huyingbao.hyb.inject.module.FragmentModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 import com.trello.rxlifecycle.components.support.RxFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -50,9 +54,19 @@ public abstract class BaseFragment extends RxFragment {
                 .build();
         //注入Injector
         initInjector();
+        //注册RxStore
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.register();
+                }
+            }
+        }
+
         //绑定view
         ButterKnife.bind(this, view);
-
+        //绑定view之后运行
         super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
         afterCreate(savedInstanceState);
@@ -76,6 +90,15 @@ public abstract class BaseFragment extends RxFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        //解除RxStore注册
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToUnRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.unregister();
+                }
+            }
+        }
     }
 
     public RxFlux getRxFlux() {

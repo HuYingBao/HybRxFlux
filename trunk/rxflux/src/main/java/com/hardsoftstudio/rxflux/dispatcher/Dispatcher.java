@@ -178,7 +178,7 @@ public class Dispatcher {
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
-                    .compose(((RxFragment) object).bindUntilEvent(FragmentEvent.DESTROY))
+                    .compose(((RxFragment) object).bindUntilEvent(FragmentEvent.DETACH))
                     .subscribe(new Action1<Object>() {
                         //调用监听者Subscription的方法回调方法call
                         @Override
