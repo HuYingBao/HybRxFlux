@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><!--按钮背景,登录界面-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="?attr/colorControlHighlight">
+    <item android:drawable="@drawable/bg_c_st_white_normal"/><!--按钮默认显示图片(显示范围)-->
+    <item
+        android:id="@android:id/mask"
+        android:drawable="@drawable/bg_c_so_white_normal"/><!--按中时显示,默认-->
+</ripple>

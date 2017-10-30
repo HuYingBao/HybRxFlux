@@ -1,0 +1,70 @@
+<resources>
+    <style name="LinearVerticalStyle">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="LinearVerticalStyle.MatchWidth">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="LinearVerticalStyle.Match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="LinearVerticalStyle.Match.Root">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:padding">@dimen/dp_16</item>
+    </style>
+
+    <style name="AppBarLayoutDetailStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/sp_12</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+
+    <style name="LinearContantHorizontalStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="LinearCardStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="LinearCardContentStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/dp_64</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="CoordinatorLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="TextInputLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CollapsingToolBarLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="ToolbarFrameLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!--自定义底部 TabLayout-->
+
+    <!--自定义底部 TabLayout 字体-->
+</resources>

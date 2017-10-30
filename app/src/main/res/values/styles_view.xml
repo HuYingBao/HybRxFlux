@@ -1,0 +1,14 @@
+<resources>
+    <!--view 横分割线-->
+    <style name="ViewDividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_04</item>
+    </style>
+
+    <style name="ViewDividerStyle.Primary">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <!--view 竖分割线-->
+
+</resources>

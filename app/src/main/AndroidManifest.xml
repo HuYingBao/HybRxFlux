@@ -1,24 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huyingbao.hyb">
+          package="com.huyingbao.hyb">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- region 权限 -->
+    <!-- 允许程序访问有关GSM网络信息,获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 允许程序改变Wi-Fi连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 允许使用PowerManager的WakeLocks在进程休眠时能够后台保持 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- 允许应用程序修改全局声音设置的权限 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <!-- 允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等 -->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- 开机自启 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- 操作设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <!-- 富媒体需要声明的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- TODO Dangerous Permission 获取当前WiFi接入的状态以及WLAN热点的信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- TODO Dangerous Permission 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- TODO Dangerous Permission 外部存储读权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- TODO Dangerous Permission 拍照 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- 进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- endregion -->
+
+
+    <!-- region 百度推送 -->
+    <!-- 百度推送适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
+    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.hyb"/>
+
+    <permission
+        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.hyb"
+        android:protectionLevel="normal"/>
+    <!-- endregion -->
+
+
+    <!-- region 百度地图 OpenGLES 2.0 -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
+    <!-- endregion -->
     <application
-        android:name=".SampleApp"
+        android:name="com.huyingbao.rxflux2.base.application.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainAty"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/AppTheme.NoActionBar">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <!-- region meta-data -->
+        <!-- 友盟渠道统计,暂未用 -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}"/>
+        <!-- 百度key -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="qj06uzGwzhigefqCMXQyuIoWEa0QB6Fn"/>
+        <!-- Glide使用okhttp3加载 -->
+        <meta-data
+            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule"/>
+        <!-- 阿里百川hotfix -->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="23826609-1"/>
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="c48fc6ffb69341dada6c93ae3836fcff"/>
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCL+o2+Bsd0duIJMWD/+UhQx5QINflyi+G4LZ20IjUZD0soA/uLNSlwd09/VK8+uEBS0upLh6zreD2wlrB4fTNXta13HUNX+qZARDd2vfX8Tp+ZS2p5xginEadc2BONSOz3HYAbsWVxlWHzpm3rCDRzFgjEUYVArBGGlwK7UxIZfMgCBgAUeZh+dh5l3UDoXlNdLZPUb9TPeeHMibscxhCzVKVT2CNMlL7S56+xlLGnLjMq/6BRsOyNOXtYUBp5OaApuDt9qILLqTVtEx1jZr8rCc0UfGQW3klt5NtnDE6ifkciWvV7YRHy++wMci106XYvDiFgYVzy6EPm3tE+WI1NAgMBAAECggEAYY5WuQhqe+3a7QNAEkY/MyVVMz/CwSViRAVusrtgfD2faJ0V89gyMFLG0fxIQpMRKWgbqFY/msBrZiYviVngrZFN+wUnCSsEMSgZ66TKynRVYPYhmAr/vshb9yYUwlP/6t3hiethwv6UjMYCN1q5izfhFkmmcAM8F6wpWDq2E5JDzN3KRHXs7p2fYJQpXYxDVg8uMcjwYW5fh1jvKYhwIpNlimq/H6xYVAj7SaARff7qsV84K8Zk6HvjFojZkHJixJuFCoboP2KW0ApcKZFpnpBEW2jA13k/8Nn8xylNlg7prNN6sgVLs+wIP5zQM14IlhAWJ+DiSU/LbGgNmeyXdQKBgQD8YKGsN03jrrw//J9Mq7iCVYeWE1tdV4S0CdxWliW8+yoIspPYgDHFSVMmB9swSgzwy+cGf8AUN4TOOlnCKwM3qFqa5wDB8Ido6uof0+5TwvQrcqTwXlhdSO4gJyRb4uEpwiVbmBrI8iRxs7PjPahD4yTVNSUxa2gZBIhELXQSowKBgQCN/OjemqsinMOSHgFqr2RAhOKYPW7qkSiKoNPFiAvp0Pna2Z2xC3Gb4mjDJ18VCJWmj8HyhZ3pkI63m11jkc0huk2u/hv54LRB2Ov1X0hVtHH1wEffPgjzE7T7wS+w+VRPRucbvMT+q8X2P6wxaGymn7uyDa49A+Yryn4WXgfPTwKBgQCxHngYTu/g/H6tQXPi8Rkaj0AKuScDySoe2FTEh7eQe4yycfGEneNQG/e41wajSzTtwYwvaXS6O4R+30CjHmCxrPt5fulvMok1vrf1Al1ed5G49EqBTxUg0tAbzJydyApRrildsNALerTM/1sd/eWbT0xIPXYOytxRwnaHsoallQKBgQCApXyMbFDQXH7p/dvEwMMxnfT8gPTk/L5h1FPr7lb0843eFzvENJ0r4xiOcTa6BPwqXKgaR6wK+hoFC3SzCWB1xaoq+jt4zHomCxfHSxxr4sE6K4wzHa7YJqvdSm0eiNk1twUgYYmPQS1s7sXiQj3nPmS+b5zF1amPVbmmJG4pCwKBgApRwM11r4/dzQPEmLL7JfQiKeR7IeHSMoCZmg52a3JQ7oTbgskT/+LCdvU4HhELSLaWqsVuM4elA8r95qYfbxvN5GvEYjAuvn01DrMbCIhPyf8yzFGJfaKEiEL7s9tNf8LqBZHdFRy4jftHqj/b/3a5qTerEVGAo2jpvM34D6gf"/>
+        <!-- endregion -->
+
+
+        <!-- region 百度推送 -->
+        <receiver android:name="com.huyingbao.rxflux2.util.push.BaiduPushReceiver">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
             </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true"/>
+
+        <provider
+            android:name="com.baidu.android.pushservice.PushInfoProvider"
+            android:authorities="com.huyingbao.hyb.bdpush"
+            android:exported="true"
+            android:protectionLevel="signature"
+            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.richx.elearn"/>
+        <!-- endregion -->
+
+
+        <!-- region 百度地图定位服务 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
+        <!-- endregion -->
+
+
+        <!-- region Activity -->
+        <activity
+            android:name=".ui.loading.LoadingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Loading">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/action_sign_in"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.mainuser.MainUserActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.mainshop.MainShopActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.shopdetail.ShopDetailActivity"
+            android:label="@string/title_activity_shop_details"
+            android:parentActivityName=".ui.mainuser.MainUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.productmanage.ProductManageActivity"
+            android:label="@string/title_activity_product_manage"
+            android:parentActivityName=".ui.mainuser.MainUserActivity"
+            android:screenOrientation="portrait"/>
+        <!-- endregion -->
+        <activity
+            android:name=".ui.userinfo.UserInfoActivity"
+            android:label="@string/title_activity_user_info">
+        </activity>
+        <activity
+            android:name=".ui.shopinfo.ShopInfoActivity"
+            android:label="@string/title_activity_shop_info">
         </activity>
     </application>
 

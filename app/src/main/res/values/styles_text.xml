@@ -1,0 +1,64 @@
+<resources>
+
+    <style name="TextViewToolbarStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+    </style>
+
+    <style name="EditStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="EditPasswordStyle" parent="EditStyle">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="ImageCardStyle">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="TextInfoTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
+
+    <style name="TextCardNameStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextCardDesStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextCardInfoStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextMenuStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/bg_click_text_menu</item>
+        <item name="android:background">@drawable/bg_click_menu_item</item>
+        <item name="android:drawablePadding">@dimen/dp_24</item>
+        <item name="android:paddingBottom">@dimen/dp_16</item>
+        <item name="android:paddingLeft">@dimen/dp_24</item>
+        <item name="android:paddingTop">@dimen/dp_16</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+    </style>
+</resources>

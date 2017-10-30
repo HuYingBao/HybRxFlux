@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_v_action_back"
+        android:title="收"/>
+
+    <item
+        android:icon="@drawable/ic_v_action_done"
+        android:title="应"/>
+
+    <item
+        android:icon="@drawable/ic_v_action_back"
+        android:title="商品"/>
+
+</menu>

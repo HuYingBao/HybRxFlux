@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--圆形引导点,默认参数-->
+    <color name="default_circle_indicator_stroke_color">@color/divider</color>
+
+    <dimen name="default_circle_indicator_radius">@dimen/dp_4</dimen>
+    <dimen name="default_circle_indicator_stroke_width">@dimen/dp_2</dimen>
+
+    <bool name="default_circle_indicator_centered">true</bool>
+    <bool name="default_circle_indicator_snap">false</bool>
+
+    <integer name="default_circle_indicator_orientation">0</integer>
+</resources>
