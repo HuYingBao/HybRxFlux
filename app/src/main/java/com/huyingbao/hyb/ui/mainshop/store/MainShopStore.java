@@ -4,7 +4,8 @@ import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.rxflux2.model.shop.Product;
+import com.huyingbao.hyb.model.message.MsgToShop;
+import com.huyingbao.hyb.model.shop.Product;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class MainShopStore extends RxStore {
     private List<Product> mProductList;
+    private List<MsgToShop> mReceiveMessageList;
 
     public MainShopStore(Dispatcher dispatcher) {
         super(dispatcher);
@@ -36,5 +38,9 @@ public class MainShopStore extends RxStore {
 
     public List<Product> getProductList() {
         return mProductList;
+    }
+
+    public List<MsgToShop> getReceiveMessageList() {
+        return mReceiveMessageList;
     }
 }

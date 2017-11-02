@@ -5,14 +5,10 @@ import android.content.Context;
 
 import com.huyingbao.hyb.ui.loading.LoadingActivity;
 import com.huyingbao.hyb.ui.login.LoginActivity;
-import com.huyingbao.hyb.ui.login.RegisterShopFragment;
-import com.huyingbao.hyb.ui.login.RegisterUserFragment;
 import com.huyingbao.hyb.ui.mainshop.MainShopActivity;
 import com.huyingbao.hyb.ui.mainuser.MainUserActivity;
-import com.huyingbao.hyb.ui.mainuser.MsgSendFragment;
 import com.huyingbao.hyb.ui.productmanage.ProductAddFragment;
 import com.huyingbao.hyb.ui.productmanage.ProductManageActivity;
-import com.huyingbao.hyb.ui.shopdetail.ShopDetailActivity;
 import com.huyingbao.hyb.ui.shopinfo.ShopInfoActivity;
 import com.huyingbao.hyb.ui.userinfo.UserInfoActivity;
 import com.huyingbao.rxflux2.inject.module.ActivityModule;
@@ -56,17 +52,9 @@ public interface ActivityComponent {
 
     void inject(LoginActivity loginActivity);
 
-    void inject(MsgSendFragment sendMessageFragment);
-
-    void inject(RegisterShopFragment registerShopFragment);
-
-    void inject(ShopDetailActivity shopDetailActivity);
-
     void inject(LoadingActivity loadingAty);
 
     void inject(MainUserActivity mainActivity);
-
-    void inject(RegisterUserFragment registerUserFragment);
 
     void inject(ProductAddFragment productAddActivity);
 

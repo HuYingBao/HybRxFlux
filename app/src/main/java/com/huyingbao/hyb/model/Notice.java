@@ -1,4 +1,4 @@
-package com.huyingbao.rxflux2.model;
+package com.huyingbao.hyb.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

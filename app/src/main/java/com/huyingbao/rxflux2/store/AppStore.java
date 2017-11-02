@@ -13,6 +13,8 @@ import com.huyingbao.rxflux2.util.LocalStorageUtils;
 import com.huyingbao.rxflux2.util.push.BaiduPushBase;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.util.List;
+
 /**
  * 存在于 BaseApplication 的 mApplicationComponent 中 全局
  * Created by liujunfeng on 2017/1/1.
@@ -22,6 +24,9 @@ public class AppStore extends RxStore {
     private BDLocationListener mBDLocationListener;
     private LocationClientOption mLocationClientOption;
     private LocationClient mLocationClient;
+    private String mUpToken;
+    private String mFileKey;
+    private List<String> mFileKeyList;
 
     private static AppStore sInstance;
 
@@ -49,6 +54,15 @@ public class AppStore extends RxStore {
             case Actions.LOGOUT:
                 handleLogout();
                 break;
+            case Actions.GET_UP_TOKEN:
+                mUpToken = rxAction.get(ActionsKeys.UP_TOKEN);
+                break;
+//            case Actions.UPLOAD_ONE_FILE:
+//                mFileKey = rxAction.get(ActionsKeys.FILE_KEY);
+//                break;
+//            case Actions.UPLOAD_All_FILE:
+//                mFileKeyList = rxAction.get(ActionsKeys.FILE_KEY_LIST);
+//                break;
             default://必须有,接收到非自己处理的action返回
                 return;
         }
@@ -126,5 +140,17 @@ public class AppStore extends RxStore {
     public double getLatitude() {
         if (mBDLocation == null) return 0;
         return mBDLocation.getLatitude();
+    }
+
+    public String getUpToken() {
+        return mUpToken;
+    }
+
+    public String getFileKey() {
+        return mFileKey;
+    }
+
+    public List<String> getFileKeyList() {
+        return mFileKeyList;
     }
 }

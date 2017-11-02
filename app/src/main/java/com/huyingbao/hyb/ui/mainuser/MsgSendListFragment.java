@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.mainuser.store.MainUserStore;
-import com.huyingbao.hyb.ui.mainuser.adapter.MsgFromUserListAdapter;
+import com.huyingbao.hyb.ui.mainuser.adapter.MsgFromUserAdapter;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
-import com.huyingbao.rxflux2.model.message.MsgFromUser;
+import com.huyingbao.hyb.model.message.MsgFromUser;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -40,7 +40,7 @@ public class MsgSendListFragment extends BaseRxFluxListFragment<MsgFromUser> {
     @Override
     protected void initAdapter() {
         View emptyView = CommonUtils.initEmptyView(mContext, (ViewGroup) mRvContent.getParent(), R.drawable.ic_menu_camera, "暂无发送数据");
-        mAdapter = new MsgFromUserListAdapter(mDataList);
+        mAdapter = new MsgFromUserAdapter(mDataList);
         mAdapter.setEmptyView(emptyView);
     }
 

@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.mainshop.store.MainShopStore;
-import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
-import com.huyingbao.rxflux2.model.message.MsgToShop;
+import com.huyingbao.hyb.model.message.MsgToShop;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -48,22 +47,12 @@ public class MsgReceiveFragment extends BaseRxFluxListFragment<MsgToShop> {
         }
     }
 
-    @Override
-    public void onRxError(@NonNull RxError error) {
-    }
 
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
         return Collections.singletonList(mStore);
     }
-
-    @Nullable
-    @Override
-    public List<RxStore> getRxStoreListToUnRegister() {
-        return null;
-    }
-
 
     @Override
     protected void initAdapter() {

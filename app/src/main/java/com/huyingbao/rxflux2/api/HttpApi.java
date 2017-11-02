@@ -2,10 +2,11 @@ package com.huyingbao.rxflux2.api;
 
 import android.support.v4.util.ArrayMap;
 
-import com.huyingbao.rxflux2.model.message.MsgFromUser;
-import com.huyingbao.rxflux2.model.shop.Product;
-import com.huyingbao.rxflux2.model.shop.Shop;
-import com.huyingbao.rxflux2.model.user.User;
+import com.huyingbao.hyb.model.message.MsgFromUser;
+import com.huyingbao.hyb.model.message.MsgToShop;
+import com.huyingbao.hyb.model.shop.Product;
+import com.huyingbao.hyb.model.shop.Shop;
+import com.huyingbao.hyb.model.user.User;
 
 import java.util.List;
 
@@ -76,6 +77,11 @@ public interface HttpApi {
 
     @GET("/product/getProductListByEmployee")
     Observable<List<Product>> getProductListByEmployee(@QueryMap ArrayMap<String, Object> queryMap);
+    //endregion
+
+    //region 消息
+    @GET("/msgToShop/getReceiveMessage")
+    Observable<List<MsgToShop>> getReceiveMessage(@QueryMap ArrayMap<String, Object> queryMap);
     //endregion
     //endregion
 

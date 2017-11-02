@@ -2,7 +2,7 @@ package com.huyingbao.rxflux2.constant;
 
 import android.content.Context;
 
-import com.huyingbao.rxflux2.model.shop.Product;
+import com.huyingbao.hyb.model.shop.Product;
 
 /**
  * add:添加
@@ -62,7 +62,7 @@ public interface Actions {
     //region 商品
     String GET_PRODUCT_LIST_BY_USER = "getProductListByUser";//顾客-获取店铺中所有的商品,可能不让看
 
-    void getProductListByUser(String code, int skip);
+    void getProductListByUser(String code, int skip, int limit);
 
     String GET_PRODUCT_BY_UUID = "getProductByUuid";//顾客-根据uuid获取对应的商品,@Path:是在get请求中用到
 
@@ -106,6 +106,7 @@ public interface Actions {
     void getBelongShop();
 
     //endregion
+
     //region 商品
     String ADD_PRODUCT = "addProduct";//店长-添加商品
 
@@ -117,7 +118,13 @@ public interface Actions {
 
     String GET_PRODUCT_LIST_BY_EMPLOYEE = "getProductListByEmployee";//店员-获取店铺中所有商品
 
-    void getProductListByEmployee(int shopId);
+    void getProductListByEmployee(int shopId, int skip, int limit);
+    //endregion
+
+    //region 消息
+    String GET_RECEIVE_MESSAGE = "getReceiveMessage";//获取接收的消息列表
+
+    void getReceiveMessage(int userId, int skip, int limit);
     //endregion
     //endregion
 }

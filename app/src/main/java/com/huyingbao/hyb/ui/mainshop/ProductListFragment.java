@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.mainshop.store.MainShopStore;
-import com.huyingbao.hyb.ui.mainuser.adapter.ProductListAdapter;
+import com.huyingbao.hyb.adapter.ProductAdapter;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
-import com.huyingbao.rxflux2.model.shop.Product;
-import com.huyingbao.rxflux2.model.shop.Shop;
+import com.huyingbao.hyb.model.shop.Product;
+import com.huyingbao.hyb.model.shop.Shop;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -73,12 +73,12 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
         //设置空数据view
         View emptyView = CommonUtils.initEmptyView(mContext, (ViewGroup) mRvContent.getParent(), R.drawable.ic_menu_camera, "暂无商品");
         //创建adapter
-        mAdapter = new ProductListAdapter(mDataList);
+        mAdapter = new ProductAdapter(mDataList);
         mAdapter.setEmptyView(emptyView);
     }
 
     @Override
     protected void getDataList(int skip) {
-        mActionCreator.getProductListByEmployee(mShop.getShopId());
+        mActionCreator.getProductListByEmployee(mShop.getShopId(), skip, 100);
     }
 }

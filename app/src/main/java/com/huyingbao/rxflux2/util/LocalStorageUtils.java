@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
-import com.huyingbao.rxflux2.model.shop.Shop;
-import com.huyingbao.rxflux2.model.user.User;
+import com.huyingbao.hyb.model.shop.Shop;
+import com.huyingbao.hyb.model.user.User;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.login.LoginActivity;
-import com.huyingbao.hyb.ui.mainuser.adapter.ViewPageAdapter;
+import com.huyingbao.hyb.adapter.ViewPageAdapter;
 import com.huyingbao.rxflux2.base.fragment.BaseFragment;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.util.CommonUtils;

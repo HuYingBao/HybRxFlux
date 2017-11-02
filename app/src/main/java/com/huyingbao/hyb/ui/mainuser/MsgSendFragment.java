@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.rxflux2.base.fragment.BaseFragment;
-import com.huyingbao.rxflux2.model.message.MsgFromUser;
+import com.huyingbao.hyb.model.message.MsgFromUser;
 
 import butterknife.OnClick;
 

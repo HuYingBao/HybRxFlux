@@ -14,8 +14,6 @@ import com.huyingbao.hyb.ui.userinfo.store.UserInfoStore;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
-import com.huyingbao.rxflux2.store.FileStore;
-import com.huyingbao.rxflux2.store.ProductStore;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import dagger.Module;
@@ -89,18 +87,6 @@ public class ActivityModule {
     @PerActivity
     public MainUserStore provideMainUserStore(RxFlux rxFlux) {
         return new MainUserStore(rxFlux.getDispatcher());
-    }
-
-    @Provides
-    @PerActivity
-    public FileStore provideFileStore(RxFlux rxFlux) {
-        return new FileStore(rxFlux.getDispatcher());
-    }
-
-    @Provides
-    @PerActivity
-    public ProductStore provideProductStore(RxFlux rxFlux) {
-        return new ProductStore(rxFlux.getDispatcher());
     }
 
     @Provides

@@ -3,7 +3,7 @@ package com.huyingbao.hyb.ui.mainuser.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huyingbao.hyb.R;
-import com.huyingbao.rxflux2.model.shop.Shop;
+import com.huyingbao.hyb.model.shop.Shop;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * Created by liujunfeng on 2017/1/1.
  */
-public class ShopListAdapter extends BaseQuickAdapter<Shop, BaseViewHolder> {
+public class ShopAdapter extends BaseQuickAdapter<Shop, BaseViewHolder> {
 
-    public ShopListAdapter(List<Shop> data) {
+    public ShopAdapter(List<Shop> data) {
         super(R.layout.item_shop, data);
     }
 

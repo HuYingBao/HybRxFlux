@@ -1,15 +1,13 @@
-package com.huyingbao.hyb.ui.mainshop.model;
+package com.huyingbao.hyb.model.message;
 
-import com.huyingbao.rxflux2.model.message.MsgFromUser;
-import com.huyingbao.rxflux2.model.shop.Shop;
-import com.huyingbao.rxflux2.model.user.User;
+import com.huyingbao.hyb.model.shop.Shop;
+import com.huyingbao.hyb.model.user.User;
 
 /**
- * Created by liujunfeng on 2017/10/30.
+ * 发送到店铺的消息
+ * Created by liujunfeng on 2017/1/1.
  */
-
-public class MessageReceive {
-
+public class MsgToShop {
     /**
      * userId : {"userId":3,"phone":"18551970002","userName":"普通用户","userType":1,"uuid":"063def13-5f6b-4e4a-b781-ce32c56a1b24","voip":"8009549900000256","channelId":"4368090113424312229","channelType":3,"sex":0,"status":0,"createdAt":"2017-10-28T20:18:35.000Z","updatedAt":"2017-10-30T07:49:55.000Z","shopId":2}
      * shopId : {"shopId":2,"shopName":"正品外贸","code":23302268,"shopType":0,"longitude":"118.82","latitude":"32.0601","enableShowPro":0,"status":0,"createdAt":"2017-10-28T20:19:03.000Z","updatedAt":"2017-10-28T20:19:03.000Z"}

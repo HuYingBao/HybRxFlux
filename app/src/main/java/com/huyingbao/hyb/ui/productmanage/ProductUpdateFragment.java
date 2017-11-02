@@ -8,7 +8,7 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.productmanage.store.ProductManageStore;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
-import com.huyingbao.rxflux2.model.shop.Product;
+import com.huyingbao.hyb.model.shop.Product;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 

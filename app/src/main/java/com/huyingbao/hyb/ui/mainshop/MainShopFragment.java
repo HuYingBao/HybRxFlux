@@ -111,9 +111,9 @@ public class MainShopFragment extends BaseRxFluxFragment implements BottomNaviga
     @NonNull
     private PagerAdapter initPageAdapter() {
         mFragmentPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
+        mFragmentPageAdapter.addFragment(MsgReceiveListFragment.newInstance());
         mFragmentPageAdapter.addFragment(ProductListFragment.newInstance(mLocalStorageUtils.getShop()));
         mFragmentPageAdapter.addFragment(MsgReceiveFragment.newInstance());
-        mFragmentPageAdapter.addFragment(MsgReceiveListFragment.newInstance());
         return mFragmentPageAdapter;
     }
 }

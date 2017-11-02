@@ -16,6 +16,7 @@ import com.huyingbao.hyb.ui.mainuser.MsgSendListFragment;
 import com.huyingbao.hyb.ui.mainuser.ShopListNearbyFragment;
 import com.huyingbao.hyb.ui.productmanage.ProductAddFragment;
 import com.huyingbao.hyb.ui.productmanage.ProductUpdateFragment;
+import com.huyingbao.hyb.ui.shopinfo.ShopInfoFragment;
 import com.huyingbao.hyb.ui.shopinfo.ShopInfoShowFragment;
 import com.huyingbao.hyb.ui.shopinfo.ShowInfoUpdateFragment;
 import com.huyingbao.hyb.ui.userinfo.UserInfoShowFragment;
@@ -74,4 +75,6 @@ public interface FragmentComponent {
     void inject(ShopInfoShowFragment shopInfoShowFragment);
 
     void inject(UserInfoUpdateFragment userInfoUpdateFragment);
+
+    void inject(ShopInfoFragment shopInfoFragment);
 }

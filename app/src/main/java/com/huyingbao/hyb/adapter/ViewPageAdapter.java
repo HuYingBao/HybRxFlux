@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainuser.adapter;
+package com.huyingbao.hyb.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

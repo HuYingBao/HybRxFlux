@@ -6,8 +6,8 @@ import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.rxflux2.model.shop.Product;
-import com.huyingbao.rxflux2.model.user.User;
+import com.huyingbao.hyb.model.shop.Product;
+import com.huyingbao.hyb.model.user.User;
 import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.AppUtils;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -132,11 +132,11 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
     }
 
     @Override
-    public void getProductListByUser(String code, int skip) {
+    public void getProductListByUser(String code, int skip, int limit) {
         RxAction rxAction = newRxAction(GET_PRODUCT_LIST_BY_USER,
                 ActionsKeys.CODE, code,
                 ActionsKeys.SKIP, skip,
-                ActionsKeys.LIMIT, 100);
+                ActionsKeys.LIMIT, limit);
         postHttpAction(rxAction, mHttpApi.getProductListByUser(rxAction.getData()));
     }
 
@@ -220,9 +220,20 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
     }
 
     @Override
-    public void getProductListByEmployee(int shopId) {
+    public void getProductListByEmployee(int shopId, int skip, int limit) {
         RxAction rxAction = newRxAction(GET_PRODUCT_LIST_BY_EMPLOYEE,
-                ActionsKeys.SHOP_ID, shopId);
+                ActionsKeys.SHOP_ID, shopId,
+                ActionsKeys.SKIP, skip,
+                ActionsKeys.LIMIT, limit);
+        postHttpAction(rxAction, mHttpApi.getProductListByEmployee(rxAction.getData()));
+    }
+
+    @Override
+    public void getReceiveMessage(int userId, int skip, int limit) {
+        RxAction rxAction = newRxAction(GET_RECEIVE_MESSAGE,
+                ActionsKeys.USER_ID, userId,
+                ActionsKeys.SKIP, skip,
+                ActionsKeys.LIMIT, limit);
         postHttpAction(rxAction, mHttpApi.getProductListByEmployee(rxAction.getData()));
     }
 }

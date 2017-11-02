@@ -1,4 +1,4 @@
-package com.huyingbao.rxflux2.model.message;
+package com.huyingbao.hyb.model.message;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
-package com.huyingbao.rxflux2.model.user;
+package com.huyingbao.hyb.model.user;
 
-import com.huyingbao.rxflux2.model.shop.Shop;
+import com.huyingbao.hyb.model.shop.Shop;
 
 import java.util.Date;
 

@@ -9,7 +9,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
-import com.huyingbao.rxflux2.model.Notice;
+import com.huyingbao.hyb.model.Notice;
 
 /**
  * Created by liujunfeng on 2017/1/1.

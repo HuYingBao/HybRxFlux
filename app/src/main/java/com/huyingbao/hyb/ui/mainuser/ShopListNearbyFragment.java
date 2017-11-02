@@ -10,11 +10,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.mainuser.store.MainUserStore;
-import com.huyingbao.hyb.ui.shopdetail.ShopDetailActivity;
-import com.huyingbao.hyb.ui.mainuser.adapter.ShopListAdapter;
+import com.huyingbao.hyb.ui.shopinfo.ShopInfoFragment;
+import com.huyingbao.hyb.ui.mainuser.adapter.ShopAdapter;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
-import com.huyingbao.rxflux2.model.shop.Shop;
+import com.huyingbao.hyb.model.shop.Shop;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -49,7 +49,7 @@ public class ShopListNearbyFragment extends BaseRxFluxListFragment<Shop> {
         //设置空数据view
         View emptyView = CommonUtils.initEmptyView(mContext, (ViewGroup) mRvContent.getParent(), R.drawable.ic_menu_camera, "暂无店铺");
         //创建adapter
-        mAdapter = new ShopListAdapter(mDataList);
+        mAdapter = new ShopAdapter(mDataList);
         mAdapter.setEmptyView(emptyView);
     }
 
@@ -59,7 +59,7 @@ public class ShopListNearbyFragment extends BaseRxFluxListFragment<Shop> {
         mRvContent.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(ShopDetailActivity.newIntent(mContext, mDataList.get(position)));
+                startActivity(ShopInfoFragment.newIntent(mContext, mDataList.get(position)));
             }
         });
     }

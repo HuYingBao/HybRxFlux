@@ -4,7 +4,7 @@
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  style="@style/CoordinatorLayoutStyle"
                                                  android:fitsSystemWindows="true"
-                                                 tools:context=".ui.shopdetail.ShopDetailActivity"
+                                                 tools:context=".ui.shopinfo.ShopInfoFragment"
                                                  tools:ignore="MergeRootFrame">
 
     <include layout="@layout/view_tool_bar_collapsing"/>
