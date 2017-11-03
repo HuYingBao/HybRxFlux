@@ -4,7 +4,9 @@
     <string name="title_activity_shop_details">店铺详情</string>
     <string name="title_activity_product_manage">商品管理</string>
     <string name="title_activity_user_info">用户信息</string>
+    <string name="title_activity_user_msg">用户消息</string>
     <string name="title_activity_shop_info">店铺信息</string>
+    <string name="title_activity_shop_msg">店铺消息</string>
 
     <string name="user_phone">手机号</string>
     <string name="user_name">名字</string>

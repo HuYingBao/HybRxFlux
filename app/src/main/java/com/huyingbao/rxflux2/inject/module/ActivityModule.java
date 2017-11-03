@@ -6,11 +6,13 @@ import android.content.Context;
 import com.huyingbao.hyb.BuildConfig;
 import com.huyingbao.hyb.ui.loading.store.LoadingStore;
 import com.huyingbao.hyb.ui.login.store.LoginStore;
-import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
-import com.huyingbao.hyb.ui.usermain.store.MainUserStore;
-import com.huyingbao.hyb.ui.shopproduct.store.ProductManageStore;
 import com.huyingbao.hyb.ui.shopinfo.store.ShopInfoStore;
+import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
+import com.huyingbao.hyb.ui.shopmsg.store.ShopMsgStore;
+import com.huyingbao.hyb.ui.shopproduct.store.ProductManageStore;
 import com.huyingbao.hyb.ui.userinfo.store.UserInfoStore;
+import com.huyingbao.hyb.ui.usermain.store.MainUserStore;
+import com.huyingbao.hyb.ui.usermsg.store.UserMsgStore;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
@@ -109,5 +111,17 @@ public class ActivityModule {
     @PerActivity
     public ShopInfoStore provideShopInfoStore(RxFlux rxFlux) {
         return new ShopInfoStore(rxFlux.getDispatcher());
+    }
+
+    @Provides
+    @PerActivity
+    public ShopMsgStore provideShopMsgStore(RxFlux rxFlux) {
+        return new ShopMsgStore(rxFlux.getDispatcher());
+    }
+
+    @Provides
+    @PerActivity
+    public UserMsgStore provideUserMsgStore(RxFlux rxFlux) {
+        return new UserMsgStore(rxFlux.getDispatcher());
     }
 }

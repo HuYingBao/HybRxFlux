@@ -178,35 +178,29 @@
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/action_sign_in"
-            android:screenOrientation="portrait"/>
+            android:label="@string/action_sign_in"/>
         <activity
             android:name=".ui.usermain.MainUserActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
+            android:label="@string/app_name"/>
         <activity
             android:name=".ui.shopmain.MainShopActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.shopinfo.ShopInfoFragment"
-            android:label="@string/title_activity_shop_details"
-            android:parentActivityName=".ui.usermain.MainUserActivity"
-            android:screenOrientation="portrait"/>
+            android:label="@string/app_name"/>
         <activity
             android:name=".ui.shopproduct.ProductManageActivity"
-            android:label="@string/title_activity_product_manage"
-            android:parentActivityName=".ui.usermain.MainUserActivity"
-            android:screenOrientation="portrait"/>
-        <!-- endregion -->
+            android:label="@string/title_activity_product_manage"/>
         <activity
             android:name=".ui.userinfo.UserInfoActivity"
-            android:label="@string/title_activity_user_info">
-        </activity>
+            android:label="@string/title_activity_user_info"/>
         <activity
             android:name=".ui.shopinfo.ShopInfoActivity"
-            android:label="@string/title_activity_shop_info">
-        </activity>
+            android:label="@string/title_activity_shop_info"/>
+        <activity
+            android:name=".ui.shopmsg.ShopMsgActivity"
+            android:label="@string/title_activity_shop_msg"/>
+        <activity
+            android:name=".ui.usermsg.UserMsgActivity"
+            android:label="@string/title_activity_user_msg"/>
+        <!-- endregion -->
     </application>
 
 </manifest>

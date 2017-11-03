@@ -10,6 +10,7 @@ import com.huyingbao.hyb.ui.shopmain.MainShopFragment;
 import com.huyingbao.hyb.ui.shopmain.MsgReceiveFragment;
 import com.huyingbao.hyb.ui.shopmain.MsgReceiveListFragment;
 import com.huyingbao.hyb.ui.shopmain.ProductListFragment;
+import com.huyingbao.hyb.ui.shopmsg.ShopMsgReturnFragment;
 import com.huyingbao.hyb.ui.usermain.MainUserFragment;
 import com.huyingbao.hyb.ui.usermain.MsgSendFragment;
 import com.huyingbao.hyb.ui.usermain.MsgSendListFragment;
@@ -21,6 +22,7 @@ import com.huyingbao.hyb.ui.shopinfo.ShopInfoShowFragment;
 import com.huyingbao.hyb.ui.shopinfo.ShowInfoUpdateFragment;
 import com.huyingbao.hyb.ui.userinfo.UserInfoShowFragment;
 import com.huyingbao.hyb.ui.userinfo.UserInfoUpdateFragment;
+import com.huyingbao.hyb.ui.usermsg.UserMsgSendFragment;
 import com.huyingbao.rxflux2.inject.module.FragmentModule;
 import com.huyingbao.rxflux2.inject.scope.PerFragment;
 
@@ -77,4 +79,8 @@ public interface FragmentComponent {
     void inject(UserInfoUpdateFragment userInfoUpdateFragment);
 
     void inject(ShopInfoFragment shopInfoFragment);
+
+    void inject(ShopMsgReturnFragment shopMsgReturnFragment);
+
+    void inject(UserMsgSendFragment userMsgSendFragment);
 }
