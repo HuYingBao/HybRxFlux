@@ -20,6 +20,11 @@ public abstract class BaseRxFluxDialogFragment extends BaseDialogFragment implem
     @Inject
     protected RxFlux mRxFlux;
 
+    /**
+     * 注册RxStore
+     * 因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
+     * 调用getRxStoreListToRegister,注册RxStore,只能手动注册
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -48,6 +53,12 @@ public abstract class BaseRxFluxDialogFragment extends BaseDialogFragment implem
     public void onRxError(@NonNull RxError error) {
     }
 
+    /**
+     * 需要解除注册RxStore list 在activity创建的时候调用该方法,
+     * 从 dispatcher 解除注册RxStore list
+     *
+     * @return
+     */
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {

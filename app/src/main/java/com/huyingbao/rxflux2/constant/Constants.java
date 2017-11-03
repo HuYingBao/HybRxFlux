@@ -13,4 +13,6 @@ public interface Constants {
     int USER_TYPE_NORMAL = 0;
     int USER_TYPE_MANAGER = 1;
     int USER_TYPE_EMPLOYEE = 0;
+    int ERROR_SERVER = 400;
+    int ERROR_SESSION_TIMEOUT = 296;
 }

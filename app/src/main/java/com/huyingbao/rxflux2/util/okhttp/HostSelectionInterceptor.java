@@ -61,8 +61,8 @@ public class HostSelectionInterceptor implements Interceptor {
             Response response = chain.proceed(request);
             //打点记录网络请求结束
             networkPerformanceHitBuilder.hitRequestEndWithLoadBytes(response.body().contentLength());
-            //接口数据正常
-            if (response.code() == Constants.SUCCESS_CODE) {
+            //判断返回数据是否正常
+            if (response.code() == Constants.SUCCESS_CODE) {//接口数据正常
                 // 不打印日志并且数据正常直接返回
                 if (!BuildConfig.LOG_DEBUG) return response;
                 String content = response.body().string();
@@ -70,9 +70,9 @@ public class HostSelectionInterceptor implements Interceptor {
                 Logger.e(String.format("接收 for %s in %.1fms", response.request().url(), (t2 - t1) / 1e6d));
                 Logger.json(content);
                 return response.newBuilder().body(ResponseBody.create(response.body().contentType(), content)).build();
+            } else {//接口数据异常，抛出异常
+                throw new RxHttpException(response.code(), response.body().string());
             }
-            //接口数据异常，抛出异常
-            throw new RxHttpException(response.code(), response.body().string());
         } catch (retrofit2.HttpException e) {
             int code = e.code();
             if (code >= 400 && code < 500) {

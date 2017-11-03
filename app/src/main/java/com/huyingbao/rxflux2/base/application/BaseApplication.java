@@ -49,11 +49,11 @@ public class BaseApplication extends Application {
         initAnalytics();
         // 保存application实例对象
         AppUtils.setApplication(this);
-        //初始化蒲公英异常捕获
+        // 初始化蒲公英异常捕获
         PgyCrashManager.register(this);
-        //初始化debug
+        // 初始化debug
         initDebug();
-        //初始化dagger
+        // 初始化dagger
         initDagger();
         // 依赖注入
         AppUtils.getApplicationComponent().inject(this);
@@ -130,7 +130,7 @@ public class BaseApplication extends Application {
     }
 
     /**
-     * 重置依赖注入.
+     * 初始化dagger
      */
     private void initDagger() {
         // Module实例的创建

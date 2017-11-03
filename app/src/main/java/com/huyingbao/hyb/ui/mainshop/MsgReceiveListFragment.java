@@ -44,7 +44,7 @@ public class MsgReceiveListFragment extends BaseRxFluxListFragment<MsgToShop> {
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getRxAction().getType()) {
             case Actions.GET_RECEIVE_MESSAGE:
-                showDataList(mStore.getReceiveMessageList());
+                showDataList(mStore.getMsgToShopList());
                 break;
         }
     }

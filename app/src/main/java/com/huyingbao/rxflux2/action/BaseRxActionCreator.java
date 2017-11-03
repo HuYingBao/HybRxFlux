@@ -2,13 +2,22 @@ package com.huyingbao.rxflux2.action;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.huyingbao.rxflux2.api.HttpApi;
+import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
+import com.huyingbao.rxflux2.constant.Constants;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
+import com.huyingbao.rxflux2.model.RxHttpException;
 import com.huyingbao.rxflux2.util.DisposableManager;
+import com.huyingbao.rxflux2.util.LocalStorageUtils;
 import com.huyingbao.rxflux2.widget.dialog.LoadingDialog;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,10 +31,16 @@ import io.reactivex.schedulers.Schedulers;
  */
 class BaseRxActionCreator extends RxActionCreator {
     //region 参数
+    @Inject
+    protected LocalStorageUtils mLocalStorageUtils;
+    @Inject
+    protected HttpApi mHttpApi;
+
     private LoadingDialog mLoadingDialog;
     //endregion
 
     // region 构造方法
+
     /**
      * 构造方法,传入dispatcher和订阅管理器
      *
@@ -138,7 +153,10 @@ class BaseRxActionCreator extends RxActionCreator {
                             rxAction.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
                             postRxAction(rxAction);
                         },
-                        throwable -> postError(rxAction, throwable)
+                        throwable -> {
+                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
+                            postError(rxAction, throwable);
+                        }
                 );
     }
 
@@ -164,6 +182,7 @@ class BaseRxActionCreator extends RxActionCreator {
                             postRxAction(rxAction);
                         },
                         throwable -> {
+                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
                             dismissLoading();
                             postError(rxAction, throwable);
                         }
@@ -179,14 +198,10 @@ class BaseRxActionCreator extends RxActionCreator {
     @NonNull
     private <T> Function<T, Observable<T>> verifyResponse() {
         return response -> {
-//            //没有数据,返回服务器异常
-//            if (response == null || !(response instanceof HttpResponse))
-//                return Observable.error(new RxHttpException(Constants.ERROR_SERVER, "服务器异常"));
-//            //数据正常,返回正常数据
-//            if (TextUtils.equals(((HttpResponse) response).getReturnCode(), Constants.SUCCESS_CODE))
-            return Observable.just(response);
-//            //有数据,code不是成功码,返回自定义异常
-//            return Observable.error(new RxHttpException((HttpResponse) response));
+            if (response == null)//没有数据,返回服务器异常
+                return Observable.error(new RxHttpException(Constants.ERROR_SERVER, "服务器异常"));
+            else //数据正常,返回正常数据
+                return Observable.just(response);
         };
     }
 
@@ -198,7 +213,24 @@ class BaseRxActionCreator extends RxActionCreator {
         return observable -> observable
                 .flatMap(throwable -> {
                     //不是自定义异常,直接返回异常信息,UI会展示
-                    return Observable.error(throwable);
+                    if (!(throwable instanceof RxHttpException))
+                        return Observable.error(throwable);
+                    //不是自定义异常中的session过期,直接返回异常信息,UI会展示
+                    if (((RxHttpException) throwable).code() != Constants.ERROR_SESSION_TIMEOUT)
+                        return Observable.error(throwable);
+                    //Session失效，进行重新登录
+                    String phone = mLocalStorageUtils.getString(ActionsKeys.PHONE, null);
+                    String password = mLocalStorageUtils.getString(ActionsKeys.PASSWORD, null);
+                    //没有登录账号或者密码无法重新登录,直接返回异常信息,UI会展示
+                    if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password))
+                        return Observable.error(throwable);
+                    //重新登录
+                    RxAction rxAction = newRxAction(Actions.LOGIN,
+                            ActionsKeys.PHONE, phone,
+                            ActionsKeys.PASSWORD, password,
+                            ActionsKeys.CHANNEL_TYPE, 3,
+                            ActionsKeys.CHANNEL_ID, mLocalStorageUtils.getString(ActionsKeys.CHANNEL_ID, ""));
+                    return mHttpApi.login(rxAction.getData());
                 })
                 .zipWith(Observable.range(1, 3), (throwable, i) -> i)
                 .flatMap(retryCount -> Observable.timer((long) Math.pow(1, retryCount), TimeUnit.SECONDS));

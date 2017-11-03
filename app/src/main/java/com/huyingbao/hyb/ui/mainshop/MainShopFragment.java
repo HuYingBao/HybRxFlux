@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
@@ -35,8 +34,6 @@ public class MainShopFragment extends BaseRxFluxFragment implements BottomNaviga
     @BindView(R.id.bnv_navigation)
     BottomNavigationView mBnvNavigation;
 
-    private FragmentPageAdapter mFragmentPageAdapter;
-
     public static MainShopFragment newInstance() {
         return new MainShopFragment();
     }
@@ -53,10 +50,7 @@ public class MainShopFragment extends BaseRxFluxFragment implements BottomNaviga
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        mVpContent.setAdapter(initPageAdapter());
-        mVpContent.addOnPageChangeListener(this);
-        mBnvNavigation.inflateMenu(R.menu.menu_main_shop_navigation);
-        mBnvNavigation.setOnNavigationItemSelectedListener(this);
+        initViewPager();
     }
 
     @Override
@@ -73,13 +67,13 @@ public class MainShopFragment extends BaseRxFluxFragment implements BottomNaviga
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_msg_send:
+            case R.id.nav_msg_receive:
                 mVpContent.setCurrentItem(0);
                 break;
-            case R.id.nav_msg_send_list:
+            case R.id.nav_msg_return:
                 mVpContent.setCurrentItem(1);
                 break;
-            case R.id.nav_shop_list:
+            case R.id.nav_product_list:
                 mVpContent.setCurrentItem(2);
                 break;
         }
@@ -108,12 +102,17 @@ public class MainShopFragment extends BaseRxFluxFragment implements BottomNaviga
      *
      * @return
      */
-    @NonNull
-    private PagerAdapter initPageAdapter() {
-        mFragmentPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
-        mFragmentPageAdapter.addFragment(MsgReceiveListFragment.newInstance());
-        mFragmentPageAdapter.addFragment(ProductListFragment.newInstance(mLocalStorageUtils.getShop()));
-        mFragmentPageAdapter.addFragment(MsgReceiveFragment.newInstance());
-        return mFragmentPageAdapter;
+    private void initViewPager() {
+        FragmentPageAdapter fragmentPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
+        fragmentPageAdapter.addFragment(MsgReceiveListFragment.newInstance());
+        fragmentPageAdapter.addFragment(MsgReceiveFragment.newInstance());
+        fragmentPageAdapter.addFragment(ProductListFragment.newInstance(mLocalStorageUtils.getShop()));
+
+        mVpContent.setAdapter(fragmentPageAdapter);
+        mVpContent.setOffscreenPageLimit(fragmentPageAdapter.getCount());
+        mVpContent.addOnPageChangeListener(this);
+
+        mBnvNavigation.inflateMenu(R.menu.menu_main_shop_navigation);
+        mBnvNavigation.setOnNavigationItemSelectedListener(this);
     }
 }

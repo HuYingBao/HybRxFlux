@@ -2,12 +2,12 @@ package com.huyingbao.rxflux2.action;
 
 import android.content.Context;
 
+import com.huyingbao.hyb.model.shop.Product;
+import com.huyingbao.hyb.model.user.User;
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.hyb.model.shop.Product;
-import com.huyingbao.hyb.model.user.User;
 import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.AppUtils;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -234,6 +234,6 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
                 ActionsKeys.USER_ID, userId,
                 ActionsKeys.SKIP, skip,
                 ActionsKeys.LIMIT, limit);
-        postHttpAction(rxAction, mHttpApi.getProductListByEmployee(rxAction.getData()));
+        postHttpAction(rxAction, mHttpApi.getReceiveMessage(rxAction.getData()));
     }
 }

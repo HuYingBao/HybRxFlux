@@ -22,6 +22,6 @@ public class MsgToShopAdapter extends BaseQuickAdapter<MsgToShop, BaseViewHolder
     protected void convert(BaseViewHolder baseViewHolder, MsgToShop item) {
         baseViewHolder
                 .setText(R.id.tv_type, item.getMsgFromUserId().getContent())
-                .setText(R.id.tv_time, TimeUtils.dateToString(item.getMsgFromUserId().getCreatedAt(), "yyyy-MM-dd"));
+                .setText(R.id.tv_time, TimeUtils.dateToString(item.getMsgFromUserId().getCreatedAt(), "yyyy-MM-dd HH:mm:ss"));
     }
 }

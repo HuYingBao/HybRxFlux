@@ -16,6 +16,8 @@ import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.lang.ref.WeakReference;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -42,13 +44,15 @@ public class ActivityModule {
     @PerActivity
     @ContextLife("Activity")
     public Context provideContext() {
-        return mActivity;
+        //使用弱引用,消除内存泄漏
+        return new WeakReference<>(mActivity).get();
     }
 
     @Provides
     @PerActivity
     public Activity provideActivity() {
-        return mActivity;
+        //使用弱引用,消除内存泄漏
+        return new WeakReference<>(mActivity).get();
     }
 
     @Provides

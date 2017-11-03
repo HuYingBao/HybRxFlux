@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
@@ -35,8 +34,6 @@ public class MainUserFragment extends BaseRxFluxFragment implements BottomNaviga
     @BindView(R.id.bnv_navigation)
     BottomNavigationView mBnvNavigation;
 
-    private FragmentPageAdapter mFragmentPageAdapter;
-
     public static MainUserFragment newInstance() {
         return new MainUserFragment();
     }
@@ -53,10 +50,7 @@ public class MainUserFragment extends BaseRxFluxFragment implements BottomNaviga
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        mVpContent.setAdapter(initPageAdapter());
-        mVpContent.addOnPageChangeListener(this);
-        mBnvNavigation.inflateMenu(R.menu.menu_main_user_navigation);
-        mBnvNavigation.setOnNavigationItemSelectedListener(this);
+        initPageAdapter();
     }
 
     @Override
@@ -109,11 +103,17 @@ public class MainUserFragment extends BaseRxFluxFragment implements BottomNaviga
      * @return
      */
     @NonNull
-    private PagerAdapter initPageAdapter() {
-        mFragmentPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
-        mFragmentPageAdapter.addFragment(MsgSendFragment.newInstance());
-        mFragmentPageAdapter.addFragment(MsgSendListFragment.newInstance());
-        mFragmentPageAdapter.addFragment(ShopListNearbyFragment.newInstance());
-        return mFragmentPageAdapter;
+    private void initPageAdapter() {
+        FragmentPageAdapter fragmentPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
+        fragmentPageAdapter.addFragment(MsgSendFragment.newInstance());
+        fragmentPageAdapter.addFragment(MsgSendListFragment.newInstance());
+        fragmentPageAdapter.addFragment(ShopListNearbyFragment.newInstance());
+
+        mVpContent.setAdapter(fragmentPageAdapter);
+        mVpContent.setOffscreenPageLimit(fragmentPageAdapter.getCount());
+        mVpContent.addOnPageChangeListener(this);
+
+        mBnvNavigation.inflateMenu(R.menu.menu_main_user_navigation);
+        mBnvNavigation.setOnNavigationItemSelectedListener(this);
     }
 }
