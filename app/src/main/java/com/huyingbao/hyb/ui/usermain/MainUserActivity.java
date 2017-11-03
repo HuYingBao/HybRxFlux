@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainuser;
+package com.huyingbao.hyb.ui.usermain;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.login.LoginActivity;
-import com.huyingbao.hyb.ui.mainuser.store.MainUserStore;
+import com.huyingbao.hyb.ui.usermain.store.MainUserStore;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;

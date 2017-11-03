@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainshop.adapter;
+package com.huyingbao.hyb.ui.shopmain.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

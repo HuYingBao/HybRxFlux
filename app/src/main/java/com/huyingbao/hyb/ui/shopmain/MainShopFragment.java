@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainuser;
+package com.huyingbao.hyb.ui.shopmain;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.common.adapter.FragmentPageAdapter;
-import com.huyingbao.hyb.ui.mainuser.store.MainUserStore;
+import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
@@ -22,20 +22,20 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * 顾客主页
+ * 店员主页
  * Created by liujunfeng on 2017/3/30.
  */
-public class MainUserFragment extends BaseRxFluxFragment implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
+public class MainShopFragment extends BaseRxFluxFragment implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     @Inject
-    MainUserStore mStore;
+    MainShopStore mStore;
 
     @BindView(R.id.vp_content)
     ViewPager mVpContent;
     @BindView(R.id.bnv_navigation)
     BottomNavigationView mBnvNavigation;
 
-    public static MainUserFragment newInstance() {
-        return new MainUserFragment();
+    public static MainShopFragment newInstance() {
+        return new MainShopFragment();
     }
 
     @Override
@@ -67,13 +67,13 @@ public class MainUserFragment extends BaseRxFluxFragment implements BottomNaviga
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_msg_send:
+            case R.id.nav_msg_receive:
                 mVpContent.setCurrentItem(0);
                 break;
-            case R.id.nav_msg_send_list:
+            case R.id.nav_msg_return:
                 mVpContent.setCurrentItem(1);
                 break;
-            case R.id.nav_shop_list:
+            case R.id.nav_product_list:
                 mVpContent.setCurrentItem(2);
                 break;
         }
@@ -102,18 +102,17 @@ public class MainUserFragment extends BaseRxFluxFragment implements BottomNaviga
      *
      * @return
      */
-    @NonNull
     private void initViewPager() {
         FragmentPageAdapter fragmentPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
-        fragmentPageAdapter.addFragment(MsgSendFragment.newInstance());
-        fragmentPageAdapter.addFragment(MsgSendListFragment.newInstance());
-        fragmentPageAdapter.addFragment(ShopListNearbyFragment.newInstance());
+        fragmentPageAdapter.addFragment(MsgReceiveListFragment.newInstance());
+        fragmentPageAdapter.addFragment(MsgReceiveFragment.newInstance());
+        fragmentPageAdapter.addFragment(ProductListFragment.newInstance(mLocalStorageUtils.getShop()));
 
         mVpContent.setAdapter(fragmentPageAdapter);
         mVpContent.setOffscreenPageLimit(fragmentPageAdapter.getCount());
         mVpContent.addOnPageChangeListener(this);
 
-        mBnvNavigation.inflateMenu(R.menu.menu_main_user_navigation);
+        mBnvNavigation.inflateMenu(R.menu.menu_main_shop_navigation);
         mBnvNavigation.setOnNavigationItemSelectedListener(this);
     }
 }

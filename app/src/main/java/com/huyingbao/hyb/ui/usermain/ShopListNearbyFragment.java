@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainuser;
+package com.huyingbao.hyb.ui.usermain;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,8 +10,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.model.shop.Shop;
-import com.huyingbao.hyb.ui.mainuser.adapter.ShopAdapter;
-import com.huyingbao.hyb.ui.mainuser.store.MainUserStore;
+import com.huyingbao.hyb.ui.usermain.adapter.ShopAdapter;
+import com.huyingbao.hyb.ui.usermain.store.MainUserStore;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.store.RxStore;

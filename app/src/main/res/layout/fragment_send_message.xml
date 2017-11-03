@@ -4,7 +4,7 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             tools:context="com.huyingbao.hyb.ui.mainuser.MsgSendFragment">
+                                             tools:context="com.huyingbao.hyb.ui.usermain.MsgSendFragment">
 
     <Button
         android:id="@+id/bt_send"

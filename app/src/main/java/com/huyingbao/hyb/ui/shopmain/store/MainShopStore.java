@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainshop.store;
+package com.huyingbao.hyb.ui.shopmain.store;
 
 import com.huyingbao.hyb.model.message.MsgToShop;
 import com.huyingbao.hyb.model.shop.Product;

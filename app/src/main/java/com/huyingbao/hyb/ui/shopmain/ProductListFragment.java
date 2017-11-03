@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainshop;
+package com.huyingbao.hyb.ui.shopmain;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.ui.mainshop.store.MainShopStore;
+import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
 import com.huyingbao.hyb.adapter.ProductAdapter;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;

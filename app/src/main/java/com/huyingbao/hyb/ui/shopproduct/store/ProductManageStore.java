@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.productmanage.store;
+package com.huyingbao.hyb.ui.shopproduct.store;
 
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.constant.Actions;

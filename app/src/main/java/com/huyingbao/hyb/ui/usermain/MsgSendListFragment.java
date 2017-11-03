@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainuser;
+package com.huyingbao.hyb.ui.usermain;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.ui.mainuser.store.MainUserStore;
-import com.huyingbao.hyb.ui.mainuser.adapter.MsgFromUserAdapter;
+import com.huyingbao.hyb.ui.usermain.store.MainUserStore;
+import com.huyingbao.hyb.ui.usermain.adapter.MsgFromUserAdapter;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.hyb.model.message.MsgFromUser;

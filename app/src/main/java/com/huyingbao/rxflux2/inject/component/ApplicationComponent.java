@@ -3,8 +3,8 @@ package com.huyingbao.rxflux2.inject.component;
 import android.content.Context;
 
 import com.huyingbao.hyb.ui.login.store.LoginStore;
-import com.huyingbao.hyb.ui.mainshop.store.MainShopStore;
-import com.huyingbao.hyb.ui.mainuser.store.MainUserStore;
+import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
+import com.huyingbao.hyb.ui.usermain.store.MainUserStore;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.api.HttpApi;

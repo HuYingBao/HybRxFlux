@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.productmanage;
+package com.huyingbao.hyb.ui.shopproduct;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.ui.productmanage.store.ProductManageStore;
+import com.huyingbao.hyb.ui.shopproduct.store.ProductManageStore;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;

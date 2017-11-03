@@ -181,22 +181,22 @@
             android:label="@string/action_sign_in"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.mainuser.MainUserActivity"
+            android:name=".ui.usermain.MainUserActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.mainshop.MainShopActivity"
+            android:name=".ui.shopmain.MainShopActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.shopinfo.ShopInfoFragment"
             android:label="@string/title_activity_shop_details"
-            android:parentActivityName=".ui.mainuser.MainUserActivity"
+            android:parentActivityName=".ui.usermain.MainUserActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.productmanage.ProductManageActivity"
+            android:name=".ui.shopproduct.ProductManageActivity"
             android:label="@string/title_activity_product_manage"
-            android:parentActivityName=".ui.mainuser.MainUserActivity"
+            android:parentActivityName=".ui.usermain.MainUserActivity"
             android:screenOrientation="portrait"/>
         <!-- endregion -->
         <activity

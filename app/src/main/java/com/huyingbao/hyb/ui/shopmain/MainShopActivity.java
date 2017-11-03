@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainshop;
+package com.huyingbao.hyb.ui.shopmain;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.login.LoginActivity;
-import com.huyingbao.hyb.ui.mainshop.store.MainShopStore;
-import com.huyingbao.hyb.ui.productmanage.ProductManageActivity;
+import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
+import com.huyingbao.hyb.ui.shopproduct.ProductManageActivity;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;

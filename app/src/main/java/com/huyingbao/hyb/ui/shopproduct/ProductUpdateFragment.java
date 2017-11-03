@@ -1,11 +1,11 @@
-package com.huyingbao.hyb.ui.productmanage;
+package com.huyingbao.hyb.ui.shopproduct;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.ui.productmanage.store.ProductManageStore;
+import com.huyingbao.hyb.ui.shopproduct.store.ProductManageStore;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.hyb.model.shop.Product;

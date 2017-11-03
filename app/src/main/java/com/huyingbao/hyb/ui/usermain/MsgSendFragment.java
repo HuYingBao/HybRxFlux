@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.ui.mainuser;
+package com.huyingbao.hyb.ui.usermain;
 
 import android.os.Bundle;
 

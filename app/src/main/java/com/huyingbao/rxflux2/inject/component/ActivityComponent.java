@@ -5,10 +5,10 @@ import android.content.Context;
 
 import com.huyingbao.hyb.ui.loading.LoadingActivity;
 import com.huyingbao.hyb.ui.login.LoginActivity;
-import com.huyingbao.hyb.ui.mainshop.MainShopActivity;
-import com.huyingbao.hyb.ui.mainuser.MainUserActivity;
-import com.huyingbao.hyb.ui.productmanage.ProductAddFragment;
-import com.huyingbao.hyb.ui.productmanage.ProductManageActivity;
+import com.huyingbao.hyb.ui.shopmain.MainShopActivity;
+import com.huyingbao.hyb.ui.usermain.MainUserActivity;
+import com.huyingbao.hyb.ui.shopproduct.ProductAddFragment;
+import com.huyingbao.hyb.ui.shopproduct.ProductManageActivity;
 import com.huyingbao.hyb.ui.shopinfo.ShopInfoActivity;
 import com.huyingbao.hyb.ui.userinfo.UserInfoActivity;
 import com.huyingbao.rxflux2.inject.module.ActivityModule;
