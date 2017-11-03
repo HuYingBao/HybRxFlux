@@ -9,7 +9,7 @@ import com.pgyersdk.crash.PgyCrashManager;
 
 /**
  * 解决viewpager中缩放图片会崩溃的问题
- * Created by liujunfeng on 2017/6/11.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class PhotoViewPager extends ViewPager {
     public PhotoViewPager(Context context) {

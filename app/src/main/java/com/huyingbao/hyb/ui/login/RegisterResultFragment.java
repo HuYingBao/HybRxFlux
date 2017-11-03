@@ -11,7 +11,7 @@ import butterknife.OnClick;
 
 /**
  * 注册结果跳转页面
- * Created by liujunfeng on 2017/2/7.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class RegisterResultFragment extends BaseFragment {
 

@@ -19,7 +19,7 @@
 //
 ///**
 // * 输入对话框
-// * Created by liujunfeng on 2017/5/9.
+// * Created by liujunfeng on 2017/1/1.
 // */
 //public class ContentFragment extends BaseDialogFragment {
 //    @BindView(R.id.et_content)

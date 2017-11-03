@@ -7,7 +7,7 @@ import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 
 /**
- * Created by liujunfeng on 2017/10/20.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class ProductManageStore extends RxStore {

@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.model.message.MsgToShop;
 import com.huyingbao.hyb.ui.shopmsg.store.ShopMsgStore;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
+import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 
@@ -24,8 +26,11 @@ public class ShopMsgActivity extends BaseRxFluxToolbarActivity {
     @Inject
     ShopMsgStore mStore;
 
-    public static Intent newIntent(Context content) {
+    private MsgToShop mMsgToShop;
+
+    public static Intent newIntent(Context content, MsgToShop msgToShop) {
         Intent intent = new Intent(content, ShopMsgActivity.class);
+        intent.putExtra(ActionsKeys.MSG_TO_SHOP, msgToShop);
         return intent;
     }
 
@@ -36,8 +41,9 @@ public class ShopMsgActivity extends BaseRxFluxToolbarActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        mMsgToShop = getIntent().getParcelableExtra(ActionsKeys.MSG_TO_SHOP);
         getFragmentTransaction(R.id.fl_content)
-                .add(R.id.fl_content, ShopMsgReturnFragment.newInstance())
+                .add(R.id.fl_content, ShopMsgReturnFragment.newInstance(mMsgToShop))
                 .commit();
     }
 

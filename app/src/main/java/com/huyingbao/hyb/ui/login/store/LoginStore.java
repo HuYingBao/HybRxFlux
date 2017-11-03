@@ -24,7 +24,7 @@ import javax.inject.Inject;
 
 /**
  * 注册
- * Created by liujunfeng on 2017/2/7.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class LoginStore extends RxStore {
     @Inject

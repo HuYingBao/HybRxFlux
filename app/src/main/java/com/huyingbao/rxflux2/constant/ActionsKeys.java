@@ -44,6 +44,8 @@ public interface ActionsKeys {
     String MSG_FROM_USER_ID = "msgFromUserId";
     String CONTENT = "content";
 
+    String MSG_TO_SHOP = "msgToShop";
+
     String PUSH_MESSAGE = "push_message";
     String NOTICE = "notice";
     String RADIUS = "radius";

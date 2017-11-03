@@ -11,7 +11,7 @@ import java.security.MessageDigest;
 
 /**
  * 图片旋转
- * Created by liujunfeng on 2017/9/22.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class RotateTransformation extends BitmapTransformation {
 

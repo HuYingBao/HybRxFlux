@@ -6,10 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.model.message.MsgToShop;
 import com.huyingbao.hyb.ui.shopmain.adapter.MsgToShopAdapter;
 import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
+import com.huyingbao.hyb.ui.shopmsg.ShopMsgActivity;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.store.RxStore;
@@ -62,6 +65,17 @@ public class MsgReceiveListFragment extends BaseRxFluxListFragment<MsgToShop> {
         //创建adapter
         mAdapter = new MsgToShopAdapter(mDataList);
         mAdapter.setEmptyView(emptyView);
+    }
+
+    @Override
+    protected void initRecyclerView() {
+        super.initRecyclerView();
+        mRvContent.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(ShopMsgActivity.newIntent(mContext,mDataList.get(position)));
+            }
+        });
     }
 
     @Override

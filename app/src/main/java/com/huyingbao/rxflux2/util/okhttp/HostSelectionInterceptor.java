@@ -23,7 +23,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Created by liujunfeng on 2017/8/9.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class HostSelectionInterceptor implements Interceptor {
     private volatile String mHostUrl;

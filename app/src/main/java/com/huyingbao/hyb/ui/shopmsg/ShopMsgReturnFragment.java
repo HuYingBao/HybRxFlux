@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.model.message.MsgToShop;
 import com.huyingbao.hyb.ui.shopmsg.store.ShopMsgStore;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
+import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 
@@ -22,8 +24,11 @@ public class ShopMsgReturnFragment extends BaseRxFluxFragment {
     @Inject
     ShopMsgStore mStore;
 
-    public static ShopMsgReturnFragment newInstance() {
+    public static ShopMsgReturnFragment newInstance(MsgToShop msgToShop) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ActionsKeys.MSG_TO_SHOP, msgToShop);
         ShopMsgReturnFragment fragment = new ShopMsgReturnFragment();
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -39,7 +44,8 @@ public class ShopMsgReturnFragment extends BaseRxFluxFragment {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        initActionBar("回复消息");
+        MsgToShop msgToShop = getArguments().getParcelable(ActionsKeys.MSG_TO_SHOP);
+        initActionBar("回复消息" + msgToShop.getUserId().getUserName());
     }
 
     @Override

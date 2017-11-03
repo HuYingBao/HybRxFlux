@@ -23,7 +23,7 @@ import javax.inject.Inject;
 
 /**
  * 登录
- * Created by liujunfeng on 2017/11/7.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class LoginActivity extends BaseRxFluxToolbarActivity {

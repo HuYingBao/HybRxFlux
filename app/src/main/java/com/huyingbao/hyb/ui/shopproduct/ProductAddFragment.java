@@ -24,7 +24,7 @@ import butterknife.OnClick;
 
 /**
  * 添加产品
- * Created by liujunfeng on 2017/10/20.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class ProductAddFragment extends BaseRxFluxFragment {

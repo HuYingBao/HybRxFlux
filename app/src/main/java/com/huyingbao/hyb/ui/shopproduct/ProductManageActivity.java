@@ -20,7 +20,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Created by liujunfeng on 2017/10/20.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class ProductManageActivity extends BaseRxFluxToolbarActivity {

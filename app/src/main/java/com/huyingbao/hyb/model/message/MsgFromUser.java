@@ -1,12 +1,15 @@
 package com.huyingbao.hyb.model.message;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * 用户发送的消息列表
  * Created by liujunfeng on 2017/1/1.
  */
-public class MsgFromUser {
+public class MsgFromUser implements Parcelable {
 
     /**
      * userId : 13
@@ -121,5 +124,56 @@ public class MsgFromUser {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.userId);
+        dest.writeInt(this.msgFromUserId);
+        dest.writeDouble(this.longitude);
+        dest.writeDouble(this.latitude);
+        dest.writeInt(this.radius);
+        dest.writeInt(this.productType);
+        dest.writeString(this.content);
+        dest.writeInt(this.contentType);
+        dest.writeInt(this.status);
+        dest.writeLong(this.createdAt != null ? this.createdAt.getTime() : -1);
+        dest.writeLong(this.updatedAt != null ? this.updatedAt.getTime() : -1);
+    }
+
+    public MsgFromUser() {
+    }
+
+    protected MsgFromUser(Parcel in) {
+        this.userId = in.readInt();
+        this.msgFromUserId = in.readInt();
+        this.longitude = in.readDouble();
+        this.latitude = in.readDouble();
+        this.radius = in.readInt();
+        this.productType = in.readInt();
+        this.content = in.readString();
+        this.contentType = in.readInt();
+        this.status = in.readInt();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+    }
+
+    public static final Parcelable.Creator<MsgFromUser> CREATOR = new Parcelable.Creator<MsgFromUser>() {
+        @Override
+        public MsgFromUser createFromParcel(Parcel source) {
+            return new MsgFromUser(source);
+        }
+
+        @Override
+        public MsgFromUser[] newArray(int size) {
+            return new MsgFromUser[size];
+        }
+    };
 }
 

@@ -23,7 +23,7 @@ import butterknife.BindView;
 
 /**
  * 顾客主页
- * Created by liujunfeng on 2017/3/30.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class MainUserFragment extends BaseRxFluxFragment implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     @Inject
