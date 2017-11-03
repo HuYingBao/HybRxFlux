@@ -5,10 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.model.shop.Product;
 import com.huyingbao.hyb.ui.shopproduct.store.ProductManageStore;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
-import com.huyingbao.hyb.model.shop.Product;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 
@@ -44,6 +44,7 @@ public class ProductUpdateFragment extends BaseRxFluxFragment {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         mProduct = getArguments().getParcelable(ActionsKeys.PRODUCT);
+        initActionBar("更新商品");
     }
 
     @Override

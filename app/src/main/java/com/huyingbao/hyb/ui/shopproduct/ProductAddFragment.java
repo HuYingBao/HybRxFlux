@@ -54,7 +54,7 @@ public class ProductAddFragment extends BaseRxFluxFragment {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        initActionBar();
+        initActionBar("添加商品");
     }
 
     @Override
@@ -73,6 +73,6 @@ public class ProductAddFragment extends BaseRxFluxFragment {
      */
     @OnClick(R.id.btn_product_add)
     public void addProduct() {
-        mActionCreator.addProduct(mEtProductAddName.getText().toString(),mLocalStorageUtils.getShop().getShopId());
+        mActionCreator.addProduct(mEtProductAddName.getText().toString(), mLocalStorageUtils.getShop().getShopId());
     }
 }
