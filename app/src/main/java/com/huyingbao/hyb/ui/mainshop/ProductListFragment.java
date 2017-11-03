@@ -79,6 +79,6 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
 
     @Override
     protected void getDataList(int skip) {
-        mActionCreator.getProductListByEmployee(mShop.getShopId(), skip, 100);
+        mActionCreator.getProductListByEmployee(mShop.getShopId(), skip, mLimit);
     }
 }

@@ -50,7 +50,7 @@ public class MainUserFragment extends BaseRxFluxFragment implements BottomNaviga
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        initPageAdapter();
+        initViewPager();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class MainUserFragment extends BaseRxFluxFragment implements BottomNaviga
      * @return
      */
     @NonNull
-    private void initPageAdapter() {
+    private void initViewPager() {
         FragmentPageAdapter fragmentPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
         fragmentPageAdapter.addFragment(MsgSendFragment.newInstance());
         fragmentPageAdapter.addFragment(MsgSendListFragment.newInstance());

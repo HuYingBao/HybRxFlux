@@ -66,6 +66,6 @@ public class MsgReceiveListFragment extends BaseRxFluxListFragment<MsgToShop> {
 
     @Override
     protected void getDataList(int skip) {
-        mActionCreator.getReceiveMessage(mLocalStorageUtils.getUser().getUserId(), skip, 100);
+        mActionCreator.getReceiveMessage(mLocalStorageUtils.getUser().getUserId(), skip, mLimit);
     }
 }
