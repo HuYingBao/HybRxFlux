@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.userinfo.store.UserInfoStore;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
 import com.huyingbao.rxflux2.store.RxStore;
@@ -32,7 +33,9 @@ public class UserInfoActivity extends BaseRxFluxToolbarActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
+        getFragmentTransaction(R.id.fl_content)
+                .add(R.id.fl_content, UserInfoShowFragment.newInstance(mLocalStorageUtils.getUser()))
+                .commit();
     }
 
     @Override

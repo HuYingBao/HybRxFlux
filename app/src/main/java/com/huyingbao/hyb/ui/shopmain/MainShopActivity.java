@@ -11,13 +11,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.ui.login.LoginActivity;
+import com.huyingbao.hyb.ui.shopinfo.ShopInfoActivity;
 import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
 import com.huyingbao.hyb.ui.shopproduct.ProductManageActivity;
+import com.huyingbao.hyb.ui.userinfo.UserInfoActivity;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
@@ -165,11 +168,19 @@ public class MainShopActivity extends BaseRxFluxToolbarActivity implements View.
      * 初始化左侧导航显示数据
      */
     private void initNavView() {
-        View headerView = mNavMain.getHeaderView(mNavMain.getHeaderCount() - 1);
-        mTvMenuTitle = headerView.findViewById(R.id.tv_menu_title);
+        // 获取布局文件中的HeaderView
+        // View headerView = mNavMain.getHeaderView(mNavMain.getHeaderCount() - 1);
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.view_nav_main_shop, null);
+
+        headerView.findViewById(R.id.tv_menu_shop).setOnClickListener(this);
         headerView.findViewById(R.id.tv_menu_message).setOnClickListener(this);
         headerView.findViewById(R.id.tv_menu_exit).setOnClickListener(this);
         headerView.findViewById(R.id.tv_menu_logout).setOnClickListener(this);
+
+        mTvMenuTitle = headerView.findViewById(R.id.tv_menu_title);
+        mTvMenuTitle.setOnClickListener(this);
+
+        mNavMain.addHeaderView(headerView);
     }
 
     /**
@@ -183,6 +194,12 @@ public class MainShopActivity extends BaseRxFluxToolbarActivity implements View.
     public void onClick(View v) {
         mDrlMain.closeDrawer(GravityCompat.START);
         switch (v.getId()) {
+            case R.id.tv_menu_title:
+                startActivity(UserInfoActivity.newIntent(mContext));
+                break;
+            case R.id.tv_menu_shop:
+                startActivity(ShopInfoActivity.newIntent(mContext));
+                break;
             case R.id.tv_menu_message:
                 break;
             case R.id.tv_menu_exit:

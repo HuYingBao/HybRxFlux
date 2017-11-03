@@ -1,5 +1,8 @@
 package com.huyingbao.hyb.model.user;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.huyingbao.hyb.model.shop.Shop;
 
 import java.util.Date;
@@ -7,7 +10,7 @@ import java.util.Date;
 /**
  * Created by liujunfeng on 2017/1/1.
  */
-public class User {
+public class User implements Parcelable {
 
 
     /**
@@ -184,4 +187,64 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.shopId);
+        dest.writeParcelable(this.shop, flags);
+        dest.writeInt(this.userId);
+        dest.writeString(this.phone);
+        dest.writeString(this.password);
+        dest.writeString(this.userName);
+        dest.writeInt(this.userType);
+        dest.writeString(this.uuid);
+        dest.writeString(this.voip);
+        dest.writeString(this.channelId);
+        dest.writeInt(this.channelType);
+        dest.writeString(this.headImg);
+        dest.writeString(this.address);
+        dest.writeInt(this.status);
+        dest.writeLong(this.createdAt != null ? this.createdAt.getTime() : -1);
+        dest.writeLong(this.updatedAt != null ? this.updatedAt.getTime() : -1);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.shopId = in.readInt();
+        this.shop = in.readParcelable(Shop.class.getClassLoader());
+        this.userId = in.readInt();
+        this.phone = in.readString();
+        this.password = in.readString();
+        this.userName = in.readString();
+        this.userType = in.readInt();
+        this.uuid = in.readString();
+        this.voip = in.readString();
+        this.channelId = in.readString();
+        this.channelType = in.readInt();
+        this.headImg = in.readString();
+        this.address = in.readString();
+        this.status = in.readInt();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

@@ -43,9 +43,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //初始化hotfix
+        // 初始化hotfix
         initHotfix();
-        //初始化analytics
+        // 初始化analytics
         initAnalytics();
         // 保存application实例对象
         AppUtils.setApplication(this);
@@ -59,7 +59,7 @@ public class BaseApplication extends Application {
         AppUtils.getApplicationComponent().inject(this);
         // 注册全局store
         mAppStore.register();
-        //stetho调试
+        // Stetho调试
         Stetho.initializeWithDefaults(this);
     }
 
@@ -72,7 +72,7 @@ public class BaseApplication extends Application {
                 .setAesKey(null)
                 .setEnableDebug(BuildConfig.LOG_DEBUG)
                 .setPatchLoadStatusStub((mode, code, info, handlePatchVersion) -> {
-                    //补丁加载回调通知
+                    // 补丁加载回调通知
                     switch (code) {
                         case PatchStatus.CODE_LOAD_SUCCESS://表明补丁加载成功
                             Logger.d("表明补丁加载成功");
