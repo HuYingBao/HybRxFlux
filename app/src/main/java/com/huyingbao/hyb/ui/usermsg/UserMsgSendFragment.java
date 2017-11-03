@@ -15,6 +15,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * 用户发送消息
+ */
 public class UserMsgSendFragment extends BaseRxFluxFragment {
     @Inject
     UserMsgStore mStore;

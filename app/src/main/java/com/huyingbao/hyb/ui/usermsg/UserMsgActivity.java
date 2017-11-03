@@ -16,6 +16,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * 用户消息模块
+ */
 public class UserMsgActivity extends BaseRxFluxToolbarActivity {
     @Inject
     UserMsgStore mStore;

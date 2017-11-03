@@ -7,14 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
 import com.huyingbao.hyb.adapter.ProductAdapter;
+import com.huyingbao.hyb.model.shop.Product;
+import com.huyingbao.hyb.model.shop.Shop;
+import com.huyingbao.hyb.ui.shopmain.store.MainShopStore;
+import com.huyingbao.hyb.ui.shopproduct.ProductManageActivity;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
-import com.huyingbao.hyb.model.shop.Product;
-import com.huyingbao.hyb.model.shop.Shop;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -75,6 +78,17 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
         //创建adapter
         mAdapter = new ProductAdapter(mDataList);
         mAdapter.setEmptyView(emptyView);
+    }
+
+    @Override
+    protected void initRecyclerView() {
+        super.initRecyclerView();
+        mRvContent.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(ProductManageActivity.newIntent(mContext, mDataList.get(position)));
+            }
+        });
     }
 
     @Override
