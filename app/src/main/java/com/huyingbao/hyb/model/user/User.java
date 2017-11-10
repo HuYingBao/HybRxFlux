@@ -13,6 +13,17 @@ import java.util.Date;
 public class User implements Parcelable {
 
 
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
     /**
      * shopId : 1
      * userId : 5
@@ -49,6 +60,30 @@ public class User implements Parcelable {
     private int status;
     private Date createdAt;
     private Date updatedAt;
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.shopId = in.readInt();
+        this.shop = in.readParcelable(Shop.class.getClassLoader());
+        this.userId = in.readInt();
+        this.phone = in.readString();
+        this.password = in.readString();
+        this.userName = in.readString();
+        this.userType = in.readInt();
+        this.uuid = in.readString();
+        this.voip = in.readString();
+        this.channelId = in.readString();
+        this.channelType = in.readInt();
+        this.headImg = in.readString();
+        this.address = in.readString();
+        this.status = in.readInt();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+    }
 
     public int getShopId() {
         return shopId;
@@ -138,7 +173,6 @@ public class User implements Parcelable {
         this.channelType = channelType;
     }
 
-
     public String getHeadImg() {
         return headImg;
     }
@@ -211,40 +245,4 @@ public class User implements Parcelable {
         dest.writeLong(this.createdAt != null ? this.createdAt.getTime() : -1);
         dest.writeLong(this.updatedAt != null ? this.updatedAt.getTime() : -1);
     }
-
-    public User() {
-    }
-
-    protected User(Parcel in) {
-        this.shopId = in.readInt();
-        this.shop = in.readParcelable(Shop.class.getClassLoader());
-        this.userId = in.readInt();
-        this.phone = in.readString();
-        this.password = in.readString();
-        this.userName = in.readString();
-        this.userType = in.readInt();
-        this.uuid = in.readString();
-        this.voip = in.readString();
-        this.channelId = in.readString();
-        this.channelType = in.readInt();
-        this.headImg = in.readString();
-        this.address = in.readString();
-        this.status = in.readInt();
-        long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-        long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
-    }
-
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 }

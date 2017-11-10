@@ -3,8 +3,8 @@ package com.huyingbao.hyb.ui.usermain;
 import android.os.Bundle;
 
 import com.huyingbao.hyb.R;
-import com.huyingbao.rxflux2.base.fragment.BaseFragment;
 import com.huyingbao.hyb.model.message.MsgFromUser;
+import com.huyingbao.rxflux2.base.fragment.BaseFragment;
 
 import butterknife.OnClick;
 

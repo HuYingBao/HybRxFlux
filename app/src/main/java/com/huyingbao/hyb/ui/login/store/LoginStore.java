@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.model.user.User;
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.hyb.model.user.User;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.rxflux2.util.AppUtils;

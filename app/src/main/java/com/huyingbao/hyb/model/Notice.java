@@ -10,6 +10,17 @@ import java.util.Date;
  * 新消息记录表
  */
 public class Notice implements Parcelable {
+    public static final Parcelable.Creator<Notice> CREATOR = new Parcelable.Creator<Notice>() {
+        @Override
+        public Notice createFromParcel(Parcel source) {
+            return new Notice(source);
+        }
+
+        @Override
+        public Notice[] newArray(int size) {
+            return new Notice[size];
+        }
+    };
     private String title;
     private String content;
     private String iconUrl;
@@ -17,6 +28,21 @@ public class Notice implements Parcelable {
     private Date updatedAt;
     private int type;//0:顾客给店铺发的推送消息
     private int count = 0;//未读消息数量，当有新消息到达时+1
+
+    public Notice() {
+    }
+
+    protected Notice(Parcel in) {
+        this.title = in.readString();
+        this.content = in.readString();
+        this.iconUrl = in.readString();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+        this.type = in.readInt();
+        this.count = in.readInt();
+    }
 
     public String getTitle() {
         return title;
@@ -89,31 +115,4 @@ public class Notice implements Parcelable {
         dest.writeInt(this.type);
         dest.writeInt(this.count);
     }
-
-    public Notice() {
-    }
-
-    protected Notice(Parcel in) {
-        this.title = in.readString();
-        this.content = in.readString();
-        this.iconUrl = in.readString();
-        long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-        long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
-        this.type = in.readInt();
-        this.count = in.readInt();
-    }
-
-    public static final Parcelable.Creator<Notice> CREATOR = new Parcelable.Creator<Notice>() {
-        @Override
-        public Notice createFromParcel(Parcel source) {
-            return new Notice(source);
-        }
-
-        @Override
-        public Notice[] newArray(int size) {
-            return new Notice[size];
-        }
-    };
 }

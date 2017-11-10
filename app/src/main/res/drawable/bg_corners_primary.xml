@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!--圆角,蓝色填充-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bg_corners_primary_selected" android:state_selected="true"/>
-    <item android:drawable="@drawable/bg_corners_primary_selected" android:state_pressed="true"/>
-    <item android:drawable="@drawable/bg_corners_primary_selected" android:state_focused="true"/>
-    <item android:drawable="@drawable/bg_corners_primary_enabled" android:state_enabled="false"/>
-    <item android:drawable="@drawable/bg_corners_primary_normal"/>
+    <item android:drawable="@drawable/bg_corners_primary_selected" android:state_selected="true" />
+    <item android:drawable="@drawable/bg_corners_primary_selected" android:state_pressed="true" />
+    <item android:drawable="@drawable/bg_corners_primary_selected" android:state_focused="true" />
+    <item android:drawable="@drawable/bg_corners_primary_enabled" android:state_enabled="false" />
+    <item android:drawable="@drawable/bg_corners_primary_normal" />
 </selector>

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:id="@+id/cl_register_shop"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 tools:context=".ui.login.RegisterShopFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_register_shop"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.RegisterShopFragment">
 
     <LinearLayout
         style="@style/LinearVerticalStyle.Match.Root"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.design.widget.TextInputLayout
-            style="@style/TextInputLayoutStyle">
+        <android.support.design.widget.TextInputLayout style="@style/TextInputLayoutStyle">
 
             <EditText
                 android:id="@+id/et_shop_name"
                 style="@style/EditStyle"
-                android:hint="@string/shop_name"/>
+                android:hint="@string/shop_name" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatSpinner
@@ -26,13 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:entries="@array/shop_type"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dialog" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_register_shop"
             style="@style/ButtonStyle.MatchWidth"
             android:layout_marginTop="@dimen/dp_100"
-            android:text="@string/action_register"/>
+            android:text="@string/action_register" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
 

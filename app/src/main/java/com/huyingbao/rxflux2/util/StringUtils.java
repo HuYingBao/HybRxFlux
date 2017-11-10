@@ -98,4 +98,39 @@ public class StringUtils {
             return false;
         }
     }
+
+
+//    /**
+//     * 获取拼音
+//     *
+//     * @param inputString
+//     * @return
+//     */
+//    public static String getPingYin(String inputString)
+//    {
+//        HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
+//        format.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+//        format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+//        format.setVCharType(HanyuPinyinVCharType.WITH_V);
+//        char[] input = inputString.trim().toCharArray();
+//        String output = "";
+//        try
+//        {
+//            for (char curchar : input)
+//            {
+//                if (Character.toString(curchar).matches("[\\u4E00-\\u9FA5]+"))
+//                {
+//                    String[] temp = PinyinHelper.toHanyuPinyinStringArray(curchar, format);
+//                    output += temp[0];
+//                } else
+//                {
+//                    output += Character.toString(curchar);
+//                }
+//            }
+//        } catch (BadHanyuPinyinOutputFormatCombination e)
+//        {
+//            e.printStackTrace();
+//        }
+//        return output;
+//    }
 }

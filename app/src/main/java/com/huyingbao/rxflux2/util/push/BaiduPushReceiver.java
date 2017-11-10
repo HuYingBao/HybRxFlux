@@ -22,38 +22,32 @@ public class BaiduPushReceiver extends PushMessageReceiver {
 
     @Override
     public void onUnbind(Context context, int i, String s) {
-
     }
 
     @Override
     public void onSetTags(Context context, int i, List<String> list, List<String> list1, String s) {
-
     }
 
     @Override
     public void onDelTags(Context context, int i, List<String> list, List<String> list1, String s) {
-
     }
 
     @Override
     public void onListTags(Context context, int i, List<String> list, String s) {
-
     }
 
     @Override
-    public void onMessage(Context context, String message, String s1) {
+    public void onMessage(Context context, String message, String customContentString) {
         //如果未登录返回
         if (!LocalStorageUtils.getInstance().getBoolean(ActionsKeys.IS_LOGIN, false)) return;
-        Logger.e("recevice_baidu_push:\n" + message);
+        Logger.e("推送消息:\n" + message);
     }
 
     @Override
     public void onNotificationClicked(Context context, String s, String s1, String s2) {
-
     }
 
     @Override
     public void onNotificationArrived(Context context, String s, String s1, String s2) {
-
     }
 }

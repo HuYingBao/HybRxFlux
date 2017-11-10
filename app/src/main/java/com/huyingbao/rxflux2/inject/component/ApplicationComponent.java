@@ -13,7 +13,7 @@ import com.huyingbao.rxflux2.inject.module.application.ApplicationModule;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.LocalStorageUtils;
-import com.huyingbao.rxflux2.util.okhttp.HostSelectionInterceptor;
+import com.huyingbao.rxflux2.util.okhttp.HttpInterceptor;
 
 import javax.inject.Singleton;
 
@@ -48,7 +48,7 @@ public interface ApplicationComponent {
 
     AppStore getAppStore();
 
-    HostSelectionInterceptor getHostSelectionInterceptor();
+    HttpInterceptor getHttpInterceptor();
 
     /**
      * 2:添加注入方法,一般使用inject做为方法名，方法参数为对应的Container

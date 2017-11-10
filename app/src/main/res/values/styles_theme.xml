@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item><!--工具栏颜色 -->
         <item name="colorPrimaryDark">@color/primary</item><!--状态栏颜色 -->
         <item name="colorAccent">@color/accent</item><!--给edittext着色,形成反差色.按钮组件不支持着色-->
@@ -29,7 +29,6 @@
         <!-- 弹出框list样式 -->
         <item name="android:dropDownListViewStyle">@style/CustomDropDownListViewStyle</item>
         <item name="android:buttonStyle">@style/CustomButtonStyle</item><!--button样式-->
-
     </style>
     <!--应用页面通用-->
     <style name="AppTheme.NoActionBar">
@@ -43,8 +42,9 @@
         <item name="android:windowIsTranslucent">true</item><!-- 设置透明 -->
     </style>
     <!--主页-->
+    <style name="AppTheme.NoActionBar.StatusBarTransprent" />
     <!--默认的AppBarLayout样式-->
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <!--默认的弹出框样式-->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="actionOverflowMenuStyle">@style/CustomActionOverflowMenuStyle</item>
@@ -86,7 +86,7 @@
     <!--menu 弹出框字体-->
     <style name="CustomActionMenuTextAppearance">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/sp_18</item>
     </style>
     <!--按钮样式-->
     <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">

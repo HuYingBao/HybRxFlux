@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
         android:id="@+id/tv_menu_title"
@@ -15,27 +15,27 @@
         android:paddingTop="@dimen/dp_40"
         android:text="@string/user_name"
         android:textColor="@color/primary_white"
-        android:textSize="@dimen/sp_18"/>
+        android:textSize="@dimen/sp_18" />
 
     <TextView
         android:id="@+id/tv_menu_message"
         style="@style/TextMenuStyle"
         android:drawableLeft="@drawable/ic_menu_message"
-        android:text="我的消息"/>
+        android:text="我的消息" />
 
-    <View style="@style/ViewDividerStyle.Primary"/>
+    <View style="@style/ViewDividerStyle.Primary" />
 
     <TextView
         android:id="@+id/tv_menu_exit"
         style="@style/TextMenuStyle"
         android:drawableLeft="@drawable/ic_menu_exit"
-        android:text="退出"/>
+        android:text="退出" />
 
-    <View style="@style/ViewDividerStyle.Primary"/>
+    <View style="@style/ViewDividerStyle.Primary" />
 
     <TextView
         android:id="@+id/tv_menu_logout"
         style="@style/TextMenuStyle"
         android:drawableLeft="@drawable/ic_menu_logout"
-        android:text="注销"/>
+        android:text="注销" />
 </LinearLayout>

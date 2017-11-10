@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 style="@style/CoordinatorLayoutStyle"
-                                                 android:fitsSystemWindows="true"
-                                                 tools:context=".ui.shopinfo.ShopInfoFragment"
-                                                 tools:ignore="MergeRootFrame">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CoordinatorLayoutStyle"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.shopinfo.ShopInfoFragment"
+    tools:ignore="MergeRootFrame">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -14,38 +14,38 @@
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
-            android:fitsSystemWindows="true"
             style="@style/CollapsingToolBarLayoutStyle"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
             <FrameLayout
-                android:fitsSystemWindows="true"
                 style="@style/ToolbarFrameLayoutStyle"
+                android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.8"
                 app:layout_scrollFlags="scroll|snap|enterAlways|enterAlwaysCollapsed">
 
                 <ImageView
                     android:id="@+id/iv_header"
-                    style="@style/ImageShopHeadStyle"/>
+                    style="@style/ImageShopHeadStyle" />
 
-                <View style="@style/ViewShopTopBgStyle"/>
+                <View style="@style/ViewShopTopBgStyle" />
 
                 <TextView
                     android:id="@+id/tv_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|bottom"
-                    android:padding="8dp"/>
+                    android:padding="8dp" />
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/ToolbarShopStyle"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -55,13 +55,13 @@
         android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_main"
         style="@style/ButtonFloatingStyle"
         android:src="@android:drawable/stat_notify_chat"
         app:layout_anchor="@+id/item_detail_container"
-        app:layout_anchorGravity="top|end"/>
+        app:layout_anchorGravity="top|end" />
 
 </android.support.design.widget.CoordinatorLayout>

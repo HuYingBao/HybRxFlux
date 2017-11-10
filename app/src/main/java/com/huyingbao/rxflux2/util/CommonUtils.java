@@ -15,11 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.model.user.User;
 import com.huyingbao.hyb.ui.shopmain.MainShopActivity;
 import com.huyingbao.hyb.ui.usermain.MainUserActivity;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.constant.Constants;
-import com.huyingbao.hyb.model.user.User;
 
 import java.util.List;
 

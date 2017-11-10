@@ -5,7 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.pgyersdk.crash.PgyCrashManager;
 
 /**
  * 解决viewpager中缩放图片会崩溃的问题
@@ -25,7 +24,6 @@ public class PhotoViewPager extends ViewPager {
         try {
             return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException e) {
-            PgyCrashManager.reportCaughtException(getContext(), e);
             return false;
         }
     }

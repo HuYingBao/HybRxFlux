@@ -11,6 +11,17 @@ import java.util.Date;
  */
 public class MsgFromUser implements Parcelable {
 
+    public static final Parcelable.Creator<MsgFromUser> CREATOR = new Parcelable.Creator<MsgFromUser>() {
+        @Override
+        public MsgFromUser createFromParcel(Parcel source) {
+            return new MsgFromUser(source);
+        }
+
+        @Override
+        public MsgFromUser[] newArray(int size) {
+            return new MsgFromUser[size];
+        }
+    };
     /**
      * userId : 13
      * msgFromUserId : 1
@@ -36,6 +47,25 @@ public class MsgFromUser implements Parcelable {
     private int status;
     private Date createdAt;
     private Date updatedAt;
+
+    public MsgFromUser() {
+    }
+
+    protected MsgFromUser(Parcel in) {
+        this.userId = in.readInt();
+        this.msgFromUserId = in.readInt();
+        this.longitude = in.readDouble();
+        this.latitude = in.readDouble();
+        this.radius = in.readInt();
+        this.productType = in.readInt();
+        this.content = in.readString();
+        this.contentType = in.readInt();
+        this.status = in.readInt();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+    }
 
     public int getUserId() {
         return userId;
@@ -144,36 +174,5 @@ public class MsgFromUser implements Parcelable {
         dest.writeLong(this.createdAt != null ? this.createdAt.getTime() : -1);
         dest.writeLong(this.updatedAt != null ? this.updatedAt.getTime() : -1);
     }
-
-    public MsgFromUser() {
-    }
-
-    protected MsgFromUser(Parcel in) {
-        this.userId = in.readInt();
-        this.msgFromUserId = in.readInt();
-        this.longitude = in.readDouble();
-        this.latitude = in.readDouble();
-        this.radius = in.readInt();
-        this.productType = in.readInt();
-        this.content = in.readString();
-        this.contentType = in.readInt();
-        this.status = in.readInt();
-        long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-        long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
-    }
-
-    public static final Parcelable.Creator<MsgFromUser> CREATOR = new Parcelable.Creator<MsgFromUser>() {
-        @Override
-        public MsgFromUser createFromParcel(Parcel source) {
-            return new MsgFromUser(source);
-        }
-
-        @Override
-        public MsgFromUser[] newArray(int size) {
-            return new MsgFromUser[size];
-        }
-    };
 }
 

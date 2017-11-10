@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="ButtonStyle.MatchWidth" parent="MatchWidth"/>
+    <style name="ButtonStyle.MatchWidth" parent="MatchWidth" />
 
     <style name="ButtonFloatingStyle">
         <item name="android:layout_width">wrap_content</item>

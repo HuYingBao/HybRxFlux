@@ -149,12 +149,13 @@ class BaseRxActionCreator extends RxActionCreator {
                 .observeOn(AndroidSchedulers.mainThread())// 2:指定主线程
                 .subscribe(// 2:指定主线程
                         richHttpResponse -> {
-                            dismissLoading();
                             rxAction.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
                             postRxAction(rxAction);
                         },
                         throwable -> {
-                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
+                            Logger.e("Action Type = " + rxAction.getType()
+                                    + "\nError Class = " + throwable.getClass().getSimpleName()
+                                    + "\nError Message = " + throwable.getMessage());
                             postError(rxAction, throwable);
                         }
                 );
@@ -182,7 +183,9 @@ class BaseRxActionCreator extends RxActionCreator {
                             postRxAction(rxAction);
                         },
                         throwable -> {
-                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
+                            Logger.e("Action Type = " + rxAction.getType()
+                                    + "\nError Class = " + throwable.getClass().getSimpleName()
+                                    + "\nError Message = " + throwable.getMessage());
                             dismissLoading();
                             postError(rxAction, throwable);
                         }

@@ -5,23 +5,15 @@
     <color name="primary_dark">#0097A7</color>
     <color name="primary_light">#B2EBF2</color>
     <color name="primary_background">#F2F2F2</color>
-
-    <!--灰色-->
-
     <!--页面背景颜色 白色 我的资料等-->
     <color name="primary_white">#FFFFFF</color>
-
     <!--内容文字,文字主颜色-->
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
-
     <!--分割线-->
     <color name="divider">#BDBDBD</color>
     <color name="divider_point">#DBDCDC</color>
-
-    <!--按压阴影-->
-
+    <!--系统-->
     <color name="accent">#FF9800</color>
     <color name="icons">#FFFFFF</color>
-
 </resources>

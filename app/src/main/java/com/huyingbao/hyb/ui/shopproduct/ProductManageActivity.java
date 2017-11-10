@@ -7,10 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.model.shop.Product;
 import com.huyingbao.hyb.ui.shopproduct.store.ProductManageStore;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
-import com.huyingbao.hyb.model.shop.Product;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 
@@ -79,6 +79,7 @@ public class ProductManageActivity extends BaseRxFluxToolbarActivity {
 
     /**
      * 到商品添加页面
+     *
      * @param product
      */
     private void toProductUpdate(Product product) {

@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.model.shop.Shop;
-import com.huyingbao.hyb.ui.shopmain.ProductListFragment;
 import com.huyingbao.hyb.ui.shopinfo.store.ShopInfoStore;
+import com.huyingbao.hyb.ui.shopmain.ProductListFragment;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;

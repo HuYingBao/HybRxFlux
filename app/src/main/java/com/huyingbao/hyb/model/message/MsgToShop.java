@@ -11,6 +11,17 @@ import com.huyingbao.hyb.model.user.User;
  * Created by liujunfeng on 2017/1/1.
  */
 public class MsgToShop implements Parcelable {
+    public static final Parcelable.Creator<MsgToShop> CREATOR = new Parcelable.Creator<MsgToShop>() {
+        @Override
+        public MsgToShop createFromParcel(Parcel source) {
+            return new MsgToShop(source);
+        }
+
+        @Override
+        public MsgToShop[] newArray(int size) {
+            return new MsgToShop[size];
+        }
+    };
     /**
      * userId : {"userId":3,"phone":"18551970002","userName":"普通用户","userType":1,"uuid":"063def13-5f6b-4e4a-b781-ce32c56a1b24","voip":"8009549900000256","channelId":"4368090113424312229","channelType":3,"sex":0,"status":0,"createdAt":"2017-10-28T20:18:35.000Z","updatedAt":"2017-10-30T07:49:55.000Z","shopId":2}
      * shopId : {"shopId":2,"shopName":"正品外贸","code":23302268,"shopType":0,"longitude":"118.82","latitude":"32.0601","enableShowPro":0,"status":0,"createdAt":"2017-10-28T20:19:03.000Z","updatedAt":"2017-10-28T20:19:03.000Z"}
@@ -27,6 +38,19 @@ public class MsgToShop implements Parcelable {
     private int status;
     private String createdAt;
     private String updatedAt;
+
+    public MsgToShop() {
+    }
+
+    protected MsgToShop(Parcel in) {
+        this.userId = in.readParcelable(User.class.getClassLoader());
+        this.shopId = in.readParcelable(Shop.class.getClassLoader());
+        this.msgFromUserId = in.readParcelable(MsgFromUser.class.getClassLoader());
+        this.msgToShopId = in.readInt();
+        this.status = in.readInt();
+        this.createdAt = in.readString();
+        this.updatedAt = in.readString();
+    }
 
     public User getUserId() {
         return userId;
@@ -99,29 +123,4 @@ public class MsgToShop implements Parcelable {
         dest.writeString(this.createdAt);
         dest.writeString(this.updatedAt);
     }
-
-    public MsgToShop() {
-    }
-
-    protected MsgToShop(Parcel in) {
-        this.userId = in.readParcelable(User.class.getClassLoader());
-        this.shopId = in.readParcelable(Shop.class.getClassLoader());
-        this.msgFromUserId = in.readParcelable(MsgFromUser.class.getClassLoader());
-        this.msgToShopId = in.readInt();
-        this.status = in.readInt();
-        this.createdAt = in.readString();
-        this.updatedAt = in.readString();
-    }
-
-    public static final Parcelable.Creator<MsgToShop> CREATOR = new Parcelable.Creator<MsgToShop>() {
-        @Override
-        public MsgToShop createFromParcel(Parcel source) {
-            return new MsgToShop(source);
-        }
-
-        @Override
-        public MsgToShop[] newArray(int size) {
-            return new MsgToShop[size];
-        }
-    };
 }

@@ -73,7 +73,7 @@ public class MsgReceiveListFragment extends BaseRxFluxListFragment<MsgToShop> {
         mRvContent.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(ShopMsgActivity.newIntent(mContext,mDataList.get(position)));
+                startActivity(ShopMsgActivity.newIntent(mContext, mDataList.get(position)));
             }
         });
     }

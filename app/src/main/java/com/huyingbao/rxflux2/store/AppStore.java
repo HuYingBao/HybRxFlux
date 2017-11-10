@@ -20,6 +20,7 @@ import java.util.List;
  * Created by liujunfeng on 2017/1/1.
  */
 public class AppStore extends RxStore {
+    private static AppStore sInstance;
     private BDLocation mBDLocation;
     private BDLocationListener mBDLocationListener;
     private LocationClientOption mLocationClientOption;
@@ -27,8 +28,6 @@ public class AppStore extends RxStore {
     private String mUpToken;
     private String mFileKey;
     private List<String> mFileKeyList;
-
-    private static AppStore sInstance;
 
     private AppStore(Dispatcher dispatcher) {
         super(dispatcher);

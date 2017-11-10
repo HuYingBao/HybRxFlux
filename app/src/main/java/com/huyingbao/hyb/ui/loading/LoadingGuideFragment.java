@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.ui.login.LoginActivity;
 import com.huyingbao.hyb.adapter.ViewPageAdapter;
+import com.huyingbao.hyb.ui.login.LoginActivity;
 import com.huyingbao.rxflux2.base.fragment.BaseFragment;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.util.CommonUtils;
@@ -27,14 +27,13 @@ import butterknife.OnClick;
  * Created by liujunfeng on 2017/1/1.
  */
 public class LoadingGuideFragment extends BaseFragment {
+    private static int[] IMG = {R.color.accent, R.color.primary};
     @BindView(R.id.vp_guide_image)
     ViewPager mVpGuideImage;
     @BindView(R.id.cpi_guide)
     CirclePageIndicator mCpidGuide;
     @BindView(R.id.btn_guide_start)
     Button mBtnGuideStart;
-
-    private static int[] IMG = {R.color.accent, R.color.primary};
     private List<View> mViewList = new ArrayList<>();
 
     public static LoadingGuideFragment getInstance() {

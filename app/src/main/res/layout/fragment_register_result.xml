@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              style="@style/LinearVerticalStyle.Match.Root"
-              tools:context=".ui.login.RegisterResultFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LinearVerticalStyle.Match.Root"
+    tools:context=".ui.login.RegisterResultFragment">
 
     <Button
         android:id="@+id/bt_to_main"
         style="@style/ButtonStyle.MatchWidth"
         android:layout_marginTop="@dimen/dp_100"
-        android:text="@string/action_to_main"/>
+        android:text="@string/action_to_main" />
 
     <Button
         android:id="@+id/bt_to_register_shop"
         style="@style/ButtonStyle.MatchWidth"
         android:layout_marginTop="@dimen/dp_24"
-        android:text="@string/action_register_shop"/>
+        android:text="@string/action_register_shop" />
 </LinearLayout>
 
 

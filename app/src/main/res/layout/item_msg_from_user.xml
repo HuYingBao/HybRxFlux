@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    xmlns:tools="http://schemas.android.com/tools"
-                                    style="@style/CardViewStyle"
-                                    card_view:cardCornerRadius="5dp"
-                                    card_view:contentPadding="15dp">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewStyle"
+    card_view:cardCornerRadius="5dp"
+    card_view:contentPadding="15dp">
 
     <LinearLayout style="@style/LinearCardStyle">
 
         <ImageView
             style="@style/ImageCardStyle"
-            tools:src="@drawable/ic_menu_camera"/>
+            tools:src="@drawable/ic_menu_camera" />
 
         <LinearLayout style="@style/LinearCardContentStyle">
 
             <TextView
                 android:id="@+id/tv_type"
                 style="@style/TextCardNameStyle"
-                tools:text="Title"/>
+                tools:text="Title" />
 
 
             <TextView
                 style="@style/TextCardDesStyle"
-                tools:text="Long description"/>
+                tools:text="Long description" />
 
             <TextView
                 android:id="@+id/tv_time"
                 style="@style/TextCardInfoStyle"
-                tools:text="Github id: 2"/>
+                tools:text="Github id: 2" />
         </LinearLayout>
     </LinearLayout>
 

@@ -28,7 +28,7 @@ public abstract class BaseRxFluxDialogFragment extends BaseDialogFragment implem
     @Override
     public void onStart() {
         super.onStart();
-        // 注册rxstore
+        // 注册RxStore
         List<RxStore> rxStoreList = getRxStoreListToRegister();
         if (rxStoreList != null)
             for (RxStore rxStore : rxStoreList)
@@ -41,7 +41,7 @@ public abstract class BaseRxFluxDialogFragment extends BaseDialogFragment implem
     public void onStop() {
         super.onStop();
         // 解除view注册
-        mRxFlux.getDispatcher().unSubscribeRxView(this);
+        mRxFlux.getDispatcher().unsubscribeRxView(this);
         // 解除RxStore注册
         List<RxStore> rxStoreList = getRxStoreListToUnRegister();
         if (rxStoreList != null)

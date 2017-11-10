@@ -1,12 +1,12 @@
 package com.huyingbao.hyb.ui.usermain.store;
 
+import com.huyingbao.hyb.model.message.MsgFromUser;
+import com.huyingbao.hyb.model.message.MsgToShop;
+import com.huyingbao.hyb.model.shop.Shop;
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.hyb.model.message.MsgFromUser;
-import com.huyingbao.hyb.model.message.MsgToShop;
-import com.huyingbao.hyb.model.shop.Shop;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.rxflux2.util.AppUtils;

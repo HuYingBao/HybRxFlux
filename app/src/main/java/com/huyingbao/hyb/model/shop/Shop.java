@@ -12,6 +12,17 @@ import java.util.Date;
 public class Shop implements Parcelable {
 
 
+    public static final Parcelable.Creator<Shop> CREATOR = new Parcelable.Creator<Shop>() {
+        @Override
+        public Shop createFromParcel(Parcel source) {
+            return new Shop(source);
+        }
+
+        @Override
+        public Shop[] newArray(int size) {
+            return new Shop[size];
+        }
+    };
     /**
      * shopName : dsfgfd使得法国
      * code : 45853594
@@ -41,6 +52,26 @@ public class Shop implements Parcelable {
     private String shopDesc;
     private int radius;
 
+    public Shop() {
+    }
+
+    protected Shop(Parcel in) {
+        this.shopName = in.readString();
+        this.code = in.readInt();
+        this.shopType = in.readInt();
+        this.longitude = in.readDouble();
+        this.latitude = in.readDouble();
+        this.enableShowPro = in.readInt();
+        this.status = in.readInt();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+        this.shopId = in.readInt();
+        this.headImg = in.readString();
+        this.shopDesc = in.readString();
+        this.radius = in.readInt();
+    }
 
     public String getShopName() {
         return shopName;
@@ -146,7 +177,6 @@ public class Shop implements Parcelable {
         this.radius = radius;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -168,37 +198,4 @@ public class Shop implements Parcelable {
         dest.writeString(this.shopDesc);
         dest.writeInt(this.radius);
     }
-
-    public Shop() {
-    }
-
-    protected Shop(Parcel in) {
-        this.shopName = in.readString();
-        this.code = in.readInt();
-        this.shopType = in.readInt();
-        this.longitude = in.readDouble();
-        this.latitude = in.readDouble();
-        this.enableShowPro = in.readInt();
-        this.status = in.readInt();
-        long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-        long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
-        this.shopId = in.readInt();
-        this.headImg = in.readString();
-        this.shopDesc = in.readString();
-        this.radius = in.readInt();
-    }
-
-    public static final Parcelable.Creator<Shop> CREATOR = new Parcelable.Creator<Shop>() {
-        @Override
-        public Shop createFromParcel(Parcel source) {
-            return new Shop(source);
-        }
-
-        @Override
-        public Shop[] newArray(int size) {
-            return new Shop[size];
-        }
-    };
 }

@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
-import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.hyb.model.shop.Shop;
 import com.huyingbao.hyb.model.user.User;
+import com.huyingbao.rxflux2.constant.ActionsKeys;
 
 import java.util.List;
 
@@ -144,24 +144,24 @@ public class LocalStorageUtils {
         sSharedPreferences.edit().clear().apply();
     }
 
-    public void setUser(User user) {
-        mUser = user;
-        setObject(ActionsKeys.USER, user);
-    }
-
     public User getUser() {
         if (mUser == null) mUser = getObject(ActionsKeys.USER, User.class);
         return mUser;
     }
 
-    public void setShop(Shop shop) {
-        mShop = shop;
-        setObject(ActionsKeys.SHOP, shop);
+    public void setUser(User user) {
+        mUser = user;
+        setObject(ActionsKeys.USER, user);
     }
 
     public Shop getShop() {
         if (mShop == null) mShop = getObject(ActionsKeys.SHOP, Shop.class);
         return mShop;
+    }
+
+    public void setShop(Shop shop) {
+        mShop = shop;
+        setObject(ActionsKeys.SHOP, shop);
     }
 
 }

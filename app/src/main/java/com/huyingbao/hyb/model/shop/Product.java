@@ -10,6 +10,17 @@ import java.util.Date;
  */
 public class Product implements Parcelable {
 
+    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel source) {
+            return new Product(source);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
     /**
      * productName : 商品
      * shopId : 1
@@ -34,6 +45,25 @@ public class Product implements Parcelable {
     private Date createdAt;
     private Date updatedAt;
     private int productId;
+
+    public Product() {
+    }
+
+    protected Product(Parcel in) {
+        this.productName = in.readString();
+        this.productInfo = in.readString();
+        this.shopId = in.readInt();
+        this.productType = in.readInt();
+        this.contentType = in.readInt();
+        this.price = in.readInt();
+        this.status = in.readInt();
+        this.uuid = in.readString();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+        this.productId = in.readInt();
+    }
 
     public String getProductName() {
         return productName;
@@ -142,35 +172,4 @@ public class Product implements Parcelable {
         dest.writeLong(this.updatedAt != null ? this.updatedAt.getTime() : -1);
         dest.writeInt(this.productId);
     }
-
-    public Product() {
-    }
-
-    protected Product(Parcel in) {
-        this.productName = in.readString();
-        this.productInfo = in.readString();
-        this.shopId = in.readInt();
-        this.productType = in.readInt();
-        this.contentType = in.readInt();
-        this.price = in.readInt();
-        this.status = in.readInt();
-        this.uuid = in.readString();
-        long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-        long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
-        this.productId = in.readInt();
-    }
-
-    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel source) {
-            return new Product(source);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
 }

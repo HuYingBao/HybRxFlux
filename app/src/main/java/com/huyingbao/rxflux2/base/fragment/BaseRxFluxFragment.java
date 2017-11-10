@@ -48,7 +48,7 @@ public abstract class BaseRxFluxFragment extends BaseFragment implements RxViewD
     public void onStop() {
         super.onStop();
         // 解除view注册
-        mRxFlux.getDispatcher().unSubscribeRxView(this);
+        mRxFlux.getDispatcher().unsubscribeRxView(this);
     }
 
     @Override
@@ -66,7 +66,7 @@ public abstract class BaseRxFluxFragment extends BaseFragment implements RxViewD
     }
 
     /**
-     * 需要解除注册RxStore list 在activity创建的时候调用该方法,
+     * 需要解除注册RxStore list 在fragment创建的时候调用该方法,
      * 从 dispatcher 解除注册RxStore list
      *
      * @return
