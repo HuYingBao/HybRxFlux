@@ -20,10 +20,9 @@
             android:id="@+id/et_password"
             style="@style/EditPasswordStyle"
             android:hint="@string/user_password"
-            android:imeActionId="@+id/to_login"
+            android:imeActionId="6"
             android:imeActionLabel="@string/action_sign_in"
-            android:imeOptions="actionUnspecified"
-            tools:ignore="InvalidImeActionId" />
+            android:imeOptions="actionUnspecified" />
     </android.support.design.widget.TextInputLayout>
 
     <Button

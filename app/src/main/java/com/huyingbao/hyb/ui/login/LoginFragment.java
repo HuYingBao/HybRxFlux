@@ -46,7 +46,7 @@ public class LoginFragment extends BaseFragment {
     public void afterCreate(Bundle savedInstanceState) {
         initActionBar(mContext.getResources().getString(R.string.action_sign_in));
         mEtPassword.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == R.id.to_login || id == EditorInfo.IME_NULL) {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                 attemptLogin();
                 return true;
             }
