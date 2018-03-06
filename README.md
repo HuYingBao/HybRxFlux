@@ -25,8 +25,17 @@
 - 图片缩放[**PhotoView**](https://github.com/chrisbanes/PhotoView)
 - 热修复[**Hotfix**](https://help.aliyun.com/document_detail/53240.html?spm=5176.doc53287.6.546.Um4owA)
 - Json解析[**Fastjson**](https://github.com/alibaba/fastjson)+[**Gson**](https://github.com/google/gson)+[**RetrofitConverterFastjson**](https://github.com/ligboy/retrofit-converter-fastjson)
-- 混合框架[**React**](https://github.com/facebook/react)+[**ReactNative**](https://github.com/facebook/react-native)
-- 二维码扫描[**zxing-android-embedded**](https://github.com/journeyapps/zxing-android-embedded)
+- 混合框架[**React**](https://github.com/facebook/react)+[**ReactNative**](https://github.com/facebook/react-native)+[**Weex**](https://github.com/apache/incubator-weex/)
+- 二维码扫描[**Zxing-android-embedded**](https://github.com/journeyapps/zxing-android-embedded)
+- 蒲公英[**Pgyer**](https://www.pgyer.com/doc/view/sdk_download)
+- 单元测试[**Robolectric**](https://github.com/robolectric/robolectric)+[**Powermock**](https://github.com/powermock/powermock)+[**Mockito**](https://github.com/mockito/mockito)
+- 文件上传[**Qiniu**](https://github.com/qiniu/android-sdk)
+- 调试[**Stetho**](https://github.com/facebook/stetho)
+- 模块化[**Arouter**](https://github.com/alibaba/ARouter)
+- 事件总线[**Eventbus**](https://github.com/greenrobot/EventBus)
+- 图片压缩[**Luban**](https://github.com/Curzibn/Luban)
+- 视频[**Rtmp**](https://github.com/ant-media/LibRtmp-Client-for-Android)
+- 图片合成[**Tiff**](https://github.com/Beyka/Android-TiffBitmapFactory)
 # License
 Copyright 2017 liujunfeng
 
